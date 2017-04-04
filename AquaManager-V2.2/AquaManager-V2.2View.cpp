@@ -50,7 +50,7 @@ void CAquaManagerV22View::OnInitialUpdate()
 {
 	CHtmlView::OnInitialUpdate();
 
-	Navigate2(_T("http://www.msdn.microsoft.com/visualc/"),NULL,NULL);
+	Init();
 }
 
 void CAquaManagerV22View::OnRButtonUp(UINT /* nFlags */, CPoint point)
@@ -88,4 +88,26 @@ CAquaManagerV22Doc* CAquaManagerV22View::GetDocument() const // non-debug versio
 #endif //_DEBUG
 
 
-// CAquaManagerV22View message handlers
+// Init Google Map
+
+
+void CAquaManagerV22View::Init(void)
+{
+	// Read full path
+	char szCurDir[255];
+	memset(szCurDir, 0, sizeof(szCurDir));
+	DWORD length = sizeof(szCurDir);
+	GetModuleFileName(NULL, szCurDir, length);
+
+	// Remove APP name from full path
+	CString app;
+	app.Format("%s", szCurDir);
+	int end = app.ReverseFind('\\');
+	app = app.Left(end);
+
+	// Get Google Map template
+	CString sPath;
+	sPath.Format(_T("%s\\%s"), app, "Google-Map.html");
+
+	Navigate2(_T(sPath), NULL, NULL);
+}
