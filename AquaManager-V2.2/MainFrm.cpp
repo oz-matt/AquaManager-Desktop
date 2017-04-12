@@ -112,6 +112,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// Create and setup "Outlook" navigation bar:
 	if (!CreateOutlookBar(m_wndNavigationBar, ID_VIEW_NAVIGATION, m_wndTree, m_wndCalendar, 250))
+	//if (!CreateOutlookBarByTab(m_wndNavigationBar, ID_VIEW_NAVIGATION, 250))
 	{
 		TRACE0("Failed to create navigation pane\n");
 		return -1;      // fail to create
@@ -181,12 +182,12 @@ BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, CMFCShellTreeC
 	tree.Create(dwTreeStyle, rectDummy, &bar, 1200);
 	bNameValid = strTemp.LoadString(IDS_FOLDERS);
 	ASSERT(bNameValid);
-	pOutlookBar->AddControl(&tree, strTemp, 2, TRUE, dwStyle);
+	pOutlookBar->AddControl(&tree, strTemp, 2, TRUE, dwStyle); // add Folders tab
 
 	calendar.Create(rectDummy, &bar, 1201);
 	bNameValid = strTemp.LoadString(IDS_CALENDAR);
 	ASSERT(bNameValid);
-	pOutlookBar->AddControl(&calendar, strTemp, 3, TRUE, dwStyle);
+	pOutlookBar->AddControl(&calendar, strTemp, 3, TRUE, dwStyle); // add Calendar tab
 
 	bar.SetPaneStyle(bar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
 
@@ -248,4 +249,56 @@ LRESULT CMainFrame::OnToolbarCreateNew(WPARAM wp,LPARAM lp)
 
 	pUserToolbar->EnableCustomizeButton(TRUE, ID_VIEW_CUSTOMIZE, strCustomize);
 	return lres;
+}
+
+
+BOOL CMainFrame::CreateOutlookBarByTab(CMFCOutlookBar& bar, UINT uiID, int nInitialWidth)
+{
+	bar.SetMode2003();
+
+	BOOL bNameValid;
+	CString strTemp;
+	bNameValid = strTemp.LoadString(IDS_SHORTCUTS);
+	ASSERT(bNameValid);
+	if (!bar.Create(strTemp, this, CRect(0, 0, nInitialWidth, 32000), uiID, WS_CHILD | WS_VISIBLE | CBRS_LEFT))
+	{
+		return FALSE; // fail to create
+	}
+
+	CMFCOutlookBarTabCtrl* pOutlookBar = (CMFCOutlookBarTabCtrl*)bar.GetUnderlyingWindow();
+
+	if (pOutlookBar == NULL)
+	{
+		ASSERT(FALSE);
+		return FALSE;
+	}
+
+	pOutlookBar->EnableInPlaceEdit(TRUE);
+
+	static UINT uiPageID = 1;
+
+	// can float, can autohide, can resize, CAN NOT CLOSE
+	DWORD dwStyle = AFX_CBRS_FLOAT | AFX_CBRS_AUTOHIDE | AFX_CBRS_RESIZE;
+
+	CRect rectDummy(0, 0, 0, 0);
+	const DWORD dwTreeStyle = WS_CHILD | WS_VISIBLE | TVS_HASLINES | TVS_LINESATROOT | TVS_HASBUTTONS;
+
+	strTemp = "Device";
+	m_wnddDlgDevice.Create(IDD_DLG_Device, &bar);
+	pOutlookBar->AddTab(&m_wnddDlgDevice, strTemp, -1, FALSE);
+
+
+	bar.SetPaneStyle(bar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
+
+	pOutlookBar->SetImageList(theApp.m_bHiColorIcons ? IDB_PAGES_HC : IDB_PAGES, 24);
+	pOutlookBar->SetToolbarImageList(theApp.m_bHiColorIcons ? IDB_PAGES_SMALL_HC : IDB_PAGES_SMALL, 16);
+	pOutlookBar->RecalcLayout();
+
+	BOOL bAnimation = theApp.GetInt(_T("OutlookAnimation"), TRUE);
+	CMFCOutlookBarTabCtrl::EnableAnimation(bAnimation);
+
+	bar.SetButtonsFont(&afxGlobalData.fontBold);
+
+
+	return TRUE;
 }

@@ -44,6 +44,10 @@ protected:  // control bar embedded members
 	CMFCShellTreeCtrl m_wndTree;
 	CCalendarBar      m_wndCalendar;
 
+	CDialog m_wnddDlgDevice;
+	CDialog m_wnddDlgNotificaton;
+	CDialog m_wnddDlgGeofence;
+
 // Generated message map functions
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -59,6 +63,8 @@ protected:
 	CMFCOutlookBarTabCtrl* FindOutlookParent(CWnd* pWnd);
 	CMFCOutlookBarTabCtrl* m_pCurrOutlookWnd;
 	CMFCOutlookBarPane*    m_pCurrOutlookPage;
+public:
+	BOOL CreateOutlookBarByTab(CMFCOutlookBar& bar, UINT uiID, int nInitialWidth);
 };
 
 
