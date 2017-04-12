@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ColorListCtrol.h"
 
 // CGeofence dialog
 
@@ -20,7 +20,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
-	CListCtrl m_lst_geofence;
+	CColorListCtrol m_lst_geofence;
 	CBrush m_brush;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

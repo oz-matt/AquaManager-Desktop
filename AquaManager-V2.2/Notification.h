@@ -1,5 +1,5 @@
 #pragma once
-
+#include "ColorListCtrol.h"
 
 // CNotification dialog
 
@@ -20,7 +20,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
-	CListCtrl m_lst_notificaton;
+	CColorListCtrol m_lst_notificaton;
 	CBrush m_brush;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 };

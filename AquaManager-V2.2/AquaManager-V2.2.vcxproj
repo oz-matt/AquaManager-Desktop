@@ -113,6 +113,8 @@
     <ClInclude Include="AquaManager-V2.2Doc.h" />
     <ClInclude Include="AquaManager-V2.2View.h" />
     <ClInclude Include="ChildFrm.h" />
+    <ClInclude Include="ColorHeaderCtrl.h" />
+    <ClInclude Include="ColorListCtrol.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="Geofence.h" />
     <ClInclude Include="MainFrm.h" />
@@ -126,6 +128,8 @@
     <ClCompile Include="AquaManager-V2.2Doc.cpp" />
     <ClCompile Include="AquaManager-V2.2View.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
+    <ClCompile Include="ColorHeaderCtrl.cpp" />
+    <ClCompile Include="ColorListCtrol.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Geofence.cpp" />
     <ClCompile Include="MainFrm.cpp" />
