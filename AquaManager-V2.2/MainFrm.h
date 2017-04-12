@@ -4,6 +4,9 @@
 
 #pragma once
 #include "Resource.h"
+#include "Device.h"
+#include "Notification.h"
+#include "Geofence.h"
 
 class COutlookBar : public CMFCOutlookBar
 {
@@ -42,9 +45,9 @@ protected:  // control bar embedded members
 	COutlookBar       m_wndNavigationBar;
 	CMFCShellTreeCtrl m_wndTree;
 
-	CDialog m_wnddDlgDevice;
-	CDialog m_wnddDlgNotificaton;
-	CDialog m_wnddDlgGeofence;
+	CDevice m_wnddDlgDevice;
+	CNotification m_wnddDlgNotificaton;
+	CGeofence m_wnddDlgGeofence;
 
 // Generated message map functions
 protected:
