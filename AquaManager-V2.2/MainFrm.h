@@ -3,7 +3,6 @@
 //
 
 #pragma once
-#include "CalendarBar.h"
 #include "Resource.h"
 
 class COutlookBar : public CMFCOutlookBar
@@ -42,7 +41,6 @@ protected:  // control bar embedded members
 	CMFCStatusBar     m_wndStatusBar;
 	COutlookBar       m_wndNavigationBar;
 	CMFCShellTreeCtrl m_wndTree;
-	CCalendarBar      m_wndCalendar;
 
 	CDialog m_wnddDlgDevice;
 	CDialog m_wnddDlgNotificaton;
@@ -55,8 +53,6 @@ protected:
 	afx_msg void OnViewCustomize();
 	afx_msg LRESULT OnToolbarCreateNew(WPARAM wp, LPARAM lp);
 	DECLARE_MESSAGE_MAP()
-
-	BOOL CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, CMFCShellTreeCtrl& tree, CCalendarBar& calendar, int nInitialWidth);
 
 	int FindFocusedOutlookWnd(CMFCOutlookBarTabCtrl** ppOutlookWnd);
 

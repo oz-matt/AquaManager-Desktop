@@ -112,7 +112,6 @@
     <ClInclude Include="AquaManager-V2.2.h" />
     <ClInclude Include="AquaManager-V2.2Doc.h" />
     <ClInclude Include="AquaManager-V2.2View.h" />
-    <ClInclude Include="CalendarBar.h" />
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
@@ -123,7 +122,6 @@
     <ClCompile Include="AquaManager-V2.2.cpp" />
     <ClCompile Include="AquaManager-V2.2Doc.cpp" />
     <ClCompile Include="AquaManager-V2.2View.cpp" />
-    <ClCompile Include="CalendarBar.cpp" />
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">
