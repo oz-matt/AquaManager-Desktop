@@ -111,8 +111,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM | CBRS_ALIGN_RIGHT);
 
 	// Create and setup "Outlook" navigation bar:
-	if (!CreateOutlookBar(m_wndNavigationBar, ID_VIEW_NAVIGATION, m_wndTree, m_wndCalendar, 250))
-	//if (!CreateOutlookBarByTab(m_wndNavigationBar, ID_VIEW_NAVIGATION, 250))
+	///////////////////////////////////////////////
+	//if (!CreateOutlookBar(m_wndNavigationBar, ID_VIEW_NAVIGATION, m_wndTree, m_wndCalendar, 250))
+	if (!CreateOutlookBarByTab(m_wndNavigationBar, ID_VIEW_NAVIGATION, 250))
 	{
 		TRACE0("Failed to create navigation pane\n");
 		return -1;      // fail to create
@@ -199,6 +200,17 @@ BOOL CMainFrame::CreateOutlookBar(CMFCOutlookBar& bar, UINT uiID, CMFCShellTreeC
 	CMFCOutlookBarTabCtrl::EnableAnimation(bAnimation);
 
 	bar.SetButtonsFont(&afxGlobalData.fontBold);
+
+	// in order to display the navigation bar;
+	CString reg_string;
+	reg_string.Format(_T("Workspace\\BasePane-%d"), uiID);
+	AfxGetApp()->WriteProfileInt(reg_string, _T("IsVisible"), TRUE);
+
+	// delete registry key
+	//HKEY RegHandle;
+	//RegOpenKeyEx(HKEY_CURRENT_USER, "Software", 0, KEY_ALL_ACCESS, &RegHandle);
+	//RegDeleteKey(RegHandle, "Local AppWizard-Generated Applications\\WelloSLT");
+	SHDeleteKey(HKEY_CURRENT_USER, "Software\\Local AppWizard-Generated Applications\\AquaManager-V2.2");
 
 	return TRUE;
 }
@@ -287,6 +299,14 @@ BOOL CMainFrame::CreateOutlookBarByTab(CMFCOutlookBar& bar, UINT uiID, int nInit
 	m_wnddDlgDevice.Create(IDD_DLG_Device, &bar);
 	pOutlookBar->AddTab(&m_wnddDlgDevice, strTemp, -1, FALSE);
 
+	strTemp = "Notification";
+	m_wnddDlgNotificaton.Create(IDD_DLG_Notification, &bar);
+	pOutlookBar->AddTab(&m_wnddDlgNotificaton, strTemp, -1, FALSE);
+
+	strTemp = "Geofence";
+	m_wnddDlgGeofence.Create(IDD_DLG_Geofence, &bar);
+	pOutlookBar->AddTab(&m_wnddDlgGeofence, strTemp, -1, FALSE);
+
 
 	bar.SetPaneStyle(bar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
 
@@ -299,6 +319,16 @@ BOOL CMainFrame::CreateOutlookBarByTab(CMFCOutlookBar& bar, UINT uiID, int nInit
 
 	bar.SetButtonsFont(&afxGlobalData.fontBold);
 
+	// in order to display the navigation bar;
+	CString reg_string;
+	reg_string.Format(_T("Workspace\\BasePane-%d"), uiID);
+	AfxGetApp()->WriteProfileInt(reg_string, _T("IsVisible"), TRUE);
+
+	// delete registry key
+	//HKEY RegHandle;
+	//RegOpenKeyEx(HKEY_CURRENT_USER, "Software", 0, KEY_ALL_ACCESS, &RegHandle);
+	//RegDeleteKey(RegHandle, "Local AppWizard-Generated Applications\\WelloSLT");
+	SHDeleteKey(HKEY_CURRENT_USER, "Software\\Local AppWizard-Generated Applications\\AquaManager-V2.2");
 
 	return TRUE;
 }
