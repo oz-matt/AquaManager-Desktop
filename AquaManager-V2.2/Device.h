@@ -23,4 +23,5 @@ public:
 	CColorListCtrol m_lst_device;
 	CBrush m_brush;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	int nIndex;
 };

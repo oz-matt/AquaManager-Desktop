@@ -16,6 +16,9 @@ protected:
 	virtual void PreSubclassWindow();
 
 	CColorHeaderCtrl m_HeaderCtrl;
+public:
+	afx_msg void OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult);
+	int type;
 };
 
 

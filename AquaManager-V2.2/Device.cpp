@@ -14,7 +14,7 @@ IMPLEMENT_DYNAMIC(CDevice, CDialog)
 CDevice::CDevice(CWnd* pParent /*=NULL*/)
 	: CDialog(CDevice::IDD, pParent)
 {
-
+	m_lst_device.type = 0;
 }
 
 CDevice::~CDevice()
@@ -51,6 +51,22 @@ BOOL CDevice::OnInitDialog()
 	m_lst_device.SetColumnWidth( 0, 70 );
 	m_lst_device.SetColumnWidth( 1, 70 );
 	m_lst_device.SetColumnWidth( 2, LVSCW_AUTOSIZE_USEHEADER );
+
+	nIndex = m_lst_device.InsertItem(0, _T("Dev1"));
+	m_lst_device.SetItemText(nIndex, 1, _T("Woods Way, New Fairfield CT, USA"));
+	m_lst_device.SetItemText(nIndex, 2, _T("45%"));
+
+	nIndex = m_lst_device.InsertItem(0, _T("Dev2"));
+	m_lst_device.SetItemText(nIndex, 1, _T("St Louis St, Avon, CT USA"));
+	m_lst_device.SetItemText(nIndex, 2, _T("88%"));
+
+	nIndex = m_lst_device.InsertItem(0, _T("Dev3"));
+	m_lst_device.SetItemText(nIndex, 1, _T("15th St, New York, NY, USA"));
+	m_lst_device.SetItemText(nIndex, 2, _T("11%"));
+
+	nIndex = m_lst_device.InsertItem(0, _T("Dev4"));
+	m_lst_device.SetItemText(nIndex, 1, _T("Woods Way, New Fairfield CT, USA"));
+	m_lst_device.SetItemText(nIndex, 2, _T("45%"));
 
 	m_lst_device.SetBkColor(RGB(0, 0, 0));
 
