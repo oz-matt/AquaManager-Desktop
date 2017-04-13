@@ -22,6 +22,11 @@ CColorListCtrol::~CColorListCtrol()
 
 BEGIN_MESSAGE_MAP(CColorListCtrol, CListCtrl)
 	ON_NOTIFY_REFLECT(NM_CUSTOMDRAW, &CColorListCtrol::OnNMCustomdraw)
+	ON_NOTIFY_REFLECT(NM_CLICK, &CColorListCtrol::OnNMClick)
+	ON_NOTIFY(HDN_ITEMCLICKA, 0, &CColorListCtrol::OnHdnItemclick)
+	ON_NOTIFY(HDN_ITEMCLICKW, 0, &CColorListCtrol::OnHdnItemclick)
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -120,4 +125,44 @@ void CColorListCtrol::OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult)
 		*pResult = CDRF_DODEFAULT;
 		break;
 	}
+}
+
+
+void CColorListCtrol::OnNMClick(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
+}
+
+
+void CColorListCtrol::OnHdnItemclick(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMHEADER phdr = reinterpret_cast<LPNMHEADER>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
+}
+
+void CColorListCtrol::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+	// Find out what subitem was clicked
+	LVHITTESTINFO hitinfo = {0};
+	hitinfo.flags = nFlags;
+	hitinfo.pt = point;
+	SubItemHitTest(&hitinfo);
+
+	CString Temp;
+	Temp.Format("Row: %d, Column %d", hitinfo.iItem, hitinfo.iSubItem);
+	MessageBox(Temp, "Information");
+
+	CListCtrl::OnLButtonDown(nFlags, point);
+}
+
+
+void CColorListCtrol::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CListCtrl::OnLButtonUp(nFlags, point);
 }

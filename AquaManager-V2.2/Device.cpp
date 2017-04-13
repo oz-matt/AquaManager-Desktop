@@ -15,10 +15,12 @@ CDevice::CDevice(CWnd* pParent /*=NULL*/)
 	: CDialog(CDevice::IDD, pParent)
 {
 	m_lst_device.type = 0;
+	ImgHeaders = new CImageList;
 }
 
 CDevice::~CDevice()
 {
+	delete ImgHeaders;
 }
 
 void CDevice::DoDataExchange(CDataExchange* pDX)
@@ -41,11 +43,35 @@ BOOL CDevice::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  Add extra initialization here
+	ImgHeaders->Create(16, 16, ILC_MASK, 1, 1);
+	ImgHeaders->Add(AfxGetApp()->LoadIcon(IDI_SETTING));
+	m_lst_device.SetImageList(ImgHeaders, LVSIL_SMALL);
+
+	LVCOLUMN lvColumn;
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH;
+	lvColumn.fmt = LVCFMT_LEFT;
+	lvColumn.cx = 70;
+	lvColumn.pszText = _T("Name");
+	m_lst_device.InsertColumn(0, &lvColumn);
+
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH | LVCF_IMAGE;
+	lvColumn.fmt = LVCFMT_LEFT | LVCFMT_IMAGE;
+	lvColumn.iImage = 0;
+	lvColumn.cx = 70;
+	lvColumn.pszText =_T("Location");
+	m_lst_device.InsertColumn(1, &lvColumn);
+
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH | LVCF_IMAGE;
+	lvColumn.fmt = LVCFMT_LEFT | LVCFMT_IMAGE;
+	lvColumn.iImage = 1;
+	lvColumn.cx = 70;
+	lvColumn.pszText =_T("Battery");
+	m_lst_device.InsertColumn(1, &lvColumn);
 
 	// Add some columns to the list control
-	m_lst_device.InsertColumn( 0, _T("Name") );
-	m_lst_device.InsertColumn( 1, _T("Location") );
-	m_lst_device.InsertColumn( 2, _T("Battery") );
+	//m_lst_device.InsertColumn( 0, _T("Name") );
+	//m_lst_device.InsertColumn( 1, _T("Location") );
+	//m_lst_device.InsertColumn( 2, _T("Battery") );
 
 	// Set the column widths
 	m_lst_device.SetColumnWidth( 0, 70 );

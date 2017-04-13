@@ -94,10 +94,12 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\settings.ico" />
     <None Include="ReadMe.txt" />
     <None Include="res\AquaManager-V2.2.ico" />
     <None Include="res\AquaManager-V2.2Doc.ico" />
     <None Include="res\AquaManagerV22.rc2" />
+    <None Include="res\icon1.ico" />
     <None Include="res\nav_large.bmp" />
     <None Include="res\nav_large_hc.bmp" />
     <None Include="res\pages.bmp" />

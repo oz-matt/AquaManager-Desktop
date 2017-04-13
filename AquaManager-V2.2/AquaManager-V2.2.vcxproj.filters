@@ -52,6 +52,12 @@
     <None Include="res\Toolbar256.bmp">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\icon1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\settings.ico">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AquaManager-V2.2.h">
