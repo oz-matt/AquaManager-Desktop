@@ -231,15 +231,15 @@ BOOL CMainFrame::CreateOutlookBarByTab(CMFCOutlookBar& bar, UINT uiID, int nInit
 
 	strTemp = "Device";
 	m_wnddDlgDevice.Create(IDD_DLG_Device, &bar);
-	pOutlookBar->AddTab(&m_wnddDlgDevice, strTemp, -1, FALSE);
+	pOutlookBar->AddTab(&m_wnddDlgDevice, strTemp, 3, FALSE);
 
 	strTemp = "Notification";
 	m_wnddDlgNotificaton.Create(IDD_DLG_Notification, &bar);
-	pOutlookBar->AddTab(&m_wnddDlgNotificaton, strTemp, -1, FALSE);
+	pOutlookBar->AddTab(&m_wnddDlgNotificaton, strTemp, 2, FALSE);
 
 	strTemp = "Geofence";
 	m_wnddDlgGeofence.Create(IDD_DLG_Geofence, &bar);
-	pOutlookBar->AddTab(&m_wnddDlgGeofence, strTemp, -1, FALSE);
+	pOutlookBar->AddTab(&m_wnddDlgGeofence, strTemp, 0, FALSE);
 
 
 	bar.SetPaneStyle(bar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
