@@ -15,10 +15,12 @@ CNotification::CNotification(CWnd* pParent /*=NULL*/)
 	: CDialog(CNotification::IDD, pParent)
 {
 	m_lst_notificaton.type = 1;
+	ImgHeaders = new CImageList;
 }
 
 CNotification::~CNotification()
 {
+	delete ImgHeaders;
 }
 
 void CNotification::DoDataExchange(CDataExchange* pDX)
@@ -41,11 +43,35 @@ BOOL CNotification::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  Add extra initialization here
+	ImgHeaders->Create(16, 16, ILC_MASK, 1, 1);
+	ImgHeaders->Add(AfxGetApp()->LoadIcon(IDI_SETTING));
+	m_lst_notificaton.SetImageList(ImgHeaders, LVSIL_SMALL);
+
+	LVCOLUMN lvColumn;
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH;
+	lvColumn.fmt = LVCFMT_LEFT;
+	lvColumn.cx = 70;
+	lvColumn.pszText = _T("Device Name");
+	m_lst_notificaton.InsertColumn(0, &lvColumn);
+
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH | LVCF_IMAGE;
+	lvColumn.fmt = LVCFMT_LEFT | LVCFMT_IMAGE;
+	lvColumn.iImage = 0;
+	lvColumn.cx = 70;
+	lvColumn.pszText =_T("Trigger");
+	m_lst_notificaton.InsertColumn(1, &lvColumn);
+
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH | LVCF_IMAGE;
+	lvColumn.fmt = LVCFMT_LEFT | LVCFMT_IMAGE;
+	lvColumn.iImage = 1;
+	lvColumn.cx = 70;
+	lvColumn.pszText =_T("Alarm");
+	m_lst_notificaton.InsertColumn(1, &lvColumn);
 
 	// Add some columns to the list control
-	m_lst_notificaton.InsertColumn( 0, _T("Device Name") );
-	m_lst_notificaton.InsertColumn( 1, _T("Trigger") );
-	m_lst_notificaton.InsertColumn( 2, _T("Alarm") );
+	//m_lst_notificaton.InsertColumn( 0, _T("Device Name") );
+	//m_lst_notificaton.InsertColumn( 1, _T("Trigger") );
+	//m_lst_notificaton.InsertColumn( 2, _T("Alarm") );
 
 	// Set the column widths
 	m_lst_notificaton.SetColumnWidth( 0, 70 );

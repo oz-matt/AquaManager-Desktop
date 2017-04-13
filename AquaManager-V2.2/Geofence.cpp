@@ -15,10 +15,12 @@ CGeofence::CGeofence(CWnd* pParent /*=NULL*/)
 	: CDialog(CGeofence::IDD, pParent)
 {
 	m_lst_geofence.type = 2;
+	ImgHeaders = new CImageList;
 }
 
 CGeofence::~CGeofence()
 {
+	delete ImgHeaders;
 }
 
 void CGeofence::DoDataExchange(CDataExchange* pDX)
@@ -41,11 +43,35 @@ BOOL CGeofence::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	// TODO:  Add extra initialization here
+	ImgHeaders->Create(16, 16, ILC_MASK, 1, 1);
+	ImgHeaders->Add(AfxGetApp()->LoadIcon(IDI_SETTING));
+	m_lst_geofence.SetImageList(ImgHeaders, LVSIL_SMALL);
+
+	LVCOLUMN lvColumn;
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH;
+	lvColumn.fmt = LVCFMT_LEFT;
+	lvColumn.cx = 70;
+	lvColumn.pszText = _T("Name");
+	m_lst_geofence.InsertColumn(0, &lvColumn);
+
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH | LVCF_IMAGE;
+	lvColumn.fmt = LVCFMT_LEFT | LVCFMT_IMAGE;
+	lvColumn.iImage = 0;
+	lvColumn.cx = 70;
+	lvColumn.pszText =_T("Centered In");
+	m_lst_geofence.InsertColumn(1, &lvColumn);
+
+	lvColumn.mask = LVCF_FMT | LVCF_TEXT | LVCF_WIDTH | LVCF_IMAGE;
+	lvColumn.fmt = LVCFMT_LEFT | LVCFMT_IMAGE;
+	lvColumn.iImage = 1;
+	lvColumn.cx = 70;
+	lvColumn.pszText =_T("Size");
+	m_lst_geofence.InsertColumn(1, &lvColumn);
 
 	// Add some columns to the list control
-	m_lst_geofence.InsertColumn( 0, _T("Name") );
-	m_lst_geofence.InsertColumn( 1, _T("Centered In") );
-	m_lst_geofence.InsertColumn( 2, _T("Size") );
+	//m_lst_geofence.InsertColumn( 0, _T("Name") );
+	//m_lst_geofence.InsertColumn( 1, _T("Centered In") );
+	//m_lst_geofence.InsertColumn( 2, _T("Size") );
 
 	// Set the column widths
 	m_lst_geofence.SetColumnWidth( 0, 70 );
