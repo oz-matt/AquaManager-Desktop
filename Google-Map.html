@@ -1,39 +1,30 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<!DOCTYPE html>
+<html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>Google Map JavaScript API: Map Mark</title>
-
-    <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA&hl=zh-CN" type="text/javascript">
-	</script>
-
-    <script type="text/javascript">
-    function initialize() {
-      if (GBrowserIsCompatible()) {
-        var map = new GMap2(document.getElementById("map_canvas"));
-
-        map.setCenter(new GLatLng(30.2, 120.2), 14);
-		map.addControl(new GLargeMapControl()); // big scroll bar
-		//map.addControl(new GSmallMapControl()); // small scroll bar
-        map.addControl(new GMapTypeControl(true));
-        //map.addControl(new GMapTypeControl());
-
-        // add 10 marks randomly on the Map
-        var bounds = map.getBounds();
-        var southWest = bounds.getSouthWest();
-        var northEast = bounds.getNorthEast();
-        var lngSpan = northEast.lng() - southWest.lng();
-        var latSpan = northEast.lat() - southWest.lat();
-        for (var i = 0; i < 1; i++) {
-		  var point = new GLatLng(40.2, 120.2);
-		  map.addOverlay(new GMarker(point));
-        }
-      }
-    }
-    </script>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
   </head>
-
-  <body onload="initialize()" onunload="GUnload()">
-    <div id="map_canvas" style="width: 800px; height: 500px"></div>
+  <body>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: 45.378802, lng: -70.242796};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkm1VkR2KkSz23AnGU-lj8XApl04m8EGE&callback=initMap&language=en">
+    </script>
   </body>
 </html>
