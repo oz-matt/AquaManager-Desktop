@@ -17,6 +17,8 @@
 #endif
 
 
+CComQIPtr<IHTMLDocument2> pDoc;
+
 // CAquaManagerV22View
 
 IMPLEMENT_DYNCREATE(CAquaManagerV22View, CHtmlView)
@@ -51,6 +53,9 @@ void CAquaManagerV22View::OnInitialUpdate()
 	CHtmlView::OnInitialUpdate();
 
 	Init();
+
+	pDoc = (IHTMLDocument2*)GetHtmlDocument();
+	//(CAquaManagerV22Doc*)m_pDocument;
 }
 
 void CAquaManagerV22View::OnRButtonUp(UINT /* nFlags */, CPoint point)

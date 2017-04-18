@@ -7,6 +7,7 @@
 #include "Device.h"
 #include "Notification.h"
 #include "Geofence.h"
+#include "Test.h"
 
 class COutlookBar : public CMFCOutlookBar
 {
@@ -48,6 +49,7 @@ protected:  // control bar embedded members
 	CDevice m_wnddDlgDevice;
 	CNotification m_wnddDlgNotificaton;
 	CGeofence m_wnddDlgGeofence;
+	CTest m_wnddDlgTest;
 
 // Generated message map functions
 protected:

@@ -241,6 +241,10 @@ BOOL CMainFrame::CreateOutlookBarByTab(CMFCOutlookBar& bar, UINT uiID, int nInit
 	m_wnddDlgGeofence.Create(IDD_DLG_Geofence, &bar);
 	pOutlookBar->AddTab(&m_wnddDlgGeofence, strTemp, 0, FALSE);
 
+	strTemp = "Test";
+	m_wnddDlgTest.Create(IDD_DLG_Test, &bar);
+	pOutlookBar->AddTab(&m_wnddDlgTest, strTemp, 0, FALSE);
+
 
 	bar.SetPaneStyle(bar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC);
 
