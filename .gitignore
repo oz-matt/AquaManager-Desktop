@@ -1,6 +1,7 @@
 ﻿#
 Debug/
 screenshot/
+packages/
 *.opensdf
 *.sdf
 *.suo
