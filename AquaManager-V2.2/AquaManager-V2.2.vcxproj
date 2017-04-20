@@ -94,21 +94,19 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="..\settings.ico" />
     <None Include="ReadMe.txt" />
     <None Include="res\AquaManager-V2.2.ico" />
     <None Include="res\AquaManager-V2.2Doc.ico" />
     <None Include="res\AquaManagerV22.rc2" />
-    <None Include="res\icon1.ico" />
     <None Include="res\nav_large.bmp" />
     <None Include="res\nav_large_hc.bmp" />
     <None Include="res\pages.bmp" />
     <None Include="res\pages_hc.bmp" />
     <None Include="res\pages_small.bmp" />
     <None Include="res\pages_small_hc.bmp" />
+    <None Include="res\settings.ico" />
     <None Include="res\Toolbar.bmp" />
     <None Include="res\Toolbar256.bmp" />
-    <None Include="UserImages.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AquaManager-V2.2.h" />

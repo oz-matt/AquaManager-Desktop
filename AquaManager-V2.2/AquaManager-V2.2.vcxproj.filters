@@ -34,9 +34,6 @@
     <None Include="res\pages_small_hc.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="UserImages.bmp">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="res\AquaManagerV22.rc2">
       <Filter>Resource Files</Filter>
     </None>
@@ -52,10 +49,7 @@
     <None Include="res\Toolbar256.bmp">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="res\icon1.ico">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="..\settings.ico">
+    <None Include="res\settings.ico">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
