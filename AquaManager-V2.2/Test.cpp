@@ -28,6 +28,22 @@ CTest::~CTest()
 void CTest::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_BTN_SetCenter, m_btn_setCenter);
+	DDX_Control(pDX, IDC_BTN_AddMarker, m_btn_addMarker);
+	DDX_Control(pDX, IDC_BTN_Auth, m_btn_auth);
+	DDX_Control(pDX, IDC_BTN_DeleteMarkers, m_btn_deleteMarkers);
+	DDX_Control(pDX, IDC_BTN_Getaqsens, m_btn_getAqsens);
+	DDX_Control(pDX, IDC_BTN_NotifCircle, m_btn_notifCircle);
+	DDX_Control(pDX, IDC_BTN_NotifLowBat, m_btn_notifLowBat);
+	DDX_Control(pDX, IDC_BTN_NotifOutCircle, m_btn_notifOutCircle);
+	DDX_Control(pDX, IDC_BTN_NotifOutPolygon, m_btn_notifOutPolygon);
+	DDX_Control(pDX, IDC_BTN_NotifPolygon, m_btn_notifPolygon);
+	DDX_Control(pDX, IDC_BTN_NotifSeeMac, m_btn_notifSeeMac);
+	DDX_Control(pDX, IDC_BTN_NotifStartMov, m_notifStartMov);
+	DDX_Control(pDX, IDC_BTN_NotifStopMov, m_notifStopMov);
+	DDX_Control(pDX, IDC_BTN_NotifUploadData, m_notifUploadData);
+	DDX_Control(pDX, IDC_BTN_RemoveNotif, m_btn_removeNotif);
+	DDX_Control(pDX, IDC_BTN_SetZoom, m_btn_setZoom);
 }
 
 
@@ -632,6 +648,54 @@ BOOL CTest::OnInitDialog()
 
 	// TODO:  Add extra initialization here
 	m_brush.CreateSolidBrush(RGB(255, 255, 255));
+
+	m_btn_setCenter.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_setCenter.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_addMarker.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_addMarker.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_auth.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_auth.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_deleteMarkers.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_deleteMarkers.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_getAqsens.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_getAqsens.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_notifCircle.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_notifCircle.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_notifLowBat.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_notifLowBat.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_notifOutCircle.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_notifOutCircle.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_notifOutPolygon.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_notifOutPolygon.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_notifPolygon.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_notifPolygon.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_notifSeeMac.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_notifSeeMac.SetTextColor(RGB(0, 0, 255));
+
+	m_notifStartMov.SetFaceColor(RGB(255, 255, 255), true);
+	m_notifStartMov.SetTextColor(RGB(0, 0, 255));
+
+	m_notifStopMov.SetFaceColor(RGB(255, 255, 255), true);
+	m_notifStopMov.SetTextColor(RGB(0, 0, 255));
+
+	m_notifUploadData.SetFaceColor(RGB(255, 255, 255), true);
+	m_notifUploadData.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_removeNotif.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_removeNotif.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_setZoom.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_setZoom.SetTextColor(RGB(0, 0, 255));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
