@@ -30,4 +30,16 @@ public:
 	afx_msg void OnBnClickedBtnSetzoom();
 	afx_msg void OnBnClickedBtnDeletemarkers();
 	afx_msg void OnBnClickedBtnAuth();
+	char * handle_url_fields(char * url, char * fields);
+	afx_msg void OnBnClickedBtnGetaqsens();
+	afx_msg void OnBnClickedBtnNotifcircle();
+	afx_msg void OnBnClickedBtnNotifpolygon();
+	afx_msg void OnBnClickedBtnNotiflowbat();
+	afx_msg void OnBnClickedBtnNotifoutcircle();
+	afx_msg void OnBnClickedBtnNotifoutpolygon();
+	afx_msg void OnBnClickedBtnNotifseemac();
+	afx_msg void OnBnClickedBtnNotifstartmov();
+	afx_msg void OnBnClickedBtnNotifstopmov();
+	afx_msg void OnBnClickedBtnNotifuploaddata();
+	afx_msg void OnBnClickedBtnRemovenotif();
 };

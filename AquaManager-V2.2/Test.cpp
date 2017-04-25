@@ -37,6 +37,17 @@ BEGIN_MESSAGE_MAP(CTest, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_SetZoom, &CTest::OnBnClickedBtnSetzoom)
 	ON_BN_CLICKED(IDC_BTN_DeleteMarkers, &CTest::OnBnClickedBtnDeletemarkers)
 	ON_BN_CLICKED(IDC_BTN_Auth, &CTest::OnBnClickedBtnAuth)
+	ON_BN_CLICKED(IDC_BTN_Getaqsens, &CTest::OnBnClickedBtnGetaqsens)
+	ON_BN_CLICKED(IDC_BTN_NotifCircle, &CTest::OnBnClickedBtnNotifcircle)
+	ON_BN_CLICKED(IDC_BTN_NotifPolygon, &CTest::OnBnClickedBtnNotifpolygon)
+	ON_BN_CLICKED(IDC_BTN_NotifLowBat, &CTest::OnBnClickedBtnNotiflowbat)
+	ON_BN_CLICKED(IDC_BTN_NotifOutCircle, &CTest::OnBnClickedBtnNotifoutcircle)
+	ON_BN_CLICKED(IDC_BTN_NotifOutPolygon, &CTest::OnBnClickedBtnNotifoutpolygon)
+	ON_BN_CLICKED(IDC_BTN_NotifSeeMac, &CTest::OnBnClickedBtnNotifseemac)
+	ON_BN_CLICKED(IDC_BTN_NotifStartMov, &CTest::OnBnClickedBtnNotifstartmov)
+	ON_BN_CLICKED(IDC_BTN_NotifStopMov, &CTest::OnBnClickedBtnNotifstopmov)
+	ON_BN_CLICKED(IDC_BTN_NotifUploadData, &CTest::OnBnClickedBtnNotifuploaddata)
+	ON_BN_CLICKED(IDC_BTN_RemoveNotif, &CTest::OnBnClickedBtnRemovenotif)
 END_MESSAGE_MAP()
 
 
@@ -220,4 +231,383 @@ size_t write_data(void * ptr, size_t size, size_t nmemb, struct url_data * data)
     data->data[data->size] = '\0';
 
     return size * nmemb;
+}
+
+
+char * CTest::handle_url_fields(char * url, char * fields)
+{
+	CURL *curl;
+    struct url_data data;
+
+    data.size = 0;
+    data.data = (char *)malloc(4096); /* reasonable size initial buffer */
+    if (NULL == data.data) {
+        //fprintf(stderr, "Failed to allocate memory.\n");
+        return NULL;
+    }
+    data.data[0] = '\0';
+
+    CURLcode res;
+    struct curl_slist *headers = NULL;
+    // headers = curl_slist_append(headers, "Accept: application/json");
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+    // headers = curl_slist_append(headers, "charsets: utf-8");
+
+    curl = curl_easy_init();
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, fields);
+        // curl_easy_setopt(curl, CURLOPT_HTTPGET, 1);
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &data);
+
+        res = curl_easy_perform(curl);
+        if (res != CURLE_OK) {
+            //fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+        }
+
+        curl_easy_cleanup(curl);
+    }
+
+    return data.data;
+}
+
+
+void CTest::OnBnClickedBtnGetaqsens()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\"reqtype\":\"getaqsen\",\"aquakey\":\"D4ADCC0DA03DAC64\",\"pass\":\"849DEEE4\",\"iid\":\"12341234123412341234\"}");
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotifcircle()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\"reqtype\":\"notif\",\
+		\"aquakey\": \"D4ADCC0DA03DAC64\",\
+		\"data\": { \"alert\" : \"e-mail\",\
+		\"aquaname\": \"myaqua\",\
+		\"ntfuuid\": \"abcdefghi-qwerfeqrf-qerf\",\
+		\"target\": \"klutchkings@gmail.com\",\
+		\"trigger\": \"insideGeo\",\
+		\"continuous\": \"true\",\
+		\"geotype\": \"circle\",\
+		\"geoname\": \"myGeofence\",\
+		\"geodata\" : [\"34.74773453\", \"-124.6547654\", \"50.0000\"] },\
+		\"iid\":\"12341234123412341234\"}");
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotifpolygon()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\"reqtype\":\"notif\",\
+		\"aquakey\": \"D4ADCC0DA03DAC64\",\
+		\"data\": { \"alert\" : \"e-mail\",\
+		\"aquaname\": \"myaqua\",\
+		\"ntfuuid\": \"abcdefghi-qwerfeqrf-qerf\",\
+		\"target\": \"klutchkings@gmail.com\",\
+		\"trigger\": \"insideGeo\",\
+		\"continuous\": \"true\",\
+		\"geotype\": \"polygon\",\
+		\"geoname\": \"myGeofence\",\
+		\"geodata\" : { \"pt1_lat\" : 34.74773453,\
+		\"pt1_lon\" : -124.6547654,\
+		\"pt2_lat\" : 35.74773453,\
+		\"pt2_lon\" : -125.6547654,\
+		\"pt3_lat\" : 36.74773453,\
+		\"pt3_lon\" : -125.6547654,\
+		\"pt4_lat\" : 37.74773453,\
+		\"pt4_lon\" : -127.6547654,\
+		\"pt5_lat\" : 38.74773453,\
+		\"pt5_lon\" : -128.6547654,\
+		\"pt6_lat\" : 39.74773453,\
+		\"pt6_lon\" : -129.6547654,\
+		\"pt7_lat\" : 33.74773453,\
+		\"pt7_lon\" : -123.6547654,\
+		\"pt8_lat\" : 32.74773453,\
+		\"pt8_lon\" : -122.6547654 } },\
+		\"iid\":\"12341234123412341234\"}");
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotiflowbat()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\
+		  \"reqtype\":\"notif\",\
+		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
+		  \"data\": {\
+			\"alert\" : \"text\",\
+			\"aquaname\" : \"myaqua\",\
+			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
+			\"target\" : \"+12037701412\",\
+			\"trigger\" : \"lowBattery\",\
+			\"continuous\" : \"true\",\
+		  },\
+		  \"iid\":\"1234123412341234\"\
+		}"
+		);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotifoutcircle()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\
+		  \"reqtype\":\"notif\",\
+		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
+		  \"data\": {\
+			\"alert\" : \"e-mail\",\
+			\"aquaname\" : \"myaqua\",\
+			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
+			\"target\" : \"klutchkings@gmail.com\",\
+			\"trigger\" : \"outsideGeo\",\
+			\"continuous\" : \"true\",\
+			\"geotype\" : \"circle\",\
+			\"geoname\" : \"myGeofence\",\
+			\"geodata\" : [\
+			  \"34.74773453\",\
+			  \"-124.6547654\",\
+			  \"50.0000\"\
+			]\
+		  },\
+		  \"iid\":\"12341234123412341234\"\
+		}"
+		);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotifoutpolygon()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\
+		  \"reqtype\":\"notif\",\
+		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
+		  \"data\": {\
+			\"alert\" : \"text\",\
+			\"aquaname\" : \"myaqua\",\
+			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
+			\"target\" : \"+12037701412\",\
+			\"trigger\" : \"outsideGeo\",\
+			\"continuous\" : \"true\",\
+			\"geotype\" : \"polygon\",\
+			\"geoname\" : \"myGeofence\",\
+			\"geodata\" : {\
+			  \"pt1_lat\" : 34.74773453,\
+			  \"pt1_lon\" : -124.6547654,\
+			  \"pt2_lat\" : 35.74773453,\
+			  \"pt2_lon\" : -125.6547654,\
+			  \"pt3_lat\" : 36.74773453,\
+			  \"pt3_lon\" : -126.6547654,\
+			  \"pt4_lat\" : 37.74773453,\
+			  \"pt4_lon\" : -127.6547654,\
+			  \"pt5_lat\" : 38.74773453,\
+			  \"pt5_lon\" : -128.6547654,\
+			  \"pt6_lat\" : 39.74773453,\
+			  \"pt6_lon\" : -129.6547654,\
+			  \"pt7_lat\" : 33.74773453,\
+			  \"pt7_lon\" : -123.6547654,\
+			  \"pt8_lat\" : 32.74773453,\
+			  \"pt8_lon\" : -122.6547654\
+			}\
+		  },\
+		  \"iid\":\"12341234123412341234\"\
+		}"
+		);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotifseemac()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\
+		  \"reqtype\":\"notif\",\
+		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
+		  \"data\": {\
+			\"alert\" : \"e-mail\",\
+			\"aquaname\" : \"myaqua\",\
+			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
+			\"target\" : \"klutchkings@gmail.com\",\
+			\"trigger\" : \"seesMac\",\
+			\"continuous\" : \"false\",\
+			\"macaddress\" : \"AA:BB:CC:DD:EE:FF\"\
+		  },\
+		  \"iid\":\"12341234123412341234\"\
+		}"
+		);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotifstartmov()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\
+		  \"reqtype\":\"notif\",\
+		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
+		  \"data\": {\
+			\"alert\" : \"e-mail\",\
+			\"aquaname\" : \"myaqua\",\
+			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
+			\"target\" : \"klutchkings@gmail.com\",\
+			\"trigger\" : \"startsMoving\",\
+			\"continuous\" : \"false\"\
+		  },\
+		  \"iid\":\"12341234123412341234\"\
+		}"\
+		);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotifstopmov()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\
+		  \"reqtype\":\"notif\",\
+		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
+		  \"data\": {\
+			\"alert\" : \"e-mail\",\
+			\"aquaname\" : \"myaqua\",\
+			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
+			\"target\" : \"klutchkings@gmail.com\",\
+			\"trigger\" : \"stopsMoving\",\
+			\"continuous\" : \"false\"\
+		  },\
+		  \"iid\":\"12341234123412341234\"\
+		}"
+		);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnNotifuploaddata()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\
+		  \"reqtype\":\"notif\",\
+		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
+		  \"data\": {\
+			\"alert\" : \"text\",\
+			\"aquaname\" : \"myaqua\",\
+			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
+			\"target\" : \"+12037701412\",\
+			\"trigger\" : \"uploadsData\",\
+			\"continuous\" : \"false\",\
+		  },\
+		  \"iid\":\"12341234123412341234\"\
+		}"
+		);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
+}
+
+
+void CTest::OnBnClickedBtnRemovenotif()
+{
+	// TODO: Add your control notification handler code here
+	char* data;
+
+	data = handle_url_fields("198.61.169.55:8081",
+		"{\
+		  \"reqtype\":\"rmntfid\",\
+		  \"aquaname\":\"hihi\",\
+		  \"ntfid\":\"a13d15a0-a0ed-41b0-8d7d-2f8629df2383\",\
+		  \"iid\":\"12341234123412341234\"\
+		}"
+		);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Getaqsens Info");
+        free(data);
+    }
 }
