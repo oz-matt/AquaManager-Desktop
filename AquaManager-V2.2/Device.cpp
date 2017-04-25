@@ -94,9 +94,9 @@ BOOL CDevice::OnInitDialog()
 	m_lst_device.SetItemText(nIndex, 1, _T("Woods Way, New Fairfield CT, USA"));
 	m_lst_device.SetItemText(nIndex, 2, _T("45%"));
 
-	m_lst_device.SetBkColor(RGB(0, 0, 0));
+	m_lst_device.SetBkColor(RGB(255, 255, 255));
 
-	m_brush.CreateSolidBrush(RGB(0, 0, 0));
+	m_brush.CreateSolidBrush(RGB(255, 255, 255));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE

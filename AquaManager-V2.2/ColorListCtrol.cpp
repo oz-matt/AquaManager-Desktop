@@ -90,29 +90,16 @@ void CColorListCtrol::OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult)
 			//if (sub)item is of interest, set custom text/background color
             //if( 1 == iRow && 1 == iCol  )
 			if (0 == type) {
-				if (0 == iRow % 3)
-				{
-					pLVCD->clrText = RGB(255, 255, 255);
-					pLVCD->clrTextBk = RGB(255, 0, 0);
-				}
-				else if (1 == iRow % 3)
-				{
-					pLVCD->clrText = RGB(255, 255, 255);
-					pLVCD->clrTextBk = RGB(255, 255, 0);
-				}
-				else
-				{
-					pLVCD->clrText = RGB(255, 255, 255);
-					pLVCD->clrTextBk = RGB(0, 255, 0);
-				}
+				pLVCD->clrText = RGB(0, 0, 0);
+				pLVCD->clrTextBk = RGB(192, 219, 255);
 			}
 			else if (1 == type) {
-				pLVCD->clrText = RGB(255, 255, 255);
-				pLVCD->clrTextBk = RGB(0, 0, 255);
+				pLVCD->clrText = RGB(0, 0, 0);
+				pLVCD->clrTextBk = RGB(192, 219, 255);
 			}
 			else {
-				pLVCD->clrText = RGB(255, 255, 255);
-				pLVCD->clrTextBk = RGB(0, 255, 0);
+				pLVCD->clrText = RGB(0, 0, 0);
+				pLVCD->clrTextBk = RGB(192, 219, 255);
 			}
             *pResult =  CDRF_NOTIFYPOSTPAINT;
 		}

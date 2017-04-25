@@ -42,7 +42,7 @@ void CColorHeaderCtrl::OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult)
 		CDC* pDC = CDC::FromHandle(pNMCD->hdc);
 		CRect rect(0, 0, 0, 0);
 		GetClientRect(&rect);
-		pDC->FillSolidRect(&rect, RGB(0, 0, 0));
+		pDC->FillSolidRect(&rect, RGB(192, 219, 255));
 
 		*pResult = CDRF_NOTIFYITEMDRAW;
 	}
@@ -56,8 +56,8 @@ void CColorHeaderCtrl::OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult)
 		hditem.cchTextMax = MAX_PATH;
 		GetItem(pNMCD->dwItemSpec, &hditem);
 		CDC* pDC = CDC::FromHandle(pNMCD->hdc);
-		pDC->SetTextColor(RGB(255, 255, 255));
-		pDC->SetBkColor(RGB(0, 0, 0));
+		pDC->SetTextColor(RGB(0, 0, 0));
+		pDC->SetBkColor(RGB(192, 219, 255));
 		CString str(buffer);
 		pDC->DrawText(str, CRect(pNMCD->rc), DT_VCENTER | DT_LEFT);
 		*pResult = CDRF_SKIPDEFAULT;

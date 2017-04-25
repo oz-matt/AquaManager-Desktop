@@ -86,9 +86,9 @@ BOOL CGeofence::OnInitDialog()
 	m_lst_geofence.SetItemText(nIndex, 1, _T("15th St, New York, NY, USA"));
 	m_lst_geofence.SetItemText(nIndex, 2, _T("6 sq.mi"));
 
-	m_lst_geofence.SetBkColor(RGB(0, 0, 0));
+	m_lst_geofence.SetBkColor(RGB(255, 255, 255));
 
-	m_brush.CreateSolidBrush(RGB(0, 0, 0));
+	m_brush.CreateSolidBrush(RGB(255, 255, 255));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE

@@ -48,6 +48,7 @@ BEGIN_MESSAGE_MAP(CTest, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_NotifStopMov, &CTest::OnBnClickedBtnNotifstopmov)
 	ON_BN_CLICKED(IDC_BTN_NotifUploadData, &CTest::OnBnClickedBtnNotifuploaddata)
 	ON_BN_CLICKED(IDC_BTN_RemoveNotif, &CTest::OnBnClickedBtnRemovenotif)
+	ON_WM_CTLCOLOR()
 END_MESSAGE_MAP()
 
 
@@ -610,4 +611,28 @@ void CTest::OnBnClickedBtnRemovenotif()
 		MessageBox(data, "Getaqsens Info");
         free(data);
     }
+}
+
+
+HBRUSH CTest::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
+{
+	//HBRUSH hbr = CDialogEx::OnCtlColor(pDC, pWnd, nCtlColor);
+
+	// TODO:  Change any attributes of the DC here
+	HBRUSH hbr = m_brush;
+
+	// TODO:  Return a different brush if the default is not desired
+	return hbr;
+}
+
+
+BOOL CTest::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	m_brush.CreateSolidBrush(RGB(255, 255, 255));
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
 }

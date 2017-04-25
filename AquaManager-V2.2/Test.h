@@ -42,4 +42,7 @@ public:
 	afx_msg void OnBnClickedBtnNotifstopmov();
 	afx_msg void OnBnClickedBtnNotifuploaddata();
 	afx_msg void OnBnClickedBtnRemovenotif();
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	virtual BOOL OnInitDialog();
+	CBrush m_brush;
 };

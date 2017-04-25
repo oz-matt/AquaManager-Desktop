@@ -86,9 +86,9 @@ BOOL CNotification::OnInitDialog()
 	m_lst_notificaton.SetItemText(nIndex, 1, _T("uploadsData"));
 	m_lst_notificaton.SetItemText(nIndex, 2, _T("text"));
 
-	m_lst_notificaton.SetBkColor(RGB(0, 0, 0));
+	m_lst_notificaton.SetBkColor(RGB(255, 255, 255));
 
-	m_brush.CreateSolidBrush(RGB(0, 0, 0));
+	m_brush.CreateSolidBrush(RGB(255, 255, 255));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
