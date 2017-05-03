@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Aqua Manager</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <style>
+	    /* Always set the map height explicitly to define the size of the div
+		 * element that contains the map.
+		 */
        #map {
-        height: 400px;
+        height: 100%;
         width: 100%;
        }
+	    /* Optional: Makes the sample page fill the window. */
+		  html, body {
+		  height: 100%;
+		  margin: 0;
+		  padding: 0;
+		}
     </style>
   </head>
   <body>
@@ -34,6 +47,27 @@
         });
 
 		markerArray.push(marker);
+		
+		// Drawing shapes
+		  var drawingManager = new google.maps.drawing.DrawingManager({
+			drawingMode: google.maps.drawing.OverlayType.MARKER,
+			drawingControl: true,
+			drawingControlOptions: {
+			  position: google.maps.ControlPosition.TOP_CENTER,
+			  drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+			},
+			markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+			circleOptions: {
+			  fillColor: '#ffff00',
+			  fillOpacity: 1,
+			  strokeWeight: 5,
+			  clickable: false,
+			  editable: true,
+			  zIndex: 1
+			}
+		  });
+
+		  drawingManager.setMap(map);
       }
 
 	  function SetCenter(x, y, type)
@@ -79,7 +113,7 @@
       }
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkm1VkR2KkSz23AnGU-lj8XApl04m8EGE&callback=initMap&language=en">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkm1VkR2KkSz23AnGU-lj8XApl04m8EGE&callback=initMap&language=en&libraries=drawing">
     </script>
   </body>
 </html>
