@@ -61,4 +61,6 @@ public:
 	CMFCButton m_notifUploadData;
 	CMFCButton m_btn_removeNotif;
 	CMFCButton m_btn_setZoom;
+	double get_circle(double *lat, double *lng);
+	void set_circle(double lat, double lng, double radius);
 };

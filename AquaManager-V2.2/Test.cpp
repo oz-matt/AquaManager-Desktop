@@ -312,8 +312,15 @@ void CTest::OnBnClickedBtnNotifcircle()
 {
 	// TODO: Add your control notification handler code here
 	char* data;
+	double radius = 50.0000;
+	double lat = 34.74773453;
+	double lng = -124.6547654;
+	char temp[1024] = "";
 
-	data = handle_url_fields("198.61.169.55:8081",
+	radius = get_circle(&lat, &lng);
+	set_circle(lat, lng, radius);
+
+	sprintf(temp, "%s\"%f\",\"%f\",\"%f\"%s",
 		"{\"reqtype\":\"notif\",\
 		\"aquakey\": \"D4ADCC0DA03DAC64\",\
 		\"data\": { \"alert\" : \"e-mail\",\
@@ -324,8 +331,12 @@ void CTest::OnBnClickedBtnNotifcircle()
 		\"continuous\": \"true\",\
 		\"geotype\": \"circle\",\
 		\"geoname\": \"myGeofence\",\
-		\"geodata\" : [\"34.74773453\", \"-124.6547654\", \"50.0000\"] },\
-		\"iid\":\"12341234123412341234\"}");
+		\"geodata\" : [",
+		lat, lng, radius,
+		"] }, \"iid\":\"12341234123412341234\"}");
+
+	data = handle_url_fields("198.61.169.55:8081",
+		temp);
 
 	if (data) {
 		//printf("%s\n", data);
@@ -699,4 +710,111 @@ BOOL CTest::OnInitDialog()
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
+}
+
+
+double CTest::get_circle(double *lat, double *lng)
+{
+	// TODO: Add your control notification handler code here
+
+	//CComQIPtr<IHTMLDocument2> pDoc = (IHTMLDocument2*)GetHtmlDocument();
+	if (pDoc == NULL)
+		return -1;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return -1;
+
+	//CString js;
+	//js.Format(_T("getCircle();"));
+	//CComBSTR bstrJS = js.AllocSysString();
+	//CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	//VARIANT varResult;
+	//pWin->execScript(bstrJS, bstrLanguage, &varResult);
+
+	double radius = 0.0;
+	//double lat = 0.0;
+	//double lng = 0.0;
+	static LPOLESTR strFxn = OLESTR("getCircle");
+	static LPOLESTR strFxnLat = OLESTR("getCircleLat");
+	static LPOLESTR strFxnLng = OLESTR("getCircleLng");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+        if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxn, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lng, lat };
+            DISPPARAMS params = { vArgs, NULL, 2, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    radius = vResult.lVal;
+                }
+            }
+        }
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lng, lat };
+            DISPPARAMS params = { vArgs, NULL, 2, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lat = vResult.lVal;
+                }
+            }
+        }
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLng, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lng, lat };
+            DISPPARAMS params = { vArgs, NULL, 2, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lng = vResult.lVal;
+                }
+            }
+        }
+    }
+
+	return radius;
+}
+
+
+void CTest::set_circle(double lat, double lng, double radius)
+{
+	//CComQIPtr<IHTMLDocument2> pDoc = (IHTMLDocument2*)GetHtmlDocument();
+	if (pDoc == NULL)
+		return;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return;
+
+	CString js;
+	js.Format(_T("setCircle(%.2f, %.2f, %.2f);"), lat, lng, radius);
+
+	CComBSTR bstrJS = js.AllocSysString();
+	CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	VARIANT varResult;
+	pWin->execScript(bstrJS, bstrLanguage, &varResult);
 }

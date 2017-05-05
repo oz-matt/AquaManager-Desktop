@@ -26,6 +26,9 @@
     <script>
 	  var map;
 	  var markerArray = new Array();
+	  var radius_global;
+	  var lat_global;
+	  var lng_global;
 
       function initMap() {
         var pos = {lat: 45.378802, lng: -70.242796};
@@ -68,6 +71,25 @@
 		  });
 
 		  drawingManager.setMap(map);
+		  
+		  google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
+			var radius = circle.getRadius();
+			radius_global = radius;
+			// alert("circlecomplete event: " + radius);
+			//console.log('radius', circle.getRadius());
+			//console.log('lat', circle.getCenter().lat());
+			//console.log('lng', circle.getCenter().lng());
+			lat_global = circle.getCenter().lat();
+			lng_global = circle.getCenter().lng();
+		  });
+		  
+		  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+			if (event.type == 'circle') {
+			  var radius = event.overlay.getRadius();
+			  //radius_global = radius;
+			  // alert("overlaycomplete event: " + radius);
+			}
+		  });
       }
 
 	  function SetCenter(x, y, type)
@@ -111,6 +133,27 @@
         clearMarkers();
         markers = [];
       }
+	  
+	  function getCircle() {
+		// alert(radius_global);
+		return radius_global;
+	  }
+	  
+	  function getCircleLat() {
+		// alert(lat_global);
+		return lat_global;
+	  }
+	  
+	  function getCircleLng() {
+		// alert(lng_global);
+		return lng_global;
+	  }
+	  
+	  function setCircle(lat, lng, radius) {
+		lat_global = lat;
+		lng_global = lng;
+		radius_global = radius;
+	  }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkm1VkR2KkSz23AnGU-lj8XApl04m8EGE&callback=initMap&language=en&libraries=drawing">
