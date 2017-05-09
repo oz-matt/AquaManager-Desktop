@@ -29,6 +29,30 @@
 	  var radius_global;
 	  var lat_global;
 	  var lng_global;
+	  var coordinatesArray_global;
+	  var lat10_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+	  var lng10_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+	  var coordinatesArrayCount_global;
+	  var lat1_global;
+	  var lat2_global;
+	  var lat3_global;
+	  var lat4_global;
+	  var lat5_global;
+	  var lat6_global;
+	  var lat7_global;
+	  var lat8_global;
+	  var lat9_global;
+	  var lat10_global;
+	  var lng1_global;
+	  var lng2_global;
+	  var lng3_global;
+	  var lng4_global;
+	  var lng5_global;
+	  var lng6_global;
+	  var lng7_global;
+	  var lng8_global;
+	  var lng9_global;
+	  var lng10_global;
 
       function initMap() {
         var pos = {lat: 45.378802, lng: -70.242796};
@@ -85,7 +109,40 @@
 		  
 		  google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
 			 var coordinatesArray = polygon.getPath().getArray();
-			 alert("coordinatesArray: " + coordinatesArray);
+			 coordinatesArray_global = coordinatesArray;
+			 alert("coordinatesArray: " + coordinatesArray_global);
+			 // maxmum 10 points
+			 coordinatesArrayCount_global = coordinatesArray_global.length;
+			 for (var i = 0; i < coordinatesArrayCount_global; i++) {
+				if (i >= 10) {
+					break;
+				}
+				
+				lat10_global[i] = coordinatesArray_global[i].lat();
+				lng10_global[i] = coordinatesArray_global[i].lng();
+			}
+			
+			lat1_global = lat10_global[0];
+			lat2_global = lat10_global[1];
+			lat3_global = lat10_global[2];
+			lat4_global = lat10_global[3];
+			lat5_global = lat10_global[4];
+			lat6_global = lat10_global[5];
+			lat7_global = lat10_global[6];
+			lat8_global = lat10_global[7];
+			lat9_global = lat10_global[8];
+			lat10_global = lat10_global[9];
+			
+			lng1_global = lng10_global[0];
+			lng2_global = lng10_global[1];
+			lng3_global = lng10_global[2];
+			lng4_global = lng10_global[3];
+			lng5_global = lng10_global[4];
+			lng6_global = lng10_global[5];
+			lng7_global = lng10_global[6];
+			lng8_global = lng10_global[7];
+			lng9_global = lng10_global[8];
+			lng10_global = lng10_global[9];
 		  });
 		  
 		  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
@@ -96,7 +153,7 @@
 			}
 			if (event.type == 'polygon') {
 			  var coordinatesArray = event.overlay.getPath().getArray();
-			  alert("overlaycomplete event: " + coordinatesArray);
+			  // alert("overlaycomplete event: " + coordinatesArray);
 			}
 		  });
       }
@@ -162,6 +219,79 @@
 		lat_global = lat;
 		lng_global = lng;
 		radius_global = radius;
+	  }
+	  
+	  function getPolygon() {
+		return coordinatesArray_global;
+	  }
+	  function getPolygonArraryCount() {
+		return coordinatesArrayCount_global;
+	  }
+	  function getPolygonLat() {
+		return lat10_global;
+	  }
+	  function getPolygonLng() {
+		return lng10_global;
+	  }
+	  function getPolygonLat1() {
+		return lat1_global;
+	  }
+	  function getPolygonLat2() {
+		return lat2_global;
+	  }
+	  function getPolygonLat3() {
+		return lat3_global;
+	  }
+	  function getPolygonLat4() {
+		return lat4_global;
+	  }
+	  function getPolygonLat5() {
+		return lat5_global;
+	  }
+	  function getPolygonLat6() {
+		return lat6_global;
+	  }
+	  function getPolygonLat7() {
+		return lat7_global;
+	  }
+	  function getPolygonLat8() {
+		return lat8_global;
+	  }
+	  function getPolygonLat9() {
+		return lat9_global;
+	  }
+	  function getPolygonLat10() {
+		return lat10_global;
+	  }
+	  function getPolygonLng1() {
+		return lng1_global;
+	  }
+	  function getPolygonLng2() {
+		return lng2_global;
+	  }
+	  function getPolygonLng3() {
+		return lng3_global;
+	  }
+	  function getPolygonLng4() {
+		return lng4_global;
+	  }
+	  function getPolygonLng5() {
+		return lng5_global;
+	  }
+	  function getPolygonLng6() {
+		return lng6_global;
+	  }
+	  function getPolygonLng7() {
+		return lng7_global;
+	  }
+	  function getPolygonLng8() {
+		return lng8_global;
+	  }
+	  function getPolygonLng9() {
+		return lng9_global;
+	  }
+	  function getPolygonLng10() {
+		return lng10_global;
 	  }
     </script>
     <script async defer

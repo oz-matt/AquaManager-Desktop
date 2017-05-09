@@ -63,4 +63,5 @@ public:
 	CMFCButton m_btn_setZoom;
 	double get_circle(double *lat, double *lng);
 	void set_circle(double lat, double lng, double radius);
+	int get_polygon(void);
 };

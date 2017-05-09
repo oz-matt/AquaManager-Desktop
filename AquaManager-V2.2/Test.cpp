@@ -351,6 +351,8 @@ void CTest::OnBnClickedBtnNotifpolygon()
 	// TODO: Add your control notification handler code here
 	char* data;
 
+	get_polygon();
+
 	data = handle_url_fields("198.61.169.55:8081",
 		"{\"reqtype\":\"notif\",\
 		\"aquakey\": \"D4ADCC0DA03DAC64\",\
@@ -817,4 +819,130 @@ void CTest::set_circle(double lat, double lng, double radius)
 	CComBSTR bstrLanguage = SysAllocString(L"javascript");
 	VARIANT varResult;
 	pWin->execScript(bstrJS, bstrLanguage, &varResult);
+}
+
+
+int CTest::get_polygon(void)
+{
+	//CComQIPtr<IHTMLDocument2> pDoc = (IHTMLDocument2*)GetHtmlDocument();
+	if (pDoc == NULL)
+		return -1;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return -1;
+
+	double lat = 0.0;
+	double lng = 0.0;
+	int count = 0;
+	double lat10[10] = {0};
+	double lng10[10] = {0};
+	static LPOLESTR strFxn = OLESTR("getPolygonArraryCount");
+	static LPOLESTR strFxnLat1 = OLESTR("getPolygonLat1");
+	static LPOLESTR strFxnLat2 = OLESTR("getPolygonLat2");
+	static LPOLESTR strFxnLat3 = OLESTR("getPolygonLat3");
+	static LPOLESTR strFxnLat4 = OLESTR("getPolygonLat4");
+	static LPOLESTR strFxnLat5 = OLESTR("getPolygonLat5");
+	static LPOLESTR strFxnLat6 = OLESTR("getPolygonLat6");
+	static LPOLESTR strFxnLat7 = OLESTR("getPolygonLat7");
+	static LPOLESTR strFxnLat8 = OLESTR("getPolygonLat8");
+	static LPOLESTR strFxnLat9 = OLESTR("getPolygonLat9");
+	static LPOLESTR strFxnLat10 = OLESTR("getPolygonLat10");
+	static LPOLESTR strFxnLng1 = OLESTR("getPolygonLng1");
+	static LPOLESTR strFxnLng2 = OLESTR("getPolygonLng2");
+	static LPOLESTR strFxnLng3 = OLESTR("getPolygonLng3");
+	static LPOLESTR strFxnLng4 = OLESTR("getPolygonLng4");
+	static LPOLESTR strFxnLng5 = OLESTR("getPolygonLng5");
+	static LPOLESTR strFxnLng6 = OLESTR("getPolygonLng6");
+	static LPOLESTR strFxnLng7 = OLESTR("getPolygonLng7");
+	static LPOLESTR strFxnLng8 = OLESTR("getPolygonLng8");
+	static LPOLESTR strFxnLng9 = OLESTR("getPolygonLng9");
+	static LPOLESTR strFxnLng10 = OLESTR("getPolygonLng10");
+	CComPtr<IDispatch>pdispScript;
+	CComVariant vResult;
+	CComVariant vArgs[] = { lng, lat };
+    DISPPARAMS params = { vArgs, NULL, 2, 0 };
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+        if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxn, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+			// get the number of elements using the DISPID of length parameter
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    count = vResult.lVal;
+                }
+            }
+        }
+
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat1, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[0] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat2, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[1] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat3, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[2] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat4, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[3] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat5, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[4] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat6, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[5] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat7, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[6] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat8, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[7] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat9, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[8] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat10, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lat10[9] = vResult.dblVal;
+
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng1, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[0] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng2, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[1] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng3, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[2] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng4, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[3] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng5, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[4] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng6, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[5] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng7, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[6] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng8, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[7] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng9, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[8] = vResult.dblVal;
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng10, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		lng10[9] = vResult.dblVal;
+    }
+
+	return 0;
 }
