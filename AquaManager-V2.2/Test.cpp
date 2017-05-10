@@ -344,7 +344,7 @@ void CTest::OnBnClickedBtnNotifcircle()
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifyInsideCircle Info");
         free(data);
     }
 }
@@ -396,7 +396,7 @@ void CTest::OnBnClickedBtnNotifpolygon()
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifyInsidePolygon Info");
         free(data);
     }
 }
@@ -425,7 +425,7 @@ void CTest::OnBnClickedBtnNotiflowbat()
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifyLowBat Info");
         free(data);
     }
 }
@@ -435,8 +435,14 @@ void CTest::OnBnClickedBtnNotifoutcircle()
 {
 	// TODO: Add your control notification handler code here
 	char* data;
+	double radius = 50.0000;
+	double lat = 34.74773453;
+	double lng = -124.6547654;
+	char temp[1024] = "";
 
-	data = handle_url_fields("198.61.169.55:8081",
+	radius = get_circle(&lat, &lng);
+
+	sprintf(temp, "%s\"%f\",\"%f\",\"%f\"%s",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -449,19 +455,19 @@ void CTest::OnBnClickedBtnNotifoutcircle()
 			\"continuous\" : \"true\",\
 			\"geotype\" : \"circle\",\
 			\"geoname\" : \"myGeofence\",\
-			\"geodata\" : [\
-			  \"34.74773453\",\
-			  \"-124.6547654\",\
-			  \"50.0000\"\
-			]\
+			\"geodata\" : [",
+			  lat, lng, radius,
+			"]\
 		  },\
 		  \"iid\":\"12341234123412341234\"\
-		}"
-		);
+		}");
+
+	data = handle_url_fields("198.61.169.55:8081",
+		temp);
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifyOutOfCircle Info");
         free(data);
     }
 }
@@ -471,8 +477,13 @@ void CTest::OnBnClickedBtnNotifoutpolygon()
 {
 	// TODO: Add your control notification handler code here
 	char* data;
+	vector<CComVariant> vecVarsLat;
+	vector<CComVariant> vecVarsLng;
+	char temp[1024] = "";
 
-	data = handle_url_fields("198.61.169.55:8081",
+	get_polygon(vecVarsLat, vecVarsLng);
+
+	sprintf(temp, "%s\"pt1_lat\":%f,\"pt1_lon\":%f,\"pt2_lat\":%f,\"pt2_lon\":%f,\"pt3_lat\":%f,\"pt3_lon\":%f,\"pt4_lat\":%f,\"pt4_lon\":%f,\"pt5_lat\":%f,\"pt5_lon\":%f,\"pt6_lat\":%f,\"pt6_lon\":%f,\"pt7_lat\":%f,\"pt7_lon\":%f,\"pt8_lat\":%f,\"pt8_lon\":%f%s",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -485,32 +496,34 @@ void CTest::OnBnClickedBtnNotifoutpolygon()
 			\"continuous\" : \"true\",\
 			\"geotype\" : \"polygon\",\
 			\"geoname\" : \"myGeofence\",\
-			\"geodata\" : {\
-			  \"pt1_lat\" : 34.74773453,\
-			  \"pt1_lon\" : -124.6547654,\
-			  \"pt2_lat\" : 35.74773453,\
-			  \"pt2_lon\" : -125.6547654,\
-			  \"pt3_lat\" : 36.74773453,\
-			  \"pt3_lon\" : -126.6547654,\
-			  \"pt4_lat\" : 37.74773453,\
-			  \"pt4_lon\" : -127.6547654,\
-			  \"pt5_lat\" : 38.74773453,\
-			  \"pt5_lon\" : -128.6547654,\
-			  \"pt6_lat\" : 39.74773453,\
-			  \"pt6_lon\" : -129.6547654,\
-			  \"pt7_lat\" : 33.74773453,\
-			  \"pt7_lon\" : -123.6547654,\
-			  \"pt8_lat\" : 32.74773453,\
-			  \"pt8_lon\" : -122.6547654\
-			}\
+			\"geodata\" : {",
+			  vecVarsLat[0].dblVal,
+				vecVarsLng[0].dblVal,
+				vecVarsLat[1].dblVal,
+				vecVarsLng[1].dblVal,
+				vecVarsLat[2].dblVal,
+				vecVarsLng[2].dblVal,
+				vecVarsLat[3].dblVal,
+				vecVarsLng[3].dblVal,
+				vecVarsLat[4].dblVal,
+				vecVarsLng[4].dblVal,
+				vecVarsLat[5].dblVal,
+				vecVarsLng[5].dblVal,
+				vecVarsLat[6].dblVal,
+				vecVarsLng[6].dblVal,
+				vecVarsLat[7].dblVal,
+				vecVarsLng[7].dblVal,
+			"}\
 		  },\
 		  \"iid\":\"12341234123412341234\"\
-		}"
-		);
+		}");
+
+	data = handle_url_fields("198.61.169.55:8081",
+		temp);
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifyOutOfPolygon Info");
         free(data);
     }
 }
@@ -540,7 +553,7 @@ void CTest::OnBnClickedBtnNotifseemac()
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifySeeMac Info");
         free(data);
     }
 }
@@ -569,7 +582,7 @@ void CTest::OnBnClickedBtnNotifstartmov()
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifyStartMov Info");
         free(data);
     }
 }
@@ -598,7 +611,7 @@ void CTest::OnBnClickedBtnNotifstopmov()
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifyStopMov Info");
         free(data);
     }
 }
@@ -627,7 +640,7 @@ void CTest::OnBnClickedBtnNotifuploaddata()
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "NotifyUploadData Info");
         free(data);
     }
 }
@@ -649,7 +662,7 @@ void CTest::OnBnClickedBtnRemovenotif()
 
 	if (data) {
 		//printf("%s\n", data);
-		MessageBox(data, "Getaqsens Info");
+		MessageBox(data, "RemoveNotify Info");
         free(data);
     }
 }
