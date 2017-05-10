@@ -1,4 +1,10 @@
 #pragma once
+#include <afxinet.h>
+#include <curl/curl.h>
+#include <atlsafe.h>
+#include <vector>
+
+using namespace std;
 
 struct url_data {
     size_t size;
@@ -63,5 +69,5 @@ public:
 	CMFCButton m_btn_setZoom;
 	double get_circle(double *lat, double *lng);
 	void set_circle(double lat, double lng, double radius);
-	int get_polygon(void);
+	int get_polygon(vector<CComVariant> &vecVarsLat, vector<CComVariant> &vecVarsLng);
 };

@@ -30,8 +30,8 @@
 	  var lat_global;
 	  var lng_global;
 	  var coordinatesArray_global;
-	  var lat10_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-	  var lng10_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+	  var latarray_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+	  var lngarray_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 	  var coordinatesArrayCount_global;
 	  var lat1_global;
 	  var lat2_global;
@@ -118,31 +118,31 @@
 					break;
 				}
 				
-				lat10_global[i] = coordinatesArray_global[i].lat();
-				lng10_global[i] = coordinatesArray_global[i].lng();
+				latarray_global[i] = coordinatesArray_global[i].lat();
+				lngarray_global[i] = coordinatesArray_global[i].lng();
 			}
 			
-			lat1_global = lat10_global[0];
-			lat2_global = lat10_global[1];
-			lat3_global = lat10_global[2];
-			lat4_global = lat10_global[3];
-			lat5_global = lat10_global[4];
-			lat6_global = lat10_global[5];
-			lat7_global = lat10_global[6];
-			lat8_global = lat10_global[7];
-			lat9_global = lat10_global[8];
-			lat10_global = lat10_global[9];
+			lat1_global = latarray_global[0];
+			lat2_global = latarray_global[1];
+			lat3_global = latarray_global[2];
+			lat4_global = latarray_global[3];
+			lat5_global = latarray_global[4];
+			lat6_global = latarray_global[5];
+			lat7_global = latarray_global[6];
+			lat8_global = latarray_global[7];
+			lat9_global = latarray_global[8];
+			lat10_global = latarray_global[9];
 			
-			lng1_global = lng10_global[0];
-			lng2_global = lng10_global[1];
-			lng3_global = lng10_global[2];
-			lng4_global = lng10_global[3];
-			lng5_global = lng10_global[4];
-			lng6_global = lng10_global[5];
-			lng7_global = lng10_global[6];
-			lng8_global = lng10_global[7];
-			lng9_global = lng10_global[8];
-			lng10_global = lng10_global[9];
+			lng1_global = lngarray_global[0];
+			lng2_global = lngarray_global[1];
+			lng3_global = lngarray_global[2];
+			lng4_global = lngarray_global[3];
+			lng5_global = lngarray_global[4];
+			lng6_global = lngarray_global[5];
+			lng7_global = lngarray_global[6];
+			lng8_global = lngarray_global[7];
+			lng9_global = lngarray_global[8];
+			lng10_global = lngarray_global[9];
 		  });
 		  
 		  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
@@ -228,10 +228,10 @@
 		return coordinatesArrayCount_global;
 	  }
 	  function getPolygonLat() {
-		return lat10_global;
+		return latarray_global;
 	  }
 	  function getPolygonLng() {
-		return lng10_global;
+		return lngarray_global;
 	  }
 	  function getPolygonLat1() {
 		return lat1_global;

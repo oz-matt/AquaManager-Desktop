@@ -8,6 +8,10 @@
 
 #include <afxinet.h>
 #include <curl/curl.h>
+#include <atlsafe.h>
+#include <vector>
+
+using namespace std;
 
 extern CComQIPtr<IHTMLDocument2> pDoc;
 
@@ -350,8 +354,10 @@ void CTest::OnBnClickedBtnNotifpolygon()
 {
 	// TODO: Add your control notification handler code here
 	char* data;
+	vector<CComVariant> vecVarsLat;
+	vector<CComVariant> vecVarsLng;
 
-	get_polygon();
+	get_polygon(vecVarsLat, vecVarsLng);
 
 	data = handle_url_fields("198.61.169.55:8081",
 		"{\"reqtype\":\"notif\",\
@@ -821,8 +827,7 @@ void CTest::set_circle(double lat, double lng, double radius)
 	pWin->execScript(bstrJS, bstrLanguage, &varResult);
 }
 
-
-int CTest::get_polygon(void)
+int CTest::get_polygon(vector<CComVariant> &vecVarsLat, vector<CComVariant> &vecVarsLng)
 {
 	//CComQIPtr<IHTMLDocument2> pDoc = (IHTMLDocument2*)GetHtmlDocument();
 	if (pDoc == NULL)
@@ -859,13 +864,23 @@ int CTest::get_polygon(void)
 	static LPOLESTR strFxnLng8 = OLESTR("getPolygonLng8");
 	static LPOLESTR strFxnLng9 = OLESTR("getPolygonLng9");
 	static LPOLESTR strFxnLng10 = OLESTR("getPolygonLng10");
+	static LPOLESTR strFxnLatArray = OLESTR("getPolygonLat");
+	static LPOLESTR strFxnLngArray = OLESTR("getPolygonLng");
 	CComPtr<IDispatch>pdispScript;
 	CComVariant vResult;
 	CComVariant vArgs[] = { lng, lat };
     DISPPARAMS params = { vArgs, NULL, 2, 0 };
+	CComPtr<IEnumVARIANT> pEnumVariant;
+	CComPtr<IDispatch> pDispatchResult;
+	CComVariant varItem;
+	ULONG uiFetched = 0;
+	//vector<CComVariant> vecVarsLat;
+	//vector<CComVariant> vecVarsLng;
+	int i = 0;
 	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
     {
         DISPID dispID;
+		CComSafeArray<double> SafeArray;
         if (SUCCEEDED(pdispScript->GetIDsOfNames(
             IID_NULL, &strFxn, 1, LOCALE_USER_DEFAULT, &dispID)))
         {
@@ -881,7 +896,53 @@ int CTest::get_polygon(void)
             }
         }
 
-		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat1, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLatArray, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		pDispatchResult = vResult.pdispVal;
+		pEnumVariant = pDispatchResult;
+		pEnumVariant->Reset();
+		i = 0;
+		uiFetched = 0;
+		do 
+		{
+			// get next item
+			pEnumVariant->Next(1, &varItem, &uiFetched);
+
+			if (i == count)
+				break;
+
+			if (uiFetched == NULL) // last item
+				break;
+
+			// insert the item to the vector 
+			vecVarsLat.push_back(varItem);
+			i++;
+		} while (true);
+
+		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLngArray, 1, LOCALE_USER_DEFAULT, &dispID);
+		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
+		pDispatchResult = vResult.pdispVal;
+		pEnumVariant = pDispatchResult;
+		pEnumVariant->Reset();
+		i = 0;
+		uiFetched = 0;
+		do 
+		{
+			// get next item
+			pEnumVariant->Next(1, &varItem, &uiFetched);
+
+			if (i == count)
+				break;
+
+			if (uiFetched == NULL) // last item
+				break;
+
+			// insert the item to the vector 
+			vecVarsLng.push_back(varItem);
+			i++;
+		} while (true);
+
+		/*pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat1, 1, LOCALE_USER_DEFAULT, &dispID);
 		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
 		lat10[0] = vResult.dblVal;
 		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLat2, 1, LOCALE_USER_DEFAULT, &dispID);
@@ -941,7 +1002,7 @@ int CTest::get_polygon(void)
 		lng10[8] = vResult.dblVal;
 		pdispScript->GetIDsOfNames(IID_NULL, &strFxnLng10, 1, LOCALE_USER_DEFAULT, &dispID);
 		pdispScript->Invoke(dispID, IID_NULL, 0, DISPATCH_METHOD, &params, &vResult, NULL, NULL);
-		lng10[9] = vResult.dblVal;
+		lng10[9] = vResult.dblVal;*/
     }
 
 	return 0;
