@@ -654,8 +654,8 @@ void CTest::OnBnClickedBtnRemovenotif()
 	data = handle_url_fields("198.61.169.55:8081",
 		"{\
 		  \"reqtype\":\"rmntfid\",\
-		  \"aquaname\":\"hihi\",\
-		  \"ntfid\":\"a13d15a0-a0ed-41b0-8d7d-2f8629df2383\",\
+		  \"aquaname\":\"device\",\
+		  \"ntfid\":\"a679a225\",\
 		  \"iid\":\"12341234123412341234\"\
 		}"
 		);
