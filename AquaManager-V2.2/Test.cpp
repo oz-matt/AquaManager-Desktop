@@ -417,7 +417,7 @@ void CTest::OnBnClickedBtnNotiflowbat()
 			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
 			\"target\" : \"+12037701412\",\
 			\"trigger\" : \"lowBattery\",\
-			\"continuous\" : \"true\",\
+			\"continuous\" : \"true\"\
 		  },\
 		  \"iid\":\"1234123412341234\"\
 		}"
@@ -632,7 +632,7 @@ void CTest::OnBnClickedBtnNotifuploaddata()
 			\"ntfuuid\" : \"abcdefghi-qwerfeqrf-qerf\",\
 			\"target\" : \"+12037701412\",\
 			\"trigger\" : \"uploadsData\",\
-			\"continuous\" : \"false\",\
+			\"continuous\" : \"false\"\
 		  },\
 		  \"iid\":\"12341234123412341234\"\
 		}"
