@@ -6,6 +6,8 @@
 #include "Device.h"
 #include "afxdialogex.h"
 
+#include "DlgAddDevice.h"
+#include "AquaLib.h"
 
 // CDevice dialog
 
@@ -32,6 +34,8 @@ void CDevice::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CDevice, CDialog)
 	ON_WM_CTLCOLOR()
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LST_Device, &CDevice::OnLvnItemchangedLstDevice)
+	ON_BN_CLICKED(IDC_BTN_AddMarker, &CDevice::OnBnClickedBtnAddmarker)
 END_MESSAGE_MAP()
 
 
@@ -112,4 +116,35 @@ HBRUSH CDevice::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
+}
+
+
+void CDevice::OnLvnItemchangedLstDevice(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
+}
+
+
+void CDevice::OnBnClickedBtnAddmarker()
+{
+	// TODO: Add your control notification handler code here
+	CDlgAddDevice dlg;
+	dlg.DoModal();
+	dlg.m_aquaid;
+	dlg.m_passcode;
+
+	char* data;
+	char ip[32] = "198.61.169.55:8081";
+	char temp[1024] = "";
+
+	sprintf(temp, "%s\"%s\",%s\"%s\",%s", "{\"reqtype\":\"auth\",\"id\":",dlg.m_aquaid, "\"pass\":", dlg.m_passcode, "\"iid\":\"12341234123412341234\"}");
+	data = handle_url_fields(ip, temp);
+
+	if (data) {
+		//printf("%s\n", data);
+		MessageBox(data, "Auth Info");
+        free(data);
+    }
 }
