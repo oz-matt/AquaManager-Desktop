@@ -6,8 +6,17 @@
 #include "Device.h"
 #include "afxdialogex.h"
 
+#include<fstream>
+#include<string>
+#include<iterator>
+
 #include "DlgAddDevice.h"
 #include "AquaLib.h"
+
+#include "include/json/reader.h"
+#include "include/json/value.h"
+
+using namespace std;
 
 // CDevice dialog
 
@@ -132,8 +141,8 @@ void CDevice::OnBnClickedBtnAddmarker()
 	// TODO: Add your control notification handler code here
 	CDlgAddDevice dlg;
 	dlg.DoModal();
-	dlg.m_aquaid;
-	dlg.m_passcode;
+	//dlg.m_aquaid;
+	//dlg.m_passcode;
 
 	char* data;
 	char ip[32] = "198.61.169.55:8081";
@@ -142,9 +151,65 @@ void CDevice::OnBnClickedBtnAddmarker()
 	sprintf(temp, "%s\"%s\",%s\"%s\",%s", "{\"reqtype\":\"auth\",\"id\":",dlg.m_aquaid, "\"pass\":", dlg.m_passcode, "\"iid\":\"12341234123412341234\"}");
 	data = handle_url_fields(ip, temp);
 
-	if (data) {
-		//printf("%s\n", data);
-		MessageBox(data, "Auth Info");
-        free(data);
-    }
+	// process data
+	sprintf(data, "%s",
+			"{\
+				\"uploadid\": \"UP000000\",\
+				\"code\": \"0\",\
+				\"msg\": \"\",\
+				\"files\":\
+				[\
+					{\
+						\"code\": \"0\",\
+						\"msg\": \"\",\
+						\"filename\": \"1D_16-35_1.jpg\",\
+						\"filesize\": \"196690\",\
+						\"width\": \"1024\",\
+						\"height\": \"682\",\
+						\"images\":\
+						[\
+							{\
+								\"url\": \"fmn061/20111118\",\
+								\"type\": \"large\",\
+								\"width\": \"720\",\
+								\"height\": \"479\"\
+							},\
+							{\
+								\"url\": \"fmn061/20111118\",\
+								\"type\": \"main\",\
+								\"width\": \"200\",\
+								\"height\": \"133\"\
+							}\
+						]\
+					}\
+				]\
+			}"
+		);
+
+	Json::Reader reader;
+	Json::Value root;
+
+	if (reader.parse(data, root))
+	{
+		std::string code;
+		// Access an object value by name, create a null member if it does not exist.
+		if (!root["uploadid"].isNull())
+			code = root["uploadid"].asString();
+
+		// Return the member named key if it exist, defaultValue otherwise.
+		code = root.get("uploadid", "null").asString();
+
+		int file_size = root["files"].size();
+
+		for(int i = 0; i < file_size; ++i)
+		{
+		  Json::Value val_image = root["files"][i]["images"];
+		  int image_size = val_image.size();
+		  for(int j = 0; j < image_size; ++j)
+		  {
+			std::string type = val_image[j]["type"].asString();
+			std::string url = val_image[j]["url"].asString();
+		  }
+		}
+	}
 }
