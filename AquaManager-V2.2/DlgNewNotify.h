@@ -1,6 +1,7 @@
 #pragma once
 
-
+#include<string>
+using namespace std;
 // CDlgNewNotify dialog
 
 class CDlgNewNotify : public CDialogEx
@@ -20,4 +21,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
+
+	string trigger;
+	string geo_type;
+	string geo_data;
 };
