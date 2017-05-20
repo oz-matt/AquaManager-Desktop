@@ -25,4 +25,6 @@ public:
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	int nIndex;
 	CImageList *ImgHeaders;
+	afx_msg void OnBnClickedBtnNewnotify();
+	CMFCButton m_btn_newNotify;
 };

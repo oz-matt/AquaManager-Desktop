@@ -6,6 +6,7 @@
 #include "Notification.h"
 #include "afxdialogex.h"
 
+#include "DlgNewNotify.h"
 
 // CNotification dialog
 
@@ -27,11 +28,13 @@ void CNotification::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LST_Notification, m_lst_notificaton);
+	DDX_Control(pDX, IDC_BTN_NewNotify, m_btn_newNotify);
 }
 
 
 BEGIN_MESSAGE_MAP(CNotification, CDialog)
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_BTN_NewNotify, &CNotification::OnBnClickedBtnNewnotify)
 END_MESSAGE_MAP()
 
 
@@ -90,6 +93,9 @@ BOOL CNotification::OnInitDialog()
 
 	m_brush.CreateSolidBrush(RGB(255, 255, 255));
 
+	m_btn_newNotify.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_newNotify.SetTextColor(RGB(0, 0, 255));
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -104,4 +110,12 @@ HBRUSH CNotification::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
+}
+
+
+void CNotification::OnBnClickedBtnNewnotify()
+{
+	// TODO: Add your control notification handler code here
+	CDlgNewNotify dlg;
+	dlg.DoModal();
 }
