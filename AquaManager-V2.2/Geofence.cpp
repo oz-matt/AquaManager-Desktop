@@ -6,6 +6,7 @@
 #include "Geofence.h"
 #include "afxdialogex.h"
 
+#include "DlgAddGeofence.h"
 
 // CGeofence dialog
 
@@ -27,11 +28,13 @@ void CGeofence::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LST_Geofence, m_lst_geofence);
+	DDX_Control(pDX, IDC_BTN_Geofence, m_btn_geofence);
 }
 
 
 BEGIN_MESSAGE_MAP(CGeofence, CDialog)
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_BTN_Geofence, &CGeofence::OnBnClickedBtnGeofence)
 END_MESSAGE_MAP()
 
 
@@ -90,6 +93,9 @@ BOOL CGeofence::OnInitDialog()
 
 	m_brush.CreateSolidBrush(RGB(255, 255, 255));
 
+	m_btn_geofence.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_geofence.SetTextColor(RGB(0, 0, 255));
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -104,4 +110,13 @@ HBRUSH CGeofence::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
+}
+
+
+void CGeofence::OnBnClickedBtnGeofence()
+{
+	// TODO: Add your control notification handler code here
+
+	CDlgAddGeofence dlg;
+	dlg.DoModal();
 }

@@ -120,6 +120,7 @@
     <ClInclude Include="ColorListCtrol.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DlgAddDevice.h" />
+    <ClInclude Include="DlgAddGeofence.h" />
     <ClInclude Include="DlgConfigureDevice.h" />
     <ClInclude Include="DlgNewNotify.h" />
     <ClInclude Include="Geofence.h" />
@@ -151,6 +152,7 @@
     <ClCompile Include="ColorListCtrol.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DlgAddDevice.cpp" />
+    <ClCompile Include="DlgAddGeofence.cpp" />
     <ClCompile Include="DlgConfigureDevice.cpp" />
     <ClCompile Include="DlgNewNotify.cpp" />
     <ClCompile Include="Geofence.cpp" />
