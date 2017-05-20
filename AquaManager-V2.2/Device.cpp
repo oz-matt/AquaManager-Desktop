@@ -152,64 +152,63 @@ void CDevice::OnBnClickedBtnAddmarker()
 	data = handle_url_fields(ip, temp);
 
 	// process data
-	sprintf(data, "%s",
-			"{\
-				\"uploadid\": \"UP000000\",\
-				\"code\": \"0\",\
-				\"msg\": \"\",\
-				\"files\":\
-				[\
-					{\
-						\"code\": \"0\",\
-						\"msg\": \"\",\
-						\"filename\": \"1D_16-35_1.jpg\",\
-						\"filesize\": \"196690\",\
-						\"width\": \"1024\",\
-						\"height\": \"682\",\
-						\"images\":\
-						[\
-							{\
-								\"url\": \"fmn061/20111118\",\
-								\"type\": \"large\",\
-								\"width\": \"720\",\
-								\"height\": \"479\"\
-							},\
-							{\
-								\"url\": \"fmn061/20111118\",\
-								\"type\": \"main\",\
-								\"width\": \"200\",\
-								\"height\": \"133\"\
-							}\
-						]\
-					}\
-				]\
-			}"
-		);
 
 	Json::Reader reader;
 	Json::Value root;
 
 	if (reader.parse(data, root))
 	{
-		std::string code;
-		// Access an object value by name, create a null member if it does not exist.
-		if (!root["uploadid"].isNull())
-			code = root["uploadid"].asString();
-
+		std::string qresponse;
 		// Return the member named key if it exist, defaultValue otherwise.
-		code = root.get("uploadid", "null").asString();
+		qresponse = root.get("qresponse", "null").asString();
 
-		int file_size = root["files"].size();
+		//Json::Value qdata = root.get("qdata", "null");
+		//string aquakey = qdata.get("aquakey", "null").asString();
+		//string phonenumber = qdata.get("phonenumber", "null").asString();
+		Json::Value qdata = root["qdata"];
+		string aquakey = qdata["aquakey"].asString();
+		string phonenumber = qdata["phonenumber"].asString();
 
-		for(int i = 0; i < file_size; ++i)
+		//Json::Value aqsens = root.get("aqsens", "null");
+		Json::Value aqsens = root["aqsens"];
+		int aqsens_size = 0;
+		string aqsens_string = aqsens.asString();
+
+		Json::Reader aqsens_reader;
+		Json::Value aqsens_node;
+		if (aqsens_reader.parse(aqsens_string, aqsens_node))
 		{
-		  Json::Value val_image = root["files"][i]["images"];
-		  int image_size = val_image.size();
-		  for(int j = 0; j < image_size; ++j)
-		  {
-			std::string type = val_image[j]["type"].asString();
-			std::string url = val_image[j]["url"].asString();
-		  }
+			aqsens_size = aqsens_node.size();
+		}
+
+		for(int i = 0; i < aqsens_size; ++i)
+		{
+			string datetime = aqsens_node[i]["datetime"].asString();
+			string uuid = aqsens_node[i]["uuid"].asString();
+
+			Json::Value gpsminimum = aqsens_node[i]["gpsminimum"];
+			string time = gpsminimum["time"].asString();
+			int numsat = gpsminimum["numsat"].asInt();
+			double lon = gpsminimum["lon"].asDouble();
+			double lat = gpsminimum["lat"].asDouble();
+			double height = gpsminimum["height"].asDouble();
+			double gspeed = gpsminimum["gspeed"].asDouble();
+			double direction = gpsminimum["direction"].asDouble();
+
+			Json::Value gpsextended = aqsens_node[i]["gpsextended"];
+
+			Json::Value sensors = aqsens_node[i]["sensors"];
+			int pct_battery = sensors["pct_battery"].asInt();
+			string accelerometer = sensors["accelerometer"].asString();
+			int temperature = sensors["temperature"].asInt();
+			int humidity = sensors["humidity"].asInt();
+			int pressure = sensors["pressure"].asInt();
+			int update_rate = sensors["update_rate"].asInt();
+
+			Json::Value ble = aqsens_node[i]["ble"];
+			Json::Value custom = aqsens_node[i]["custom"];
+			string incoming_ip = aqsens_node[i]["incoming_ip"].asString();
+			string install_id = aqsens_node[i]["install_id"].asString();
 		}
 	}
 }
