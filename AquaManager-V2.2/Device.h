@@ -27,4 +27,6 @@ public:
 	CImageList *ImgHeaders;
 	afx_msg void OnLvnItemchangedLstDevice(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedBtnAddmarker();
+	CMFCButton m_btn_add_device;
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };

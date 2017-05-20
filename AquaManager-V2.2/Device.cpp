@@ -38,6 +38,7 @@ void CDevice::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LST_Device, m_lst_device);
+	DDX_Control(pDX, IDC_BTN_AddMarker, m_btn_add_device);
 }
 
 
@@ -45,6 +46,7 @@ BEGIN_MESSAGE_MAP(CDevice, CDialog)
 	ON_WM_CTLCOLOR()
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LST_Device, &CDevice::OnLvnItemchangedLstDevice)
 	ON_BN_CLICKED(IDC_BTN_AddMarker, &CDevice::OnBnClickedBtnAddmarker)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -110,6 +112,9 @@ BOOL CDevice::OnInitDialog()
 	m_lst_device.SetBkColor(RGB(255, 255, 255));
 
 	m_brush.CreateSolidBrush(RGB(255, 255, 255));
+
+	m_btn_add_device.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_add_device.SetTextColor(RGB(0, 0, 255));
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -211,4 +216,12 @@ void CDevice::OnBnClickedBtnAddmarker()
 			string install_id = aqsens_node[i]["install_id"].asString();
 		}
 	}
+}
+
+
+void CDevice::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CDialog::OnLButtonDown(nFlags, point);
 }

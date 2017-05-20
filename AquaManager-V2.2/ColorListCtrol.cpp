@@ -5,6 +5,7 @@
 #include "AquaManager-V2.2.h"
 #include "ColorListCtrol.h"
 
+#include "DlgConfigureDevice.h"
 
 // CColorListCtrol
 
@@ -139,9 +140,11 @@ void CColorListCtrol::OnLButtonDown(UINT nFlags, CPoint point)
 	hitinfo.pt = point;
 	SubItemHitTest(&hitinfo);
 
-	CString Temp;
-	Temp.Format("Row: %d, Column %d", hitinfo.iItem, hitinfo.iSubItem);
-	MessageBox(Temp, "Information");
+	//CString Temp;
+	//Temp.Format("Row: %d, Column %d", hitinfo.iItem, hitinfo.iSubItem);
+	//MessageBox(Temp, "Information");
+	CDlgConfigureDevice dlg;
+	dlg.DoModal();
 
 	CListCtrl::OnLButtonDown(nFlags, point);
 }

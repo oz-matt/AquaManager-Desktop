@@ -120,6 +120,7 @@
     <ClInclude Include="ColorListCtrol.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DlgAddDevice.h" />
+    <ClInclude Include="DlgConfigureDevice.h" />
     <ClInclude Include="Geofence.h" />
     <ClInclude Include="include\json\allocator.h" />
     <ClInclude Include="include\json\assertions.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="ColorListCtrol.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DlgAddDevice.cpp" />
+    <ClCompile Include="DlgConfigureDevice.cpp" />
     <ClCompile Include="Geofence.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Notification.cpp" />
