@@ -176,7 +176,7 @@ void CTest::OnBnClickedBtnAuth()
 	// TODO: Add your control notification handler code here
 	char* data;
 
-	data = handle_url("198.61.169.55:8081");
+	data = handle_url("https://data.aquaiot.com");
 
 	if (data) {
 		//printf("%s\n", data);
@@ -231,7 +231,7 @@ void CTest::OnBnClickedBtnGetaqsens()
 	// TODO: Add your control notification handler code here
 	char* data;
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		"{\"reqtype\":\"getaqsen\",\"aquakey\":\"D4ADCC0DA03DAC64\",\"pass\":\"849DEEE4\",\"iid\":\"12341234123412341234\"}");
 
 	if (data) {
@@ -269,7 +269,7 @@ void CTest::OnBnClickedBtnNotifcircle()
 		lat, lng, radius,
 		"] }, \"iid\":\"12341234123412341234\"}");
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		temp);
 
 	if (data) {
@@ -321,7 +321,7 @@ void CTest::OnBnClickedBtnNotifpolygon()
 		"} }, \"iid\":\"12341234123412341234\"}"
 		);
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		temp);
 
 	if (data) {
@@ -337,7 +337,7 @@ void CTest::OnBnClickedBtnNotiflowbat()
 	// TODO: Add your control notification handler code here
 	char* data;
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -392,7 +392,7 @@ void CTest::OnBnClickedBtnNotifoutcircle()
 		  \"iid\":\"12341234123412341234\"\
 		}");
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		temp);
 
 	if (data) {
@@ -448,7 +448,7 @@ void CTest::OnBnClickedBtnNotifoutpolygon()
 		  \"iid\":\"12341234123412341234\"\
 		}");
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		temp);
 
 	if (data) {
@@ -464,7 +464,7 @@ void CTest::OnBnClickedBtnNotifseemac()
 	// TODO: Add your control notification handler code here
 	char* data;
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -494,7 +494,7 @@ void CTest::OnBnClickedBtnNotifstartmov()
 	// TODO: Add your control notification handler code here
 	char* data;
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -523,7 +523,7 @@ void CTest::OnBnClickedBtnNotifstopmov()
 	// TODO: Add your control notification handler code here
 	char* data;
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -552,7 +552,7 @@ void CTest::OnBnClickedBtnNotifuploaddata()
 	// TODO: Add your control notification handler code here
 	char* data;
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -581,7 +581,7 @@ void CTest::OnBnClickedBtnRemovenotif()
 	// TODO: Add your control notification handler code here
 	char* data;
 
-	data = handle_url_fields("198.61.169.55:8081",
+	data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"rmntfid\",\
 		  \"aquaname\":\"device\",\

@@ -128,7 +128,7 @@ void CNotification::OnBnClickedBtnNewnotify()
 	dlg.DoModal();
 
 	char* data;
-	char ip[32] = "198.61.169.55:8081";
+	char ip[32] = "https://data.aquaiot.com";
 	char temp[1024] = "";
 
 	double radius = 50.0000;
@@ -191,7 +191,7 @@ void CNotification::OnBnClickedBtnNewnotify()
 		"} }, \"iid\":\"12341234123412341234\"}"
 		);
 
-		data = handle_url_fields("198.61.169.55:8081",
+		data = handle_url_fields("https://data.aquaiot.com",
 		temp);
 	}
 
@@ -257,13 +257,13 @@ void CNotification::OnBnClickedBtnNewnotify()
 		  \"iid\":\"12341234123412341234\"\
 		}");
 
-		data = handle_url_fields("198.61.169.55:8081",
+		data = handle_url_fields("https://data.aquaiot.com",
 		temp);
 	}
 
 	if (dlg.trigger == "lowBattery")
 	{
-		data = handle_url_fields("198.61.169.55:8081",
+		data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -282,7 +282,7 @@ void CNotification::OnBnClickedBtnNewnotify()
 
 	if (dlg.trigger == "seesMac")
 	{
-		data = handle_url_fields("198.61.169.55:8081",
+		data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -302,7 +302,7 @@ void CNotification::OnBnClickedBtnNewnotify()
 
 	if (dlg.trigger == "startsMoving")
 	{
-		data = handle_url_fields("198.61.169.55:8081",
+		data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -321,7 +321,7 @@ void CNotification::OnBnClickedBtnNewnotify()
 
 	if (dlg.trigger == "stopsMoving")
 	{
-		data = handle_url_fields("198.61.169.55:8081",
+		data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\
@@ -340,7 +340,7 @@ void CNotification::OnBnClickedBtnNewnotify()
 
 	if (dlg.trigger == "uploadsData")
 	{
-		data = handle_url_fields("198.61.169.55:8081",
+		data = handle_url_fields("https://data.aquaiot.com",
 		"{\
 		  \"reqtype\":\"notif\",\
 		  \"aquakey\":\"D4ADCC0DA03DAC64\",\

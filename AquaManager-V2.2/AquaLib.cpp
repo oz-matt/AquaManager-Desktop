@@ -97,6 +97,7 @@ char * handle_url_fields(char * url, char * fields)
 
     curl = curl_easy_init();
     if (curl) {
+		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, FALSE);
         curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
         curl_easy_setopt(curl, CURLOPT_URL, url);

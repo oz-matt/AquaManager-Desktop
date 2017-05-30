@@ -150,7 +150,7 @@ void CDevice::OnBnClickedBtnAddmarker()
 	//dlg.m_passcode;
 
 	char* data;
-	char ip[32] = "198.61.169.55:8081";
+	char ip[32] = "https://data.aquaiot.com";
 	char temp[1024] = "";
 
 	sprintf(temp, "%s\"%s\",%s\"%s\",%s", "{\"reqtype\":\"auth\",\"id\":",dlg.m_aquaid, "\"pass\":", dlg.m_passcode, "\"iid\":\"12341234123412341234\"}");
