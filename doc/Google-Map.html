@@ -157,6 +157,26 @@
 			}
 		  });
       }
+	  
+		var drawCircle = function () {   
+			var circle;
+			google.maps.event.addListenerOnce(map, "click", function (event) {  
+				var radius = 0;
+				var markerCenter = new google.maps.Marker({ position: event.latLng, map: map, draggable: false });
+				var markerRadius = new google.maps.Marker({ position: event.latLng, map: map, draggable: true, title: title });  
+				google.maps.event.addListener(markerRadius, 'drag', function (MouseEvent) {
+					radius = calculationDistance(markerCenter.getPosition().lat(), markerCenter.getPosition().lng(), MouseEvent.latLng.lat(), MouseEvent.latLng.lng());
+					circle.setRadius(radius * 1000); 
+				});
+				var circleOptions = {
+					map: map,
+					center: event.latLng,
+					radius: radius,
+					strokeWeight: 0
+				}; 
+				circle = new google.maps.Circle(circleOptions);
+			});
+		}
 
 	  function SetCenter(x, y, type)
 	  {
