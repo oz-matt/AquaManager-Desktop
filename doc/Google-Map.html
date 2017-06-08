@@ -200,6 +200,7 @@
 	  {
         map.setCenter(new google.maps.LatLng(x, y));
 		// just for test ...
+		/*
 		google.maps.event.addListener(map, 'click', function (event) {  
 				//alert("clicked");
 				var radius = 50 * 1000;
@@ -211,6 +212,38 @@
 					strokeWeight: 0
 				}; 
 				var circle = new google.maps.Circle(circleOptions);
+			});
+		*/
+		var PathData = [
+			["point1", 47.378802, -74.242796], 
+			["point2", 43.378802, -74.242796],
+			["point3", 43.378802, -70.242796],
+			["point4", 47.378802, -70.242796],
+			["point5", 47.378802, -74.242796]
+			];
+		//var center = new google.maps.LatLng(PathData[2][1], PathData[2][2]);
+		var bounds = new google.maps.LatLngBounds();
+		var path = [];
+		//bounds.extend(center);
+		for (var i in PathData)
+		{
+			var p = PathData[i];
+			var latlng = new google.maps.LatLng(p[1], p[2]);
+			path.push(latlng);
+			bounds.extend(latlng);
+		}
+		google.maps.event.addListener(map, 'click', function (event) {  
+				//alert("clicked");
+				var polygonOptions = {
+					map: map,
+					center: event.latLng,
+					paths: path,
+					strokeWeight: 0
+				}; 
+				var polygon = new google.maps.Polygon(polygonOptions);
+				//polygon.setMap(map);
+				bounds.extend(event.latLng);
+				map.fitBounds(bounds);
 			});
       }
 
