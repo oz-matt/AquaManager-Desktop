@@ -238,7 +238,13 @@
 					map: map,
 					center: event.latLng,
 					paths: path,
-					strokeWeight: 0
+					strokeWeight: 3,
+					strokeColor: '#FF0000',
+					strokeOpacity: 0.8,
+					fillColor: '#0000FF',
+					fillOpacity: 0.1,
+					//clickable: false,
+					editable: true
 				}; 
 				var polygon = new google.maps.Polygon(polygonOptions);
 				//polygon.setMap(map);
