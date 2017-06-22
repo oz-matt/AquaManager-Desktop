@@ -111,6 +111,8 @@
     <None Include="res\Toolbar256.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddCircle.h" />
+    <ClInclude Include="AddPolygon.h" />
     <ClInclude Include="AquaLib.h" />
     <ClInclude Include="AquaManager-V2.2.h" />
     <ClInclude Include="AquaManager-V2.2Doc.h" />
@@ -143,6 +145,8 @@
     <ClInclude Include="Test.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddCircle.cpp" />
+    <ClCompile Include="AddPolygon.cpp" />
     <ClCompile Include="AquaLib.cpp" />
     <ClCompile Include="AquaManager-V2.2.cpp" />
     <ClCompile Include="AquaManager-V2.2Doc.cpp" />

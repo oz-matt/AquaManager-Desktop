@@ -6,452 +6,398 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <style>
-	    /* Always set the map height explicitly to define the size of the div
+	    /* 
+		 * Always set the map height explicitly to define the size of the div
 		 * element that contains the map.
 		 */
-       #map {
-        height: 100%;
-        width: 100%;
-       }
+		#map {
+			height: 100%;
+			width: 100%;
+		}
 	    /* Optional: Makes the sample page fill the window. */
-		  html, body {
-		  height: 100%;
-		  margin: 0;
-		  padding: 0;
+		html, body {
+			height: 100%;
+			margin: 0;
+			padding: 0;
 		}
     </style>
   </head>
+
   <body>
     <div id="map"></div>
     <script>
-	  var map;
-	  var markerArray = new Array();
-	  var radius_global;
-	  var lat_global;
-	  var lng_global;
-	  var coordinatesArray_global;
-	  var latarray_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-	  var lngarray_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
-	  var coordinatesArrayCount_global;
-	  var lat1_global;
-	  var lat2_global;
-	  var lat3_global;
-	  var lat4_global;
-	  var lat5_global;
-	  var lat6_global;
-	  var lat7_global;
-	  var lat8_global;
-	  var lat9_global;
-	  var lat10_global;
-	  var lng1_global;
-	  var lng2_global;
-	  var lng3_global;
-	  var lng4_global;
-	  var lng5_global;
-	  var lng6_global;
-	  var lng7_global;
-	  var lng8_global;
-	  var lng9_global;
-	  var lng10_global;
+		var map;
+		var markerArray = new Array();
+
+		var radius_global;
+		var lat_global;
+		var lng_global;
+		var coordinatesArray_global;
+		var latarray_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+		var lngarray_global = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+		var coordinatesArrayCount_global;
+		var lat1_global;
+		var lat2_global;
+		var lat3_global;
+		var lat4_global;
+		var lat5_global;
+		var lat6_global;
+		var lat7_global;
+		var lat8_global;
+		var lat9_global;
+		var lat10_global;
+		var lng1_global;
+		var lng2_global;
+		var lng3_global;
+		var lng4_global;
+		var lng5_global;
+		var lng6_global;
+		var lng7_global;
+		var lng8_global;
+		var lng9_global;
+		var lng10_global;
 	  
-	  var bounds;
-		var path = [];
-		var polygon;
+		var bounds_global;
+		var path_global = [];
+		var radius_input_global;
+		var polygon_global;
+		var circle_global;
+		var is_draw_global = 0;
+		var side_input_global;
+
+		function initMap() {
+			var pos = {lat: 45.378802, lng: -70.242796};
+			map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 7,
+				center: pos
+			});
+			var marker = new google.maps.Marker({
+			    position: pos,
+			    map: map
+			});
+
+			markerArray.push(marker);
+
+			//map.setCenter(new google.maps.LatLng(45.378802, -68.242796));
+			marker = new google.maps.Marker({
+				position: {lat: 45.378802, lng: -68.242796},
+				map: map
+			});
+
+			markerArray.push(marker);
 		
-	var is_draw_global = 0;
-
-      function initMap() {
-        var pos = {lat: 45.378802, lng: -70.242796};
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
-          center: pos
-        });
-        var marker = new google.maps.Marker({
-          position: pos,
-          map: map
-        });
-
-		markerArray.push(marker);
-
-		//map.setCenter(new google.maps.LatLng(45.378802, -68.242796));
-		marker = new google.maps.Marker({
-          position: {lat: 45.378802, lng: -68.242796},
-          map: map
-        });
-
-		markerArray.push(marker);
-		
-		// Drawing shapes
-		  var drawingManager = new google.maps.drawing.DrawingManager({
-			drawingMode: null,
-			drawingControl: true,
-			drawingControlOptions: {
-			  position: google.maps.ControlPosition.TOP_CENTER,
-			  drawingModes: ['circle', 'polygon']
-			},
-			//markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
-			circleOptions: {
-			  fillColor: '#ffff00',
-			  fillOpacity: 1,
-			  strokeWeight: 5,
-			  clickable: false,
-			  editable: true,
-			  zIndex: 1
-			}
-		  });
-
-		  drawingManager.setMap(map);
-		  
-		  google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
-			var radius = circle.getRadius();
-			radius_global = radius;
-			// alert("circlecomplete event: " + radius);
-			//console.log('radius', circle.getRadius());
-			//console.log('lat', circle.getCenter().lat());
-			//console.log('lng', circle.getCenter().lng());
-			lat_global = circle.getCenter().lat();
-			lng_global = circle.getCenter().lng();
-		  });
-		  
-		  google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
-			 var coordinatesArray = polygon.getPath().getArray();
-			 coordinatesArray_global = coordinatesArray;
-			 alert("coordinatesArray: " + coordinatesArray_global);
-			 // maxmum 10 points
-			 coordinatesArrayCount_global = coordinatesArray_global.length;
-			 for (var i = 0; i < coordinatesArrayCount_global; i++) {
-				if (i >= 10) {
-					break;
+			// Drawing shapes
+			var drawingManager = new google.maps.drawing.DrawingManager({
+					drawingMode: null,
+					drawingControl: true,
+					drawingControlOptions: {
+					position: google.maps.ControlPosition.TOP_CENTER,
+					drawingModes: ['circle', 'polygon']
+				},
+				//markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+				circleOptions: {
+					fillColor: '#ffff00',
+					fillOpacity: 1,
+					strokeWeight: 5,
+					clickable: false,
+					editable: true,
+					zIndex: 1
 				}
+			});
+
+			drawingManager.setMap(map);
+		  
+			google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
+				var radius = circle.getRadius();
+				radius_global = radius;
+				// alert("circlecomplete event: " + radius);
+				//console.log('radius', circle.getRadius());
+				//console.log('lat', circle.getCenter().lat());
+				//console.log('lng', circle.getCenter().lng());
+				lat_global = circle.getCenter().lat();
+				lng_global = circle.getCenter().lng();
+			});
+		  
+			google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
+				var coordinatesArray = polygon.getPath().getArray();
+				coordinatesArray_global = coordinatesArray;
+				alert("coordinatesArray: " + coordinatesArray_global);
+				// maxmum 10 points
+				coordinatesArrayCount_global = coordinatesArray_global.length;
+				for (var i = 0; i < coordinatesArrayCount_global; i++) {
+					if (i >= 10) {
+						break;
+					}
 				
-				latarray_global[i] = coordinatesArray_global[i].lat();
-				lngarray_global[i] = coordinatesArray_global[i].lng();
-			}
+					latarray_global[i] = coordinatesArray_global[i].lat();
+					lngarray_global[i] = coordinatesArray_global[i].lng();
+				}
 			
-			lat1_global = latarray_global[0];
-			lat2_global = latarray_global[1];
-			lat3_global = latarray_global[2];
-			lat4_global = latarray_global[3];
-			lat5_global = latarray_global[4];
-			lat6_global = latarray_global[5];
-			lat7_global = latarray_global[6];
-			lat8_global = latarray_global[7];
-			lat9_global = latarray_global[8];
-			lat10_global = latarray_global[9];
-			
-			lng1_global = lngarray_global[0];
-			lng2_global = lngarray_global[1];
-			lng3_global = lngarray_global[2];
-			lng4_global = lngarray_global[3];
-			lng5_global = lngarray_global[4];
-			lng6_global = lngarray_global[5];
-			lng7_global = lngarray_global[6];
-			lng8_global = lngarray_global[7];
-			lng9_global = lngarray_global[8];
-			lng10_global = lngarray_global[9];
-		  });
+				lat1_global = latarray_global[0];
+				lat2_global = latarray_global[1];
+				lat3_global = latarray_global[2];
+				lat4_global = latarray_global[3];
+				lat5_global = latarray_global[4];
+				lat6_global = latarray_global[5];
+				lat7_global = latarray_global[6];
+				lat8_global = latarray_global[7];
+				lat9_global = latarray_global[8];
+				lat10_global = latarray_global[9];
+				
+				lng1_global = lngarray_global[0];
+				lng2_global = lngarray_global[1];
+				lng3_global = lngarray_global[2];
+				lng4_global = lngarray_global[3];
+				lng5_global = lngarray_global[4];
+				lng6_global = lngarray_global[5];
+				lng7_global = lngarray_global[6];
+				lng8_global = lngarray_global[7];
+				lng9_global = lngarray_global[8];
+				lng10_global = lngarray_global[9];
+			});
 		  
-		  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
-			if (event.type == 'circle') {
-			  var radius = event.overlay.getRadius();
-			  //radius_global = radius;
-			  // alert("overlaycomplete event: " + radius);
-			}
-			if (event.type == 'polygon') {
-			  var coordinatesArray = event.overlay.getPath().getArray();
-			  // alert("overlaycomplete event: " + coordinatesArray);
-			}
-		  });
-		  
-		  //google.maps.event.addListener(map, 'click', function (event) {  
-				//alert("clicked");
-			//	var radius = 100 * 1000;
-				//var markerCenter = new google.maps.Marker({ position: event.latLng, map: map, draggable: false });
-			//	var circleOptions = {
-			//		map: map,
-			//		center: event.latLng,
-			//		radius: radius,
-			//		strokeWeight: 0
-			//	}; 
-			//	var circle = new google.maps.Circle(circleOptions);
-			//});
-		  			
-			//var circleOptions = {
-			//	map: map,
-			//	center: {lat: 45.378802, lng: -68.242796},
-			//	radius: 100 * 1000,
-			//	strokeWeight: 0,
-			//	fillColor: '#ffff00'
-			//}; 
-			//var circle = new google.maps.Circle(circleOptions);
+			google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) {
+				if (event.type == 'circle') {
+				  var radius = event.overlay.getRadius();
+				  //radius_global = radius;
+				  //alert("overlaycomplete event: " + radius);
+				}
+				if (event.type == 'polygon') {
+				  var coordinatesArray = event.overlay.getPath().getArray();
+				  //alert("overlaycomplete event: " + coordinatesArray);
+				}
+			});
 			
-		google.maps.event.addListener(map, 'click', function (event) {  
+			google.maps.event.addListener(map, 'click', function (event) {  
 				//alert("clicked");
 				if (is_draw_global == 0)
 					return;
-				var polygonOptions = {
-					//map: map,
-					center: event.latLng,
-					paths: path,
-					strokeWeight: 3,
-					strokeColor: '#FF0000',
-					strokeOpacity: 0.8,
-					fillColor: '#0000FF',
-					fillOpacity: 0.1,
-					//clickable: false,
-					editable: true,
-					draggable:true
-				}; 
-				polygon = new google.maps.Polygon(polygonOptions);
-				polygon.setMap(map);
-				bounds.extend(event.latLng);
-				map.fitBounds(bounds);
-				alert("click:" + path);
-				alert("click:" + bounds);
+					
+				if (is_draw_global == 1) {
+					var circleOptions = {
+						map: map,
+						center: event.latLng,
+						radius: radius_input_global,
+						strokeWeight: 3,
+						strokeColor: '#FF0000',
+						strokeOpacity: 0.8,
+						fillColor: '#0000FF',
+						fillOpacity: 0.1,
+						//clickable: false,
+						editable: true,
+						draggable:true
+					}; 
+					circle_global = new google.maps.Circle(circleOptions);
+				}
+				
+				if (is_draw_global == 2) {	
+					var PathData = [
+						["point1", 47.378802, -74.242796], 
+						["point2", 43.378802, -74.242796],
+						["point3", 43.378802, -70.242796],
+						["point4", 47.378802, -70.242796],
+						["point5", 47.378802, -74.242796]
+					];
+					//var center = new google.maps.LatLng(PathData[2][1], PathData[2][2]);
+					bounds_global = new google.maps.LatLngBounds();
+					//bounds_global.extend(center);
+					for (var i in PathData)	{
+						var p = PathData[i];
+						var latlng = new google.maps.LatLng(p[1], p[2]);
+						path_global.push(latlng);
+						bounds_global.extend(latlng);
+					}
+			
+					var polygonOptions = {
+						//map: map,
+						center: event.latLng,
+						paths: path_global,
+						strokeWeight: 3,
+						strokeColor: '#FF0000',
+						strokeOpacity: 0.8,
+						fillColor: '#0000FF',
+						fillOpacity: 0.1,
+						//clickable: false,
+						editable: true,
+						draggable:true
+					}; 
+					polygon_global = new google.maps.Polygon(polygonOptions);
+					polygon_global.setMap(map);
+					bounds_global.extend(event.latLng);
+					map.fitBounds(bounds_global);
+					//alert("click:" + path_global);
+					//alert("click:" + bounds_global);
+				}
+				
 				is_draw_global = 0;
 			});
 			
-			var timeout;
+			google.maps.event.addListener(map, 'idle', function() {
+				if (polygon_global == null)
+					return;
 			
-		google.maps.event.addListener(map, 'idle', function() {
-			if (polygon == null)
-				return;
-				polygon.setMap(map);
-				
-				window.clearTimeout(timeout);
-		timeout = window.setTimeout(function () {
-			//do stuff on event
-			alert("idle 500:" + path);
-			}, 500);
+				//var coordinatesArray = polygon_global.getPath().getArray();
+				//alert("idle:" + coordinatesArray);
+				//alert("idle:" + bounds_global);
+			});	
 			
-			var coordinatesArray = polygon.getPath().getArray();
-			alert("idle:" + coordinatesArray);
-			alert("idle:" + bounds);
-		  });
-		  
-		  /*
-		  window.setTimeout(function () {
-			//do stuff on event
-			alert("idle 5000:" + path);
-			}, 5);*/
+			setInterval( "timer()", 3000 ); 
+		}
+	  
+		function timer() {
+			//alert("timer radius_input_global:" + radius_input_global);
+			//alert("timer path_global:" + path_global);
+		} 
+	  
+		function DrawCircle(input_radius) {
+			radius_input_global = input_radius;
 			
-			
-		  
-		  //google.maps.event.addListener(map, "bounds_changed", mapSettleTime); 
-		  /*
-	  var timeout;
-		google.maps.event.addListener(map, 'bounds_changed', function () {
-		window.clearTimeout(timeout);
-		timeout = window.setTimeout(function () {
-			//do stuff on event
-			alert("bounds_changed:" + path);
-			}, 500);
-		}); */
-		
-		/*
-		google.maps.event.addListener(map, 'mouseover', function() {
-			alert("mouseover:" + path);
-		}); 
-		
-		google.maps.event.addListener(map, 'mouseout', function() {
-			alert("mouseout:" + path);
-		}); */
-		  
-      }
-	  
-	  function foo()
-			{
-			alert("foo:" + path);
-			}
-			setInterval( "foo()", 3000 ); 
-	  
-	  
-	  function DrawCircle(input_radius)
-	  {
-		google.maps.event.addListener(map, 'click', function (event) {  
-				//alert("clicked");
-				var radius = 50 * 1000;
-				//var markerCenter = new google.maps.Marker({ position: event.latLng, map: map, draggable: false });
-				var circleOptions = {
-					map: map,
-					center: event.latLng,
-					radius: input_radius,
-					strokeWeight: 0
-				}; 
-				var circle = new google.maps.Circle(circleOptions);
-			});
-      }
-	  
-	  function SetCenter(x, y, type)
-	  {
-        map.setCenter(new google.maps.LatLng(x, y));
-		// just for test ...
-		/*
-		google.maps.event.addListener(map, 'click', function (event) {  
-				//alert("clicked");
-				var radius = 50 * 1000;
-				//var markerCenter = new google.maps.Marker({ position: event.latLng, map: map, draggable: false });
-				var circleOptions = {
-					map: map,
-					center: event.latLng,
-					radius: radius,
-					strokeWeight: 0
-				}; 
-				var circle = new google.maps.Circle(circleOptions);
-			});
-		*/
-		var PathData = [
-			["point1", 47.378802, -74.242796], 
-			["point2", 43.378802, -74.242796],
-			["point3", 43.378802, -70.242796],
-			["point4", 47.378802, -70.242796],
-			["point5", 47.378802, -74.242796]
-			];
-		//var center = new google.maps.LatLng(PathData[2][1], PathData[2][2]);
-		bounds = new google.maps.LatLngBounds();
-		//bounds.extend(center);
-		for (var i in PathData)
-		{
-			var p = PathData[i];
-			var latlng = new google.maps.LatLng(p[1], p[2]);
-			path.push(latlng);
-			bounds.extend(latlng);
+			is_draw_global = 1;
 		}
 		
-		is_draw_global = 1;
-      }
-
-	  function AddMarker(x, y) {
-		  var markerOptions = {
-          position : {lat: x, lng: y},
-		  map : map
-	    };
-        var marker = new google.maps.Marker(markerOptions);
-	    markerArray.push(marker);
-      }
-
-	  function SetZoom(type)
-	  {
-        map.setZoom(type);
-      }
-
-	  // Sets the map on all markers in the array.
-      function setMapOnAll(map) {
-        for (var i = 0; i < markerArray.length; i++) {
-          markerArray[i].setMap(map);
-        }
-      }
-
-	  // Removes the markers from the map, but keeps them in the array.
-      function clearMarkers() {
-        setMapOnAll(null);
-      }
-
-	  // Shows any markers currently in the array.
-      function showMarkers() {
-        setMapOnAll(map);
-      }
-
-      // Deletes all markers in the array by removing references to them.
-      function deleteMarkers() {
-        clearMarkers();
-        markers = [];
-      }
+		function DrawPolygon(input_side) {
+			side_input_global = input_side;
+		
+			is_draw_global = 2;
+		}
 	  
-	  function getCircle() {
-		// alert(radius_global);
-		return radius_global;
-	  }
+		function SetCenter(x, y, type) {
+			map.setCenter(new google.maps.LatLng(x, y));
+		}
+
+		function AddMarker(x, y) {
+			var markerOptions = {
+				position : {lat: x, lng: y},
+				map : map
+			};
+			var marker = new google.maps.Marker(markerOptions);
+			markerArray.push(marker);
+		}
+
+		function SetZoom(type) {
+			map.setZoom(type);
+		}
+
+		// Sets the map on all markers in the array.
+		function setMapOnAll(map) {
+			for (var i = 0; i < markerArray.length; i++) {
+				markerArray[i].setMap(map);
+			}
+		}
+
+		// Removes the markers from the map, but keeps them in the array.
+		function clearMarkers() {
+			setMapOnAll(null);
+		}
+
+		// Shows any markers currently in the array.
+		function showMarkers() {
+			setMapOnAll(map);
+		}
+
+		// Deletes all markers in the array by removing references to them.
+		function deleteMarkers() {
+			clearMarkers();
+			markers = [];
+		}
 	  
-	  function getCircleLat() {
-		// alert(lat_global);
-		return lat_global;
-	  }
+		function getCircle() {
+			//alert(radius_global);
+			return radius_global;
+		}
 	  
-	  function getCircleLng() {
-		// alert(lng_global);
-		return lng_global;
-	  }
+		function getCircleLat() {
+			//alert(lat_global);
+			return lat_global;
+		}
 	  
-	  function setCircle(lat, lng, radius) {
-		lat_global = lat;
-		lng_global = lng;
-		radius_global = radius;
-	  }
+		function getCircleLng() {
+			//alert(lng_global);
+			return lng_global;
+		}
 	  
-	  function getPolygon() {
-		return coordinatesArray_global;
-	  }
-	  function getPolygonArraryCount() {
-		return coordinatesArrayCount_global;
-	  }
-	  function getPolygonLat() {
-		return latarray_global;
-	  }
-	  function getPolygonLng() {
-		return lngarray_global;
-	  }
-	  function getPolygonLat1() {
-		return lat1_global;
-	  }
-	  function getPolygonLat2() {
-		return lat2_global;
-	  }
-	  function getPolygonLat3() {
-		return lat3_global;
-	  }
-	  function getPolygonLat4() {
-		return lat4_global;
-	  }
-	  function getPolygonLat5() {
-		return lat5_global;
-	  }
-	  function getPolygonLat6() {
-		return lat6_global;
-	  }
-	  function getPolygonLat7() {
-		return lat7_global;
-	  }
-	  function getPolygonLat8() {
-		return lat8_global;
-	  }
-	  function getPolygonLat9() {
-		return lat9_global;
-	  }
-	  function getPolygonLat10() {
-		return lat10_global;
-	  }
-	  function getPolygonLng1() {
-		return lng1_global;
-	  }
-	  function getPolygonLng2() {
-		return lng2_global;
-	  }
-	  function getPolygonLng3() {
-		return lng3_global;
-	  }
-	  function getPolygonLng4() {
-		return lng4_global;
-	  }
-	  function getPolygonLng5() {
-		return lng5_global;
-	  }
-	  function getPolygonLng6() {
-		return lng6_global;
-	  }
-	  function getPolygonLng7() {
-		return lng7_global;
-	  }
-	  function getPolygonLng8() {
-		return lng8_global;
-	  }
-	  function getPolygonLng9() {
-		return lng9_global;
-	  }
-	  function getPolygonLng10() {
-		return lng10_global;
-	  }
+		function setCircle(lat, lng, radius) {
+			lat_global = lat;
+			lng_global = lng;
+			radius_global = radius;
+		}
+	  
+		function getPolygon() {
+			return coordinatesArray_global;
+		}
+		function getPolygonArraryCount() {
+			return coordinatesArrayCount_global;
+		}
+		function getPolygonLat() {
+			return latarray_global;
+		}
+		function getPolygonLng() {
+			return lngarray_global;
+		}
+
+		function getPolygonLat1() {
+			return lat1_global;
+		}
+		function getPolygonLat2() {
+			return lat2_global;
+		}
+		function getPolygonLat3() {
+			return lat3_global;
+		}
+		function getPolygonLat4() {
+			return lat4_global;
+		}
+		function getPolygonLat5() {
+			return lat5_global;
+		}
+		function getPolygonLat6() {
+			return lat6_global;
+		}
+		function getPolygonLat7() {
+			return lat7_global;
+		}
+		function getPolygonLat8() {
+			return lat8_global;
+		}
+		function getPolygonLat9() {
+			return lat9_global;
+		}
+		function getPolygonLat10() {
+			return lat10_global;
+		}
+
+		function getPolygonLng1() {
+			return lng1_global;
+		}
+		function getPolygonLng2() {
+			return lng2_global;
+		}
+		function getPolygonLng3() {
+			return lng3_global;
+		}
+		function getPolygonLng4() {
+			return lng4_global;
+		}
+		function getPolygonLng5() {
+			return lng5_global;
+		}
+		function getPolygonLng6() {
+			return lng6_global;
+		}
+		function getPolygonLng7() {
+			return lng7_global;
+		}
+		function getPolygonLng8() {
+			return lng8_global;
+		}
+		function getPolygonLng9() {
+			return lng9_global;
+		}
+		function getPolygonLng10() {
+			return lng10_global;
+		}
     </script>
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkm1VkR2KkSz23AnGU-lj8XApl04m8EGE&callback=initMap&language=en&libraries=drawing">
     </script>

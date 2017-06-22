@@ -63,4 +63,10 @@ public:
 	double get_circle(double *lat, double *lng);
 	void set_circle(double lat, double lng, double radius);
 	int get_polygon(vector<CComVariant> &vecVarsLat, vector<CComVariant> &vecVarsLng);
+	afx_msg void OnBnClickedBtnDrawcircle();
+	afx_msg void OnBnClickedBtnDrawpolygon();
+	void draw_circle(double radius);
+	CMFCButton m_btn_drawCircle;
+	CMFCButton m_btn_drawPolygon;
+	void draw_polygon(double side);
 };

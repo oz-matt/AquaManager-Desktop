@@ -7,11 +7,14 @@
 #include "afxdialogex.h"
 
 #include "AquaLib.h"
+#include "AddCircle.h"
+#include "AddPolygon.h"
 
 #include <afxinet.h>
 #include <curl/curl.h>
 #include <atlsafe.h>
 #include <vector>
+#include <windows.h>
 
 using namespace std;
 
@@ -50,6 +53,8 @@ void CTest::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BTN_NotifUploadData, m_notifUploadData);
 	DDX_Control(pDX, IDC_BTN_RemoveNotif, m_btn_removeNotif);
 	DDX_Control(pDX, IDC_BTN_SetZoom, m_btn_setZoom);
+	DDX_Control(pDX, IDC_BTN_DrawCircle, m_btn_drawCircle);
+	DDX_Control(pDX, IDC_BTN_DrawPolygon, m_btn_drawPolygon);
 }
 
 
@@ -71,6 +76,8 @@ BEGIN_MESSAGE_MAP(CTest, CDialogEx)
 	ON_BN_CLICKED(IDC_BTN_NotifUploadData, &CTest::OnBnClickedBtnNotifuploaddata)
 	ON_BN_CLICKED(IDC_BTN_RemoveNotif, &CTest::OnBnClickedBtnRemovenotif)
 	ON_WM_CTLCOLOR()
+	ON_BN_CLICKED(IDC_BTN_DrawCircle, &CTest::OnBnClickedBtnDrawcircle)
+	ON_BN_CLICKED(IDC_BTN_DrawPolygon, &CTest::OnBnClickedBtnDrawpolygon)
 END_MESSAGE_MAP()
 
 
@@ -665,6 +672,12 @@ BOOL CTest::OnInitDialog()
 	m_btn_setZoom.SetFaceColor(RGB(255, 255, 255), true);
 	m_btn_setZoom.SetTextColor(RGB(0, 0, 255));
 
+	m_btn_drawCircle.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_drawCircle.SetTextColor(RGB(0, 0, 255));
+
+	m_btn_drawPolygon.SetFaceColor(RGB(255, 255, 255), true);
+	m_btn_drawPolygon.SetTextColor(RGB(0, 0, 255));
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -955,4 +968,62 @@ int CTest::get_polygon(vector<CComVariant> &vecVarsLat, vector<CComVariant> &vec
     }
 
 	return 0;
+}
+
+void CTest::draw_circle(double radius)
+{
+	//CComQIPtr<IHTMLDocument2> pDoc = (IHTMLDocument2*)GetHtmlDocument();
+	if (pDoc == NULL)
+		return;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return;
+
+	CString js;
+	js.Format(_T("DrawCircle(%.2f);"), radius);
+
+	CComBSTR bstrJS = js.AllocSysString();
+	CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	VARIANT varResult;
+	pWin->execScript(bstrJS, bstrLanguage, &varResult);
+}
+
+void CTest::OnBnClickedBtnDrawcircle()
+{
+	// TODO: Add your control notification handler code here
+	CAddCircle dlg;
+	dlg.DoModal();
+	//UpdateData(True);
+	draw_circle(dlg.m_radius);
+	//Sleep(3000);
+}
+
+void CTest::draw_polygon(double side)
+{
+	//CComQIPtr<IHTMLDocument2> pDoc = (IHTMLDocument2*)GetHtmlDocument();
+	if (pDoc == NULL)
+		return;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return;
+
+	CString js;
+	js.Format(_T("DrawPolygon(%.2f);"), side);
+
+	CComBSTR bstrJS = js.AllocSysString();
+	CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	VARIANT varResult;
+	pWin->execScript(bstrJS, bstrLanguage, &varResult);
+}
+
+void CTest::OnBnClickedBtnDrawpolygon()
+{
+	// TODO: Add your control notification handler code here
+	CAddPolygon dlg;
+	dlg.DoModal();
+	draw_polygon(dlg.m_side);
 }

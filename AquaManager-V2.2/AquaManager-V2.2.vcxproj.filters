@@ -151,6 +151,12 @@
     <ClInclude Include="DlgAddGeofence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AddCircle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AddPolygon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AquaManager-V2.2.cpp">
@@ -202,6 +208,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DlgAddGeofence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddCircle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AddPolygon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
