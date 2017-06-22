@@ -53,6 +53,12 @@
 	  var lng8_global;
 	  var lng9_global;
 	  var lng10_global;
+	  
+	  var bounds;
+		var path = [];
+		var polygon;
+		
+	var is_draw_global = 0;
 
       function initMap() {
         var pos = {lat: 45.378802, lng: -70.242796};
@@ -178,7 +184,87 @@
 			//	fillColor: '#ffff00'
 			//}; 
 			//var circle = new google.maps.Circle(circleOptions);
+			
+		google.maps.event.addListener(map, 'click', function (event) {  
+				//alert("clicked");
+				if (is_draw_global == 0)
+					return;
+				var polygonOptions = {
+					//map: map,
+					center: event.latLng,
+					paths: path,
+					strokeWeight: 3,
+					strokeColor: '#FF0000',
+					strokeOpacity: 0.8,
+					fillColor: '#0000FF',
+					fillOpacity: 0.1,
+					//clickable: false,
+					editable: true,
+					draggable:true
+				}; 
+				polygon = new google.maps.Polygon(polygonOptions);
+				polygon.setMap(map);
+				bounds.extend(event.latLng);
+				map.fitBounds(bounds);
+				alert("click:" + path);
+				alert("click:" + bounds);
+				is_draw_global = 0;
+			});
+			
+			var timeout;
+			
+		google.maps.event.addListener(map, 'idle', function() {
+			if (polygon == null)
+				return;
+				polygon.setMap(map);
+				
+				window.clearTimeout(timeout);
+		timeout = window.setTimeout(function () {
+			//do stuff on event
+			alert("idle 500:" + path);
+			}, 500);
+			
+			var coordinatesArray = polygon.getPath().getArray();
+			alert("idle:" + coordinatesArray);
+			alert("idle:" + bounds);
+		  });
+		  
+		  /*
+		  window.setTimeout(function () {
+			//do stuff on event
+			alert("idle 5000:" + path);
+			}, 5);*/
+			
+			
+		  
+		  //google.maps.event.addListener(map, "bounds_changed", mapSettleTime); 
+		  /*
+	  var timeout;
+		google.maps.event.addListener(map, 'bounds_changed', function () {
+		window.clearTimeout(timeout);
+		timeout = window.setTimeout(function () {
+			//do stuff on event
+			alert("bounds_changed:" + path);
+			}, 500);
+		}); */
+		
+		/*
+		google.maps.event.addListener(map, 'mouseover', function() {
+			alert("mouseover:" + path);
+		}); 
+		
+		google.maps.event.addListener(map, 'mouseout', function() {
+			alert("mouseout:" + path);
+		}); */
+		  
       }
+	  
+	  function foo()
+			{
+			alert("foo:" + path);
+			}
+			setInterval( "foo()", 3000 ); 
+	  
 	  
 	  function DrawCircle(input_radius)
 	  {
@@ -222,8 +308,7 @@
 			["point5", 47.378802, -74.242796]
 			];
 		//var center = new google.maps.LatLng(PathData[2][1], PathData[2][2]);
-		var bounds = new google.maps.LatLngBounds();
-		var path = [];
+		bounds = new google.maps.LatLngBounds();
 		//bounds.extend(center);
 		for (var i in PathData)
 		{
@@ -232,25 +317,8 @@
 			path.push(latlng);
 			bounds.extend(latlng);
 		}
-		google.maps.event.addListener(map, 'click', function (event) {  
-				//alert("clicked");
-				var polygonOptions = {
-					map: map,
-					center: event.latLng,
-					paths: path,
-					strokeWeight: 3,
-					strokeColor: '#FF0000',
-					strokeOpacity: 0.8,
-					fillColor: '#0000FF',
-					fillOpacity: 0.1,
-					//clickable: false,
-					editable: true
-				}; 
-				var polygon = new google.maps.Polygon(polygonOptions);
-				//polygon.setMap(map);
-				bounds.extend(event.latLng);
-				map.fitBounds(bounds);
-			});
+		
+		is_draw_global = 1;
       }
 
 	  function AddMarker(x, y) {
