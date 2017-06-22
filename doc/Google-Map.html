@@ -110,7 +110,7 @@
 			google.maps.event.addListener(drawingManager, 'circlecomplete', function(circle) {
 				var radius = circle.getRadius();
 				radius_global = radius;
-				// alert("circlecomplete event: " + radius);
+				//alert("circlecomplete event: " + radius);
 				//console.log('radius', circle.getRadius());
 				//console.log('lat', circle.getCenter().lat());
 				//console.log('lng', circle.getCenter().lng());
@@ -191,21 +191,31 @@
 				}
 				
 				if (is_draw_global == 2) {	
+					var side = side_input_global;
+					var center = event.latLng;
+					//alert("side:" + side);
+					//alert("center:" + center);
+					//alert("center.lat:" + center.lat());
+					//alert("center.lng:" + center.lng());
+					
 					var PathData = [
-						["point1", 47.378802, -74.242796], 
-						["point2", 43.378802, -74.242796],
-						["point3", 43.378802, -70.242796],
-						["point4", 47.378802, -70.242796],
-						["point5", 47.378802, -74.242796]
+						[center.lat() + side, center.lng() - side], 
+						[center.lat() - side, center.lng() - side],
+						[center.lat() - side, center.lng() + side],
+						[center.lat() + side, center.lng() + side],
+						[center.lat() + side, center.lng() - side]
 					];
 					//var center = new google.maps.LatLng(PathData[2][1], PathData[2][2]);
-					bounds_global = new google.maps.LatLngBounds();
+					
+					//bounds_global = new google.maps.LatLngBounds();
 					//bounds_global.extend(center);
+					
 					for (var i in PathData)	{
 						var p = PathData[i];
-						var latlng = new google.maps.LatLng(p[1], p[2]);
+						var latlng = new google.maps.LatLng(p[0], p[1]);
 						path_global.push(latlng);
-						bounds_global.extend(latlng);
+						
+						//bounds_global.extend(latlng);
 					}
 			
 					var polygonOptions = {
@@ -223,8 +233,10 @@
 					}; 
 					polygon_global = new google.maps.Polygon(polygonOptions);
 					polygon_global.setMap(map);
-					bounds_global.extend(event.latLng);
-					map.fitBounds(bounds_global);
+					
+					//bounds_global.extend(event.latLng);
+					//map.fitBounds(bounds_global);
+					
 					//alert("click:" + path_global);
 					//alert("click:" + bounds_global);
 				}
