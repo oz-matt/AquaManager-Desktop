@@ -81,13 +81,13 @@ BOOL CGeofence::OnInitDialog()
 	m_lst_geofence.SetColumnWidth( 1, 70 );
 	m_lst_geofence.SetColumnWidth( 2, LVSCW_AUTOSIZE_USEHEADER );
 
-	nIndex = m_lst_geofence.InsertItem(0, _T("Geo1"));
+	/*nIndex = m_lst_geofence.InsertItem(0, _T("Geo1"));
 	m_lst_geofence.SetItemText(nIndex, 1, _T("15th St, New York, NY, USA"));
 	m_lst_geofence.SetItemText(nIndex, 2, _T("180 sq.mi"));
 
 	nIndex = m_lst_geofence.InsertItem(0, _T("Geo2"));
 	m_lst_geofence.SetItemText(nIndex, 1, _T("15th St, New York, NY, USA"));
-	m_lst_geofence.SetItemText(nIndex, 2, _T("6 sq.mi"));
+	m_lst_geofence.SetItemText(nIndex, 2, _T("6 sq.mi"));*/
 
 	m_lst_geofence.SetBkColor(RGB(255, 255, 255));
 
