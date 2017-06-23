@@ -34,6 +34,8 @@ public:
 
 	afx_msg void OnAppAbout();
 	DECLARE_MESSAGE_MAP()
+	afx_msg void OnConfigure();
+	afx_msg void OnConfigureDevicesettings();
 };
 
 extern CAquaManagerV22App theApp;

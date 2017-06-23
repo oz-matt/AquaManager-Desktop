@@ -11,6 +11,7 @@
 #include "ChildFrm.h"
 #include "AquaManager-V2.2Doc.h"
 #include "AquaManager-V2.2View.h"
+#include "DeviceSettings.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -24,6 +25,8 @@ BEGIN_MESSAGE_MAP(CAquaManagerV22App, CWinAppEx)
 	// Standard file based document commands
 	ON_COMMAND(ID_FILE_NEW, &CWinAppEx::OnFileNew)
 	ON_COMMAND(ID_FILE_OPEN, &CWinAppEx::OnFileOpen)
+	ON_COMMAND(ID_Configure, &CAquaManagerV22App::OnConfigure)
+	ON_COMMAND(ID_CONFIGURE_DEVICESETTINGS, &CAquaManagerV22App::OnConfigureDevicesettings)
 END_MESSAGE_MAP()
 
 
@@ -188,3 +191,19 @@ void CAquaManagerV22App::SaveCustomState()
 
 
 
+
+
+void CAquaManagerV22App::OnConfigure()
+{
+	// TODO: Add your command handler code here
+	CDeviceSettings dlg;
+	dlg.DoModal();
+}
+
+
+void CAquaManagerV22App::OnConfigureDevicesettings()
+{
+	// TODO: Add your command handler code here
+	CDeviceSettings dlg;
+	dlg.DoModal();
+}

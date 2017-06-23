@@ -160,6 +160,9 @@
     <ClInclude Include="DeviceName.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AquaManager-V2.2.cpp">
@@ -220,6 +223,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DeviceName.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
