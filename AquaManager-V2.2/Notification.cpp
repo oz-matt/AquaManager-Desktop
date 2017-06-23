@@ -89,13 +89,13 @@ BOOL CNotification::OnInitDialog()
 	m_lst_notificaton.SetColumnWidth( 1, 70 );
 	m_lst_notificaton.SetColumnWidth( 2, LVSCW_AUTOSIZE_USEHEADER );
 
-	nIndex = m_lst_notificaton.InsertItem(0, _T("Dev2"));
+	/*nIndex = m_lst_notificaton.InsertItem(0, _T("Dev2"));
 	m_lst_notificaton.SetItemText(nIndex, 1, _T("entersGeo"));
 	m_lst_notificaton.SetItemText(nIndex, 2, _T("e-mail"));
 
 	nIndex = m_lst_notificaton.InsertItem(0, _T("Dev4"));
 	m_lst_notificaton.SetItemText(nIndex, 1, _T("uploadsData"));
-	m_lst_notificaton.SetItemText(nIndex, 2, _T("text"));
+	m_lst_notificaton.SetItemText(nIndex, 2, _T("text"));*/
 
 	m_lst_notificaton.SetBkColor(RGB(255, 255, 255));
 
