@@ -22,4 +22,5 @@ public:
 	afx_msg void OnBnClickedOk();
 	CString m_aquaid;
 	CString m_passcode;
+	CString m_device_name;
 };

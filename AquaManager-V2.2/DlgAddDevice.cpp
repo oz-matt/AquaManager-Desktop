@@ -6,6 +6,7 @@
 #include "DlgAddDevice.h"
 #include "afxdialogex.h"
 
+#include "DeviceName.h"
 
 // CDlgAddDevice dialog
 
@@ -43,4 +44,8 @@ void CDlgAddDevice::OnBnClickedOk()
 {
 	// TODO: Add your control notification handler code here
 	CDialogEx::OnOK();
+
+	CDeviceName dlg;
+	dlg.DoModal();
+	this->m_device_name = dlg.m_device_name;
 }

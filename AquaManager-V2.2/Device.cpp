@@ -46,7 +46,7 @@ BEGIN_MESSAGE_MAP(CDevice, CDialog)
 	ON_WM_CTLCOLOR()
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LST_Device, &CDevice::OnLvnItemchangedLstDevice)
 	ON_BN_CLICKED(IDC_BTN_AddMarker, &CDevice::OnBnClickedBtnAddmarker)
-	ON_WM_LBUTTONDOWN()
+//	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -81,7 +81,7 @@ BOOL CDevice::OnInitDialog()
 	lvColumn.iImage = 1;
 	lvColumn.cx = 70;
 	lvColumn.pszText =_T("Battery");
-	m_lst_device.InsertColumn(1, &lvColumn);
+	m_lst_device.InsertColumn(2, &lvColumn);
 
 	// Add some columns to the list control
 	//m_lst_device.InsertColumn( 0, _T("Name") );
@@ -93,6 +93,7 @@ BOOL CDevice::OnInitDialog()
 	m_lst_device.SetColumnWidth( 1, 70 );
 	m_lst_device.SetColumnWidth( 2, LVSCW_AUTOSIZE_USEHEADER );
 
+	/*
 	nIndex = m_lst_device.InsertItem(0, _T("Dev1"));
 	m_lst_device.SetItemText(nIndex, 1, _T("Woods Way, New Fairfield CT, USA"));
 	m_lst_device.SetItemText(nIndex, 2, _T("45%"));
@@ -108,6 +109,7 @@ BOOL CDevice::OnInitDialog()
 	nIndex = m_lst_device.InsertItem(0, _T("Dev4"));
 	m_lst_device.SetItemText(nIndex, 1, _T("Woods Way, New Fairfield CT, USA"));
 	m_lst_device.SetItemText(nIndex, 2, _T("45%"));
+	*/
 
 	m_lst_device.SetBkColor(RGB(255, 255, 255));
 
@@ -140,7 +142,7 @@ void CDevice::OnLvnItemchangedLstDevice(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-
+// should be add device
 void CDevice::OnBnClickedBtnAddmarker()
 {
 	// TODO: Add your control notification handler code here
@@ -152,7 +154,7 @@ void CDevice::OnBnClickedBtnAddmarker()
 	char* data;
 	char ip[32] = "https://data.aquaiot.com";
 	char temp[1024] = "";
-
+	
 	sprintf(temp, "%s\"%s\",%s\"%s\",%s", "{\"reqtype\":\"auth\",\"id\":",dlg.m_aquaid, "\"pass\":", dlg.m_passcode, "\"iid\":\"12341234123412341234\"}");
 	data = handle_url_fields(ip, temp);
 
@@ -160,6 +162,10 @@ void CDevice::OnBnClickedBtnAddmarker()
 
 	Json::Reader reader;
 	Json::Value root;
+	double lon_show;
+	double lat_show;
+	CString battery_show;
+	string location;
 
 	if (reader.parse(data, root))
 	{
@@ -181,7 +187,7 @@ void CDevice::OnBnClickedBtnAddmarker()
 
 		Json::Reader aqsens_reader;
 		Json::Value aqsens_node;
-		if (aqsens_reader.parse(aqsens_string, aqsens_node))
+		if (aqsens_reader.parse(aqsens_string, aqsens_node)) // IMPORTANT
 		{
 			aqsens_size = aqsens_node.size();
 		}
@@ -214,14 +220,35 @@ void CDevice::OnBnClickedBtnAddmarker()
 			Json::Value custom = aqsens_node[i]["custom"];
 			string incoming_ip = aqsens_node[i]["incoming_ip"].asString();
 			string install_id = aqsens_node[i]["install_id"].asString();
+
+			lon_show = lon;
+			lat_show = lat;
+			battery_show.Format(_T("%d%%"), pct_battery);
 		}
 	}
+
+	Json::Reader reader_loc;
+	Json::Value root_loc;
+	char temp_loc[1024] = "";
+	sprintf(temp_loc, "https://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&key=AIzaSyAeHtCDX8llqpxW-xOHZ-nyBPHvKGDeOIw", lat_show, lon_show);
+	data = handle_url_fields(temp_loc, "");
+	if (reader_loc.parse(data, root_loc))
+	{
+		Json::Value loc_value = root_loc["results"];
+		int n = loc_value.size();
+		CString loc_cstring = loc_value[2]["formatted_address"].asCString();
+		location = loc_value[2]["formatted_address"].asString();
+	}
+		 
+	nIndex = m_lst_device.InsertItem(0, dlg.m_device_name);
+	m_lst_device.SetItemText(nIndex, 1, location.c_str());
+	m_lst_device.SetItemText(nIndex, 2, battery_show);
 }
 
 
-void CDevice::OnLButtonDown(UINT nFlags, CPoint point)
-{
-	// TODO: Add your message handler code here and/or call default
-
-	CDialog::OnLButtonDown(nFlags, point);
-}
+//void CDevice::OnLButtonDown(UINT nFlags, CPoint point)
+//{
+//	// TODO: Add your message handler code here and/or call default
+//
+//	CDialog::OnLButtonDown(nFlags, point);
+//}

@@ -28,6 +28,8 @@ BEGIN_MESSAGE_MAP(CColorListCtrol, CListCtrl)
 	ON_NOTIFY(HDN_ITEMCLICKW, 0, &CColorListCtrol::OnHdnItemclick)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
+	ON_WM_LBUTTONDBLCLK()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 
@@ -146,7 +148,23 @@ void CColorListCtrol::OnLButtonDown(UINT nFlags, CPoint point)
 	CDlgConfigureDevice dlg;
 	dlg.DoModal();
 
-	CListCtrl::OnLButtonDown(nFlags, point);
+	//CListCtrl::OnLButtonDown(nFlags, point);
+}
+
+
+//void CColorListCtrol::OnLButtonUp(UINT nFlags, CPoint point)
+//{
+//	// TODO: Add your message handler code here and/or call default
+//
+//	CListCtrl::OnLButtonUp(nFlags, point);
+//}
+
+
+void CColorListCtrol::OnLButtonDblClk(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CListCtrl::OnLButtonDblClk(nFlags, point);
 }
 
 
