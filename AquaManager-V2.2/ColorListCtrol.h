@@ -25,6 +25,9 @@ public:
 //	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDblClk(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnDeviceInfo();
+	afx_msg void OnDeviceRawdata();
+	afx_msg void OnDeviceRemove();
 };
 
 

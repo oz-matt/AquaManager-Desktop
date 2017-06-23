@@ -6,6 +6,8 @@
 #include "ColorListCtrol.h"
 
 #include "DlgConfigureDevice.h"
+#include "DeviceRawData.h"
+#include "DeviceRemove.h"
 
 // CColorListCtrol
 
@@ -30,6 +32,9 @@ BEGIN_MESSAGE_MAP(CColorListCtrol, CListCtrl)
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_LBUTTONUP()
+	ON_COMMAND(ID_DEVICE_INFO, &CColorListCtrol::OnDeviceInfo)
+	ON_COMMAND(ID_DEVICE_RAWDATA, &CColorListCtrol::OnDeviceRawdata)
+	ON_COMMAND(ID_DEVICE_REMOVE, &CColorListCtrol::OnDeviceRemove)
 END_MESSAGE_MAP()
 
 
@@ -141,13 +146,21 @@ void CColorListCtrol::OnLButtonDown(UINT nFlags, CPoint point)
 	hitinfo.flags = nFlags;
 	hitinfo.pt = point;
 	SubItemHitTest(&hitinfo);
+	
+	if (hitinfo.iItem < 0)
+		return;
+
+	CMenu menu;
+	CRect windowRect;  
+	GetWindowRect(&windowRect); 
+	ClientToScreen(&point);  
+    menu.LoadMenu(IDR_POPUP_DeviceConfigure); //¶ÁÈ¡×ÊÔ´
+    menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON, point.x, point.y, this);
 
 	//CString Temp;
 	//Temp.Format("Row: %d, Column %d", hitinfo.iItem, hitinfo.iSubItem);
 	//MessageBox(Temp, "Information");
-	CDlgConfigureDevice dlg;
-	dlg.DoModal();
-
+	
 	//CListCtrl::OnLButtonDown(nFlags, point);
 }
 
@@ -173,4 +186,28 @@ void CColorListCtrol::OnLButtonUp(UINT nFlags, CPoint point)
 	// TODO: Add your message handler code here and/or call default
 
 	CListCtrl::OnLButtonUp(nFlags, point);
+}
+
+
+void CColorListCtrol::OnDeviceInfo()
+{
+	// TODO: Add your command handler code here
+	CDlgConfigureDevice dlg;
+	dlg.DoModal();
+}
+
+
+void CColorListCtrol::OnDeviceRawdata()
+{
+	// TODO: Add your command handler code here
+	CDeviceRawData dlg;
+	dlg.DoModal();
+}
+
+
+void CColorListCtrol::OnDeviceRemove()
+{
+	// TODO: Add your command handler code here
+	CDeviceRemove dlg;
+	dlg.DoModal();
 }

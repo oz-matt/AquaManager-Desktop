@@ -122,6 +122,8 @@
     <ClInclude Include="ColorListCtrol.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="DeviceName.h" />
+    <ClInclude Include="DeviceRawData.h" />
+    <ClInclude Include="DeviceRemove.h" />
     <ClInclude Include="DeviceSettings.h" />
     <ClInclude Include="DlgAddDevice.h" />
     <ClInclude Include="DlgAddGeofence.h" />
@@ -158,6 +160,8 @@
     <ClCompile Include="ColorListCtrol.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DeviceName.cpp" />
+    <ClCompile Include="DeviceRawData.cpp" />
+    <ClCompile Include="DeviceRemove.cpp" />
     <ClCompile Include="DeviceSettings.cpp" />
     <ClCompile Include="DlgAddDevice.cpp" />
     <ClCompile Include="DlgAddGeofence.cpp" />

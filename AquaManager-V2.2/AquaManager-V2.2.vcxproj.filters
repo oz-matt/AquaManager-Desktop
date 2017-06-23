@@ -163,6 +163,12 @@
     <ClInclude Include="DeviceSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceRawData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceRemove.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AquaManager-V2.2.cpp">
@@ -226,6 +232,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DeviceSettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceRawData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceRemove.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
