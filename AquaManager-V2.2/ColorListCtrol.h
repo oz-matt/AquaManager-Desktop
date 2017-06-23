@@ -30,6 +30,7 @@ public:
 	afx_msg void OnDeviceRemove();
 	afx_msg void OnNotificationSettings();
 	afx_msg void OnNotificationRemove();
+	afx_msg void OnGeofenceRemove();
 };
 
 

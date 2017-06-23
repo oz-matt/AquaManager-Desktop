@@ -130,6 +130,7 @@
     <ClInclude Include="DlgConfigureDevice.h" />
     <ClInclude Include="DlgNewNotify.h" />
     <ClInclude Include="Geofence.h" />
+    <ClInclude Include="GeofenceRemove.h" />
     <ClInclude Include="include\json\allocator.h" />
     <ClInclude Include="include\json\assertions.h" />
     <ClInclude Include="include\json\autolink.h" />
@@ -170,6 +171,7 @@
     <ClCompile Include="DlgConfigureDevice.cpp" />
     <ClCompile Include="DlgNewNotify.cpp" />
     <ClCompile Include="Geofence.cpp" />
+    <ClCompile Include="GeofenceRemove.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Notification.cpp" />
     <ClCompile Include="NotificationRemove.cpp" />

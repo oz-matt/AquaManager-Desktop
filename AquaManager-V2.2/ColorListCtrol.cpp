@@ -12,6 +12,8 @@
 #include "NotificationSettings.h"
 #include "NotificationRemove.h"
 
+#include "GeofenceRemove.h"
+
 // CColorListCtrol
 
 extern int currentTabSelected;
@@ -42,6 +44,7 @@ BEGIN_MESSAGE_MAP(CColorListCtrol, CListCtrl)
 	ON_COMMAND(ID_DEVICE_REMOVE, &CColorListCtrol::OnDeviceRemove)
 	ON_COMMAND(ID_NOTIFICATION_SETTINGS, &CColorListCtrol::OnNotificationSettings)
 	ON_COMMAND(ID_NOTIFICATION_REMOVE, &CColorListCtrol::OnNotificationRemove)
+	ON_COMMAND(ID_GEOFENCE_REMOVE, &CColorListCtrol::OnGeofenceRemove)
 END_MESSAGE_MAP()
 
 
@@ -154,8 +157,8 @@ void CColorListCtrol::OnLButtonDown(UINT nFlags, CPoint point)
 	hitinfo.pt = point;
 	SubItemHitTest(&hitinfo);
 	
-	//if (hitinfo.iItem < 0)
-		//return;
+	if (hitinfo.iItem < 0)
+		return;
 
 	int select = currentTabSelected;
 
@@ -253,5 +256,13 @@ void CColorListCtrol::OnNotificationRemove()
 {
 	// TODO: Add your command handler code here
 	CNotificationRemove dlg;
+	dlg.DoModal();
+}
+
+
+void CColorListCtrol::OnGeofenceRemove()
+{
+	// TODO: Add your command handler code here
+	CGeofenceRemove dlg;
 	dlg.DoModal();
 }
