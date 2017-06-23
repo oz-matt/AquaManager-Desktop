@@ -8,6 +8,7 @@
 
 #include "DlgAddGeofence.h"
 
+extern int currentTabSelected;
 // CGeofence dialog
 
 IMPLEMENT_DYNAMIC(CGeofence, CDialog)
@@ -108,6 +109,7 @@ HBRUSH CGeofence::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  Change any attributes of the DC here
 	HBRUSH hbr = m_brush;
 
+	currentTabSelected = 2;
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
 }

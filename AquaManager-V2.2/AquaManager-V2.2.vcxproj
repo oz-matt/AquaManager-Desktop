@@ -143,6 +143,8 @@
     <ClInclude Include="include\json\writer.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Notification.h" />
+    <ClInclude Include="NotificationRemove.h" />
+    <ClInclude Include="NotificationSettings.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -170,6 +172,8 @@
     <ClCompile Include="Geofence.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Notification.cpp" />
+    <ClCompile Include="NotificationRemove.cpp" />
+    <ClCompile Include="NotificationSettings.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

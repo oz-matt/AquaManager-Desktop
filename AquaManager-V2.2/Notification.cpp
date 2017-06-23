@@ -16,6 +16,7 @@
 
 using namespace std;
 
+extern int currentTabSelected;
 // CNotification dialog
 
 IMPLEMENT_DYNAMIC(CNotification, CDialog)
@@ -116,6 +117,7 @@ HBRUSH CNotification::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  Change any attributes of the DC here
 	HBRUSH hbr = m_brush;
 
+	currentTabSelected = 1;
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
 }

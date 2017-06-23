@@ -169,6 +169,12 @@
     <ClInclude Include="DeviceRemove.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NotificationRemove.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NotificationSettings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AquaManager-V2.2.cpp">
@@ -238,6 +244,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DeviceRemove.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NotificationRemove.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NotificationSettings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

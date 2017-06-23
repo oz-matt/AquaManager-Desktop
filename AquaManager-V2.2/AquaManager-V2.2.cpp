@@ -47,6 +47,7 @@ CAquaManagerV22App::CAquaManagerV22App()
 // The one and only CAquaManagerV22App object
 
 CAquaManagerV22App theApp;
+int currentTabSelected;
 
 
 // CAquaManagerV22App initialization

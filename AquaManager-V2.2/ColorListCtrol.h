@@ -28,6 +28,8 @@ public:
 	afx_msg void OnDeviceInfo();
 	afx_msg void OnDeviceRawdata();
 	afx_msg void OnDeviceRemove();
+	afx_msg void OnNotificationSettings();
+	afx_msg void OnNotificationRemove();
 };
 
 

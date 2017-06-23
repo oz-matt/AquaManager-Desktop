@@ -18,6 +18,8 @@
 
 using namespace std;
 
+extern int currentTabSelected;
+
 // CDevice dialog
 
 IMPLEMENT_DYNAMIC(CDevice, CDialog)
@@ -130,6 +132,7 @@ HBRUSH CDevice::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	// TODO:  Change any attributes of the DC here
 	HBRUSH hbr = m_brush;
 
+	currentTabSelected = 0;
 	// TODO:  Return a different brush if the default is not desired
 	return hbr;
 }

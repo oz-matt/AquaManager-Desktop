@@ -9,7 +9,12 @@
 #include "DeviceRawData.h"
 #include "DeviceRemove.h"
 
+#include "NotificationSettings.h"
+#include "NotificationRemove.h"
+
 // CColorListCtrol
+
+extern int currentTabSelected;
 
 IMPLEMENT_DYNAMIC(CColorListCtrol, CListCtrl)
 
@@ -35,6 +40,8 @@ BEGIN_MESSAGE_MAP(CColorListCtrol, CListCtrl)
 	ON_COMMAND(ID_DEVICE_INFO, &CColorListCtrol::OnDeviceInfo)
 	ON_COMMAND(ID_DEVICE_RAWDATA, &CColorListCtrol::OnDeviceRawdata)
 	ON_COMMAND(ID_DEVICE_REMOVE, &CColorListCtrol::OnDeviceRemove)
+	ON_COMMAND(ID_NOTIFICATION_SETTINGS, &CColorListCtrol::OnNotificationSettings)
+	ON_COMMAND(ID_NOTIFICATION_REMOVE, &CColorListCtrol::OnNotificationRemove)
 END_MESSAGE_MAP()
 
 
@@ -147,15 +154,36 @@ void CColorListCtrol::OnLButtonDown(UINT nFlags, CPoint point)
 	hitinfo.pt = point;
 	SubItemHitTest(&hitinfo);
 	
-	if (hitinfo.iItem < 0)
-		return;
+	//if (hitinfo.iItem < 0)
+		//return;
 
-	CMenu menu;
-	CRect windowRect;  
-	GetWindowRect(&windowRect); 
-	ClientToScreen(&point);  
-    menu.LoadMenu(IDR_POPUP_DeviceConfigure); //读取资源
-    menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON, point.x, point.y, this);
+	int select = currentTabSelected;
+
+	if (select == 0) {
+		CMenu menu;
+		CRect windowRect;  
+		GetWindowRect(&windowRect); 
+		ClientToScreen(&point);  
+		menu.LoadMenu(IDR_POPUP_DeviceConfigure); //读取资源
+		menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON, point.x, point.y, this);
+	}
+	else if (select == 1) {
+		CMenu menu;
+		CRect windowRect;  
+		GetWindowRect(&windowRect); 
+		ClientToScreen(&point);  
+		menu.LoadMenu(IDR_POPUP_NotificationConfigure); //读取资源
+		menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON, point.x, point.y, this);
+	}
+	else if (select == 2) {
+		CMenu menu;
+		CRect windowRect;  
+		GetWindowRect(&windowRect); 
+		ClientToScreen(&point);  
+		menu.LoadMenu(IDR_POPUP_GeoConfigure); //读取资源
+		menu.GetSubMenu(0)->TrackPopupMenu(TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON, point.x, point.y, this);
+	}
+	else {}
 
 	//CString Temp;
 	//Temp.Format("Row: %d, Column %d", hitinfo.iItem, hitinfo.iSubItem);
@@ -209,5 +237,21 @@ void CColorListCtrol::OnDeviceRemove()
 {
 	// TODO: Add your command handler code here
 	CDeviceRemove dlg;
+	dlg.DoModal();
+}
+
+
+void CColorListCtrol::OnNotificationSettings()
+{
+	// TODO: Add your command handler code here
+	CNotificationSettings dlg;
+	dlg.DoModal();
+}
+
+
+void CColorListCtrol::OnNotificationRemove()
+{
+	// TODO: Add your command handler code here
+	CNotificationRemove dlg;
 	dlg.DoModal();
 }
