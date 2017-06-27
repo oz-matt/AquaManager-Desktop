@@ -18,6 +18,18 @@
 
 using namespace std;
 
+CString g_m_aquaid;
+CString g_m_passcode;
+CString g_m_pct_battery;
+CString g_m_temperature;
+CString g_m_humidity;
+CString g_m_height;
+CString g_m_speed;
+CString g_m_direction;
+CString g_m_numsat;
+CString g_m_phone;
+CString g_m_aquakey;
+
 extern int currentTabSelected;
 
 // CDevice dialog
@@ -151,8 +163,8 @@ void CDevice::OnBnClickedBtnAddmarker()
 	// TODO: Add your control notification handler code here
 	CDlgAddDevice dlg;
 	dlg.DoModal();
-	//dlg.m_aquaid;
-	//dlg.m_passcode;
+	g_m_aquaid = dlg.m_aquaid;
+	g_m_passcode = dlg.m_passcode;
 
 	char* data;
 	char ip[32] = "https://data.aquaiot.com";
@@ -182,6 +194,8 @@ void CDevice::OnBnClickedBtnAddmarker()
 		Json::Value qdata = root["qdata"];
 		string aquakey = qdata["aquakey"].asString();
 		string phonenumber = qdata["phonenumber"].asString();
+		g_m_phone = qdata["phonenumber"].asCString();
+		g_m_aquakey = qdata["aquakey"].asCString();
 
 		//Json::Value aqsens = root.get("aqsens", "null");
 		Json::Value aqsens = root["aqsens"];
@@ -227,6 +241,13 @@ void CDevice::OnBnClickedBtnAddmarker()
 			lon_show = lon;
 			lat_show = lat;
 			battery_show.Format(_T("%d%%"), pct_battery);
+			g_m_pct_battery = battery_show;
+			g_m_temperature.Format(_T("%d"), temperature);
+			g_m_humidity.Format(_T("%d"), humidity);
+			g_m_height.Format(_T("%f"), height);
+			g_m_speed.Format(_T("%f"), gspeed);
+			g_m_direction.Format(_T("%f"), direction);
+			g_m_numsat.Format(_T("%d"), numsat);			
 		}
 	}
 

@@ -18,6 +18,19 @@
 
 extern int currentTabSelected;
 
+extern CString g_m_aquaid;
+extern CString g_m_passcode;
+extern CString g_m_device_name;
+extern CString g_m_pct_battery;
+extern CString g_m_temperature;
+extern CString g_m_humidity;
+extern CString g_m_height;
+extern CString g_m_speed;
+extern CString g_m_direction;
+extern CString g_m_numsat;
+extern CString g_m_phone;
+extern CString g_m_aquakey;
+
 IMPLEMENT_DYNAMIC(CColorListCtrol, CListCtrl)
 
 CColorListCtrol::CColorListCtrol()
@@ -224,6 +237,19 @@ void CColorListCtrol::OnDeviceInfo()
 {
 	// TODO: Add your command handler code here
 	CDlgConfigureDevice dlg;
+	dlg.m_name = g_m_device_name;
+	dlg.m_pct_battery = g_m_pct_battery;
+	dlg.m_temperature = g_m_temperature;
+	dlg.m_humidity = g_m_humidity;
+	dlg.m_height = g_m_height;
+	dlg.m_speed = g_m_speed;
+	dlg.m_direction = g_m_direction;
+	dlg.m_numsat = g_m_numsat;
+	dlg.m_phone = g_m_phone;
+	dlg.m_aquaid = g_m_aquaid;
+	dlg.m_aquakey = g_m_aquakey;
+
+	UpdateData(False);
 	dlg.DoModal();
 }
 

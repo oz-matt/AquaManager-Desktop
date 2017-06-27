@@ -8,6 +8,8 @@
 
 #include "DeviceName.h"
 
+CString g_m_device_name;
+
 // CDlgAddDevice dialog
 
 IMPLEMENT_DYNAMIC(CDlgAddDevice, CDialogEx)
@@ -48,4 +50,5 @@ void CDlgAddDevice::OnBnClickedOk()
 	CDeviceName dlg;
 	dlg.DoModal();
 	this->m_device_name = dlg.m_device_name;
+	g_m_device_name = dlg.m_device_name;
 }
