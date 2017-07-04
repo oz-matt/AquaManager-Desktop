@@ -123,6 +123,7 @@
     <ClInclude Include="Device.h" />
     <ClInclude Include="DeviceName.h" />
     <ClInclude Include="DeviceRawData.h" />
+    <ClInclude Include="DeviceRawDataShow.h" />
     <ClInclude Include="DeviceRemove.h" />
     <ClInclude Include="DeviceSettings.h" />
     <ClInclude Include="DlgAddDevice.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="DeviceName.cpp" />
     <ClCompile Include="DeviceRawData.cpp" />
+    <ClCompile Include="DeviceRawDataShow.cpp" />
     <ClCompile Include="DeviceRemove.cpp" />
     <ClCompile Include="DeviceSettings.cpp" />
     <ClCompile Include="DlgAddDevice.cpp" />

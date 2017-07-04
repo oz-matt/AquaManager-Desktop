@@ -36,4 +36,8 @@ public:
 	CString m_aquaid;
 //	CString m_passcode;
 	CString m_aquakey;
+	CString m_previous_location;
+	CString m_previous_time;
+	CString m_current_location;
+	CString m_current_time;
 };

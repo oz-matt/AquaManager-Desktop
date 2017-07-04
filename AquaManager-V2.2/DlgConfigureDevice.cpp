@@ -28,6 +28,10 @@ CDlgConfigureDevice::CDlgConfigureDevice(CWnd* pParent /*=NULL*/)
 	m_aquaid = _T("");
 	//  m_passcode = _T("");
 	m_aquakey = _T("");
+	m_previous_location = _T("");
+	m_previous_time = _T("");
+	m_current_location = _T("");
+	m_current_time = _T("");
 }
 
 CDlgConfigureDevice::~CDlgConfigureDevice()
@@ -51,6 +55,10 @@ void CDlgConfigureDevice::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_Aqua_ID, m_aquaid);
 	//  DDX_Text(pDX, IDC_EDIT_Aqua_Key, m_passcode);
 	DDX_Text(pDX, IDC_EDIT_Aqua_Key, m_aquakey);
+	DDX_Text(pDX, IDC_EDIT_Previous_Location, m_previous_location);
+	DDX_Text(pDX, IDC_EDIT_Previous_Time, m_previous_time);
+	DDX_Text(pDX, IDC_EDIT_Current_Location, m_current_location);
+	DDX_Text(pDX, IDC_EDIT_Current_Time, m_current_time);
 }
 
 

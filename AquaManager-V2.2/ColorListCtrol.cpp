@@ -31,6 +31,18 @@ extern CString g_m_numsat;
 extern CString g_m_phone;
 extern CString g_m_aquakey;
 
+extern double g_m_previous_lat;
+extern double g_m_previous_lng;
+extern double g_m_current_lat;
+extern double g_m_current_lng;
+extern CString g_m_previous_time;
+extern CString g_m_current_time;
+extern CString g_m_previous_location;
+extern CString g_m_current_location;
+extern CString g_m_aqsense_data[10];
+extern CString g_m_aqsense_data_head[10];
+extern int g_m_aqsense_count;
+
 IMPLEMENT_DYNAMIC(CColorListCtrol, CListCtrl)
 
 CColorListCtrol::CColorListCtrol()
@@ -248,6 +260,10 @@ void CColorListCtrol::OnDeviceInfo()
 	dlg.m_phone = g_m_phone;
 	dlg.m_aquaid = g_m_aquaid;
 	dlg.m_aquakey = g_m_aquakey;
+	dlg.m_previous_time = g_m_previous_time;
+	dlg.m_current_time = g_m_current_time;
+	dlg.m_previous_location = g_m_previous_location;
+	dlg.m_current_location = g_m_current_location;
 
 	UpdateData(False);
 	dlg.DoModal();
@@ -258,6 +274,8 @@ void CColorListCtrol::OnDeviceRawdata()
 {
 	// TODO: Add your command handler code here
 	CDeviceRawData dlg;
+
+	UpdateData(False);
 	dlg.DoModal();
 }
 

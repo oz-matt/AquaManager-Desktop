@@ -30,6 +30,32 @@ CString g_m_numsat;
 CString g_m_phone;
 CString g_m_aquakey;
 
+double g_m_previous_lat;
+double g_m_previous_lng;
+double g_m_current_lat;
+double g_m_current_lng;
+CString g_m_previous_location;
+CString g_m_current_location;
+CString g_m_previous_time;
+CString g_m_current_time;
+
+CString g_m_datetime;
+CString g_m_uuid;
+CString g_m_time;
+//CString g_m_numsat;
+CString g_m_lon;///////////////
+CString g_m_lat;
+//CString g_m_height;
+//CString g_m_gspeed;
+CString g_m_accelerometer;
+CString g_m_pressure;
+CString g_m_update_rate;
+CString g_m_incoming_ip;
+CString g_m_install_id;////////////
+CString g_m_aqsense_data[10];
+CString g_m_aqsense_data_head[10];
+int g_m_aqsense_count;
+
 extern int currentTabSelected;
 
 // CDevice dialog
@@ -209,8 +235,12 @@ void CDevice::OnBnClickedBtnAddmarker()
 			aqsens_size = aqsens_node.size();
 		}
 
+		g_m_aqsense_count = 0;
 		for(int i = 0; i < aqsens_size; ++i)
 		{
+			//g_m_aqsense_data[i] = aqsens_node.asCString(); // ???
+			//g_m_aqsense_count++;
+
 			string datetime = aqsens_node[i]["datetime"].asString();
 			string uuid = aqsens_node[i]["uuid"].asString();
 
@@ -222,6 +252,43 @@ void CDevice::OnBnClickedBtnAddmarker()
 			double height = gpsminimum["height"].asDouble();
 			double gspeed = gpsminimum["gspeed"].asDouble();
 			double direction = gpsminimum["direction"].asDouble();
+
+			if (i == 0)
+			{
+				g_m_current_lat = lat;
+				g_m_current_lng = lon;
+				g_m_current_time = gpsminimum["time"].asCString();
+
+				Json::Reader reader_tmp;
+				Json::Value root_tmp;
+				char tmp_loc[1024] = "";
+				sprintf(tmp_loc, "https://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&key=AIzaSyAeHtCDX8llqpxW-xOHZ-nyBPHvKGDeOIw", lat, lon);
+				data = handle_url_fields(tmp_loc, "");
+				if (reader_tmp.parse(data, root_tmp))
+				{
+					Json::Value loc_tmp = root_tmp["results"];
+					int n = loc_tmp.size();
+					g_m_current_location = loc_tmp[2]["formatted_address"].asCString();
+				}
+			}
+			if (i == 1)
+			{
+				g_m_previous_lat = lat;
+				g_m_previous_lng = lon;
+				g_m_previous_time = gpsminimum["time"].asCString();
+
+				Json::Reader reader_tmp;
+				Json::Value root_tmp;
+				char tmp_loc[1024] = "";
+				sprintf(tmp_loc, "https://maps.googleapis.com/maps/api/geocode/json?latlng=%f,%f&key=AIzaSyAeHtCDX8llqpxW-xOHZ-nyBPHvKGDeOIw", lat, lon);
+				data = handle_url_fields(tmp_loc, "");
+				if (reader_tmp.parse(data, root_tmp))
+				{
+					Json::Value loc_tmp = root_tmp["results"];
+					int n = loc_tmp.size();
+					g_m_previous_location = loc_tmp[2]["formatted_address"].asCString();
+				}
+			}
 
 			Json::Value gpsextended = aqsens_node[i]["gpsextended"];
 
@@ -247,7 +314,38 @@ void CDevice::OnBnClickedBtnAddmarker()
 			g_m_height.Format(_T("%f"), height);
 			g_m_speed.Format(_T("%f"), gspeed);
 			g_m_direction.Format(_T("%f"), direction);
-			g_m_numsat.Format(_T("%d"), numsat);			
+			g_m_numsat.Format(_T("%d"), numsat);	
+			g_m_lon.Format(_T("%f"), lon);
+			g_m_lat.Format(_T("%f"), lat);
+			g_m_accelerometer = sensors["accelerometer"].asCString();
+			g_m_pressure.Format(_T("%d"), pressure);
+			g_m_update_rate.Format(_T("%d"), update_rate);
+			g_m_incoming_ip = aqsens_node[i]["incoming_ip"].asCString();
+			g_m_install_id = aqsens_node[i]["install_id"].asCString();
+			g_m_datetime = aqsens_node[i]["datetime"].asCString();
+			g_m_uuid = aqsens_node[i]["uuid"].asCString();
+			g_m_time = gpsminimum["time"].asCString();
+
+			CString tmp_convert;
+			g_m_aqsense_data_head[i].Append(g_m_datetime);
+			g_m_aqsense_data[i].Append("datetime: " + g_m_datetime + "\r\n");
+			g_m_aqsense_data[i].Append("uuid: " + g_m_uuid + "\r\n");
+			g_m_aqsense_data[i].Append("time: " + g_m_time + "\r\n");
+			g_m_aqsense_data[i].Append("numsat: " + g_m_numsat + "\r\n");
+			g_m_aqsense_data[i].Append("lon: " + g_m_lon + "\r\n");
+			g_m_aqsense_data[i].Append("lat: " + g_m_lat + "\r\n");
+			g_m_aqsense_data[i].Append("height: " + g_m_height + "\r\n");
+			g_m_aqsense_data[i].Append("gspeed: " + g_m_speed + "\r\n");
+			g_m_aqsense_data[i].Append("direction: " + g_m_direction + "\r\n");
+			g_m_aqsense_data[i].Append("pct_battery: " + g_m_pct_battery + "\r\n");
+			g_m_aqsense_data[i].Append("accelerometer: " + g_m_accelerometer + "\r\n");
+			g_m_aqsense_data[i].Append("temperature: " + g_m_temperature + "\r\n");
+			g_m_aqsense_data[i].Append("humidity: " + g_m_humidity + "\r\n");
+			g_m_aqsense_data[i].Append("pressure: " + g_m_pressure + "\r\n");
+			g_m_aqsense_data[i].Append("update_rate: " + g_m_update_rate + "\r\n");
+			g_m_aqsense_data[i].Append("incoming_ip: " + g_m_incoming_ip + "\r\n");
+			g_m_aqsense_data[i].Append("install_id: " + g_m_install_id);
+			g_m_aqsense_count++;
 		}
 	}
 
