@@ -29,4 +29,5 @@ public:
 	afx_msg void OnBnClickedBtnAddmarker();
 	CMFCButton m_btn_add_device;
 //	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnNMRClickLstDevice(NMHDR *pNMHDR, LRESULT *pResult);
 };

@@ -89,6 +89,7 @@ BEGIN_MESSAGE_MAP(CDevice, CDialog)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LST_Device, &CDevice::OnLvnItemchangedLstDevice)
 	ON_BN_CLICKED(IDC_BTN_AddMarker, &CDevice::OnBnClickedBtnAddmarker)
 //	ON_WM_LBUTTONDOWN()
+ON_NOTIFY(NM_RCLICK, IDC_LST_Device, &CDevice::OnNMRClickLstDevice)
 END_MESSAGE_MAP()
 
 
@@ -380,3 +381,11 @@ void CDevice::OnBnClickedBtnAddmarker()
 //
 //	CDialog::OnLButtonDown(nFlags, point);
 //}
+
+
+void CDevice::OnNMRClickLstDevice(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: Add your control notification handler code here
+	*pResult = 0;
+}
