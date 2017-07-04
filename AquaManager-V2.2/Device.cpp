@@ -12,6 +12,7 @@
 
 #include "DlgAddDevice.h"
 #include "AquaLib.h"
+#include "DeviceName.h"
 
 #include "include/json/reader.h"
 #include "include/json/value.h"
@@ -57,6 +58,7 @@ CString g_m_aqsense_data_head[10];
 int g_m_aqsense_count;
 
 extern int currentTabSelected;
+extern CString g_m_device_name;
 
 // CDevice dialog
 
@@ -200,6 +202,10 @@ void CDevice::OnBnClickedBtnAddmarker()
 	data = handle_url_fields(ip, temp);
 
 	// process data
+	CDeviceName dlg_name;
+	dlg_name.DoModal();
+	dlg.m_device_name = dlg_name.m_device_name;
+	g_m_device_name = dlg_name.m_device_name;
 
 	Json::Reader reader;
 	Json::Value root;
