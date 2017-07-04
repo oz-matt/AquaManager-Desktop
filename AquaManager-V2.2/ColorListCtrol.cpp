@@ -43,6 +43,8 @@ extern CString g_m_aqsense_data[10];
 extern CString g_m_aqsense_data_head[10];
 extern int g_m_aqsense_count;
 
+int g_m_current_index;
+
 IMPLEMENT_DYNAMIC(CColorListCtrol, CListCtrl)
 
 CColorListCtrol::CColorListCtrol()
@@ -185,6 +187,8 @@ void CColorListCtrol::OnLButtonDown(UINT nFlags, CPoint point)
 	if (hitinfo.iItem < 0)
 		return;
 
+	g_m_current_index = hitinfo.iItem;
+
 	int select = currentTabSelected;
 
 	if (select == 0) {
@@ -284,7 +288,10 @@ void CColorListCtrol::OnDeviceRemove()
 {
 	// TODO: Add your command handler code here
 	CDeviceRemove dlg;
-	dlg.DoModal();
+
+	if (dlg.DoModal() == IDOK) {
+		this->DeleteItem(g_m_current_index);
+	}
 }
 
 
