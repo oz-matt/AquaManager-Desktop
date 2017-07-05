@@ -28,4 +28,6 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnBnClickedBtnDeviceselect();
 	CString m_device;
+	CString m_trigger;
+	afx_msg void OnBnClickedBtnTriggerselect();
 };
