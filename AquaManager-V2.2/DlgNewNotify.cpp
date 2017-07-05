@@ -12,6 +12,7 @@
 #include "EamilTarget.h"
 #include "PhoneTarget.h"
 #include "DLGInfo.h"
+#include "DlgNoGeofence.h"
 
 extern int g_m_select_device_notif;
 extern CString g_m_select_device_notif_name;
@@ -109,6 +110,12 @@ void CDlgNewNotify::OnBnClickedBtnTriggerselect()
 	dlg.DoModal();
 
 	m_trigger = g_m_select_trigger_notif_name;
+
+	if (m_trigger == "Enters Geofence" || m_trigger == "Exits Geofence") {
+		CDlgNoGeofence dlg;
+		dlg.DoModal();
+		return;
+	}
 
 	if (m_phone == True) {
 		m_tip = "Whenever " + m_device + " " +  m_trigger + ", send " + m_phone_val + " a text";
