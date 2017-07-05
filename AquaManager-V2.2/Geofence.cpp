@@ -9,6 +9,8 @@
 #include "include/json/reader.h"
 #include "include/json/value.h"
 
+#include "math.h"
+
 #include "AquaLib.h"
 
 #include "DlgAddGeofence.h"
@@ -164,20 +166,55 @@ void CGeofence::OnBnClickedBtnSave()
 	double lng;
 	char* data;
 
-	double radius = 6371000;// meters
-	double diameter = radius * 2;
-	double circumference = diameter * 3.1416;
-	double latitudeRef;
-	double longitudeRef;
-
-	getPolygonLat1(&latitudeRef);
-	getPolygonLng1(&longitudeRef);
-
 	if (m_circle) {
 		size = 3.1416 * m_radius * m_radius;
 	}
 	if (m_polygon) {
-		size = 3.1416 * m_radius * m_radius; // need to be update
+		double radius = 6371000;// meters
+		double diameter = radius * 2;
+		double circumference = diameter * 3.1416;
+		double latitudeRef;
+		double longitudeRef;
+		double listY[4];
+		double listX[4];
+		double listArea[4];
+		double latitude1;
+		double latitude2;
+		double latitude3;
+		double latitude4;
+		double longitude1;
+		double longitude2;
+		double longitude3;
+		double longitude4;
+		double areasSum = 0;
+		getPolygonLat1(&latitude1);
+		getPolygonLat1(&latitude2);
+		getPolygonLat1(&latitude3);
+		getPolygonLat1(&latitude4);
+		getPolygonLng1(&longitude1);
+		getPolygonLng1(&longitude2);
+		getPolygonLng1(&longitude3);
+		getPolygonLng1(&longitude4);
+		double latitude[4] = {latitude1, latitude2, latitude3, latitude4};
+		double longitude[4] = {longitude1, longitude2, longitude3, longitude4};
+
+		getPolygonLat1(&latitudeRef);
+		getPolygonLng1(&longitudeRef);
+		for(int i = 1; i < 4; i++) {
+			listY[i] = (latitude[i] - latitudeRef) * circumference / 360.0;
+			listX[i] = (longitude[i] - longitudeRef) * circumference * cos(latitude[i] * 3.1416 / 180) / 360.0;
+		}
+		for(int i = 1; i < 4; i++) {
+			double x1 = listX[i - 1];
+			double y1 = listY[i - 1];
+			double x2 = listX[i];
+			double y2 = listY[i];
+			listArea[i] = (y1 * x2 - x1 * y2) / 2;
+		}
+		for (int i = 0; i < 4; i++) {
+			areasSum = areasSum + listArea[i];
+		}
+		size = fabs(areasSum);
 	}
 	size_cstr.Format("%f", size);
 	get_center(&lat, &lng);
