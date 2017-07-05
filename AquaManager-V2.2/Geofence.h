@@ -36,4 +36,14 @@ public:
 	void draw_polygon(double side);
 	double m_radius;
 	void get_center(double * lat, double * lng);
+	BOOL m_circle;
+	BOOL m_polygon;
+	void getPolygonLat1(double * lat);
+	void getPolygonLat2(double * lat);
+	void getPolygonLat3(double * lat);
+	void getPolygonLat4(double * lat);
+	void getPolygonLng1(double * lng);
+	void getPolygonLng2(double * lng);
+	void getPolygonLng3(double * lng);
+	void getPolygonLng4(double * lng);
 };

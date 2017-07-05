@@ -204,11 +204,11 @@
 					//alert("center.lng:" + center.lng());
 					
 					var PathData = [
-						[center.lat() + side, center.lng() - side], 
-						[center.lat() - side, center.lng() - side],
-						[center.lat() - side, center.lng() + side],
-						[center.lat() + side, center.lng() + side],
-						[center.lat() + side, center.lng() - side]
+						[center.lat() + side / 111.31955, center.lng() - side / 111.31955], 
+						[center.lat() - side / 111.31955, center.lng() - side / 111.31955],
+						[center.lat() - side / 111.31955, center.lng() + side / 111.31955],
+						[center.lat() + side / 111.31955, center.lng() + side / 111.31955],
+						[center.lat() + side / 111.31955, center.lng() - side / 111.31955]
 					];
 					//var center = new google.maps.LatLng(PathData[2][1], PathData[2][2]);
 					
@@ -222,6 +222,15 @@
 						
 						//bounds_global.extend(latlng);
 					}
+					
+					lat1_global = PathData[0][0];
+					lng1_global = PathData[0][1];
+					lat2_global = PathData[1][0];
+					lng2_global = PathData[1][1];
+					lat3_global = PathData[2][0];
+					lng3_global = PathData[2][1];
+					lat4_global = PathData[3][0];
+					lng4_global = PathData[3][1];
 			
 					var polygonOptions = {
 						//map: map,
@@ -238,6 +247,7 @@
 					}; 
 					polygon_global = new google.maps.Polygon(polygonOptions);
 					polygon_global.setMap(map);
+					center_global = event.latLng;
 					
 					//bounds_global.extend(event.latLng);
 					//map.fitBounds(bounds_global);

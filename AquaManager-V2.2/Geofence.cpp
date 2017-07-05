@@ -141,9 +141,13 @@ void CGeofence::OnBnClickedBtnGeofence()
 
 	if (dlg.m_circle) {
 		draw_circle(dlg.m_radius_double);
+		m_circle = True;
+		m_polygon = False;
 	}
 	else if (dlg.m_polygon) {
 		draw_polygon(dlg.m_radius_double);
+		m_circle = False;
+		m_polygon = True;
 	}
 
 	m_geo_name = dlg.m_geo_name;
@@ -160,7 +164,21 @@ void CGeofence::OnBnClickedBtnSave()
 	double lng;
 	char* data;
 
-	size = 3.1416 * m_radius * m_radius;
+	double radius = 6371000;// meters
+	double diameter = radius * 2;
+	double circumference = diameter * 3.1416;
+	double latitudeRef;
+	double longitudeRef;
+
+	getPolygonLat1(&latitudeRef);
+	getPolygonLng1(&longitudeRef);
+
+	if (m_circle) {
+		size = 3.1416 * m_radius * m_radius;
+	}
+	if (m_polygon) {
+		size = 3.1416 * m_radius * m_radius; // need to be update
+	}
 	size_cstr.Format("%f", size);
 	get_center(&lat, &lng);
 
@@ -221,7 +239,8 @@ void CGeofence::draw_polygon(double side)
 		return;
 
 	CString js;
-	js.Format(_T("DrawPolygon(%.2f);"), side);
+	// // 1 mi = 1.609344 km;
+	js.Format(_T("DrawPolygon(%.2f);"), side * 1.609344);
 
 	CComBSTR bstrJS = js.AllocSysString();
 	CComBSTR bstrLanguage = SysAllocString(L"javascript");
@@ -269,6 +288,291 @@ void CGeofence::get_center(double * lat, double * lng)
         {
             CComVariant vArgs[] = { lng, lat };
             DISPPARAMS params = { vArgs, NULL, 2, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lng = vResult.lVal;
+                }
+            }
+        }
+    }
+}
+
+
+void CGeofence::getPolygonLat1(double * lat)
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return ;
+
+	static LPOLESTR strFxnLat = OLESTR("getPolygonLat1");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lat };
+            DISPPARAMS params = { vArgs, NULL, 1, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lat = vResult.lVal;
+                }
+            }
+        }
+    }
+}
+
+
+void CGeofence::getPolygonLat2(double * lat)
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return ;
+
+	static LPOLESTR strFxnLat = OLESTR("getPolygonLat2");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lat };
+            DISPPARAMS params = { vArgs, NULL, 1, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lat = vResult.lVal;
+                }
+            }
+        }
+    }
+}
+
+void CGeofence::getPolygonLat3(double * lat)
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return ;
+
+	static LPOLESTR strFxnLat = OLESTR("getPolygonLat3");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lat };
+            DISPPARAMS params = { vArgs, NULL, 1, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lat = vResult.lVal;
+                }
+            }
+        }
+    }
+}
+
+
+void CGeofence::getPolygonLat4(double * lat)
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return ;
+
+	static LPOLESTR strFxnLat = OLESTR("getPolygonLat4");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lat };
+            DISPPARAMS params = { vArgs, NULL, 1, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lat = vResult.lVal;
+                }
+            }
+        }
+    }
+}
+
+void CGeofence::getPolygonLng1(double * lng)
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return ;
+
+	static LPOLESTR strFxnLat = OLESTR("getPolygonLng1");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lng };
+            DISPPARAMS params = { vArgs, NULL, 1, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lng = vResult.lVal;
+                }
+            }
+        }
+    }
+}
+
+
+void CGeofence::getPolygonLng2(double * lng)
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return ;
+
+	static LPOLESTR strFxnLat = OLESTR("getPolygonLng2");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lng };
+            DISPPARAMS params = { vArgs, NULL, 1, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lng = vResult.lVal;
+                }
+            }
+        }
+    }
+}
+
+void CGeofence::getPolygonLng3(double * lng)
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return ;
+
+	static LPOLESTR strFxnLat = OLESTR("getPolygonLng3");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lng };
+            DISPPARAMS params = { vArgs, NULL, 1, 0 };
+            CComVariant vResult;
+            if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
+                DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
+            {
+                if ((vResult.vt != VT_EMPTY) && ((vResult.vt == VT_I4) ||
+                    SUCCEEDED(vResult.ChangeType(VT_I4))))
+                {
+                    *lng = vResult.lVal;
+                }
+            }
+        }
+    }
+}
+
+
+void CGeofence::getPolygonLng4(double * lng)
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return ;
+
+	static LPOLESTR strFxnLat = OLESTR("getPolygonLng4");
+	CComPtr<IDispatch>pdispScript;
+	if (SUCCEEDED(pDoc->get_Script(&pdispScript)) && pdispScript)
+    {
+        DISPID dispID;
+
+		if (SUCCEEDED(pdispScript->GetIDsOfNames(
+            IID_NULL, &strFxnLat, 1, LOCALE_USER_DEFAULT, &dispID)))
+        {
+            CComVariant vArgs[] = { lng };
+            DISPPARAMS params = { vArgs, NULL, 1, 0 };
             CComVariant vResult;
             if (SUCCEEDED(pdispScript->Invoke(dispID, IID_NULL, 0,
                 DISPATCH_METHOD, &params, &vResult, NULL, NULL)))
