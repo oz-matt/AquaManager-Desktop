@@ -64,6 +64,7 @@
 		var circle_global;
 		var is_draw_global = 0;
 		var side_input_global;
+		var center_global;
 
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
@@ -188,6 +189,10 @@
 						draggable:true
 					}; 
 					circle_global = new google.maps.Circle(circleOptions);
+					center_global = event.latLng;
+
+					//alert("center:" + center_global.lat());
+					//alert("center:" + center_global.lng());
 				}
 				
 				if (is_draw_global == 2) {	
@@ -271,6 +276,18 @@
 			side_input_global = input_side;
 		
 			is_draw_global = 2;
+		}
+		
+		function getCenter() {
+			return center_global;
+		}
+		
+		function getCenterLat() {
+			return center_global.lat();
+		}
+		
+		function getCenterLng() {
+			return center_global.lng();
 		}
 		
 		function GetLocation(lat, lon) {

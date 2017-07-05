@@ -20,4 +20,11 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedOk();
+	virtual BOOL OnInitDialog();
+	CString m_geo_name;
+	CString m_radius;
+	BOOL m_circle;
+	BOOL m_polygon;
+	int m_radius_int;
+	double m_radius_double;
 };
