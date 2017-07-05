@@ -44,4 +44,5 @@ public:
 	BOOL m_email;
 	CString m_phone_val;
 	CString m_email_val;
+	CString mac_address;
 };

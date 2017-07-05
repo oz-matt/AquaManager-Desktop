@@ -13,6 +13,7 @@
 #include "PhoneTarget.h"
 #include "DLGInfo.h"
 #include "DlgNoGeofence.h"
+#include "DlgMacAddress.h"
 
 extern int g_m_select_device_notif;
 extern CString g_m_select_device_notif_name;
@@ -115,6 +116,12 @@ void CDlgNewNotify::OnBnClickedBtnTriggerselect()
 		CDlgNoGeofence dlg;
 		dlg.DoModal();
 		return;
+	}
+
+	if (m_trigger == "Sees Mac Address") {
+		CDlgMacAddress dlg;
+		dlg.DoModal();
+		mac_address = dlg.mac_addr;
 	}
 
 	if (m_phone == True) {

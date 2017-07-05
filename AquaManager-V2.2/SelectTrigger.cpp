@@ -50,7 +50,7 @@ BOOL CSelectTrigger::OnInitDialog()
 	m_select_trigger.InsertString(count++, "Enters Geofence");
 	m_select_trigger.InsertString(count++, "Exits Geofence");
 	m_select_trigger.InsertString(count++, "Uploads Data");
-	m_select_trigger.InsertString(count++, "See Mac Address");
+	m_select_trigger.InsertString(count++, "Sees Mac Address");
 	m_select_trigger.InsertString(count++, "Starts Moving");
 	m_select_trigger.InsertString(count++, "Stops Moving");
 

@@ -130,6 +130,7 @@
     <ClInclude Include="DlgAddGeofence.h" />
     <ClInclude Include="DlgConfigureDevice.h" />
     <ClInclude Include="DLGInfo.h" />
+    <ClInclude Include="DlgMacAddress.h" />
     <ClInclude Include="DlgNewNotify.h" />
     <ClInclude Include="DlgNoGeofence.h" />
     <ClInclude Include="EamilTarget.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="DlgAddGeofence.cpp" />
     <ClCompile Include="DlgConfigureDevice.cpp" />
     <ClCompile Include="DLGInfo.cpp" />
+    <ClCompile Include="DlgMacAddress.cpp" />
     <ClCompile Include="DlgNewNotify.cpp" />
     <ClCompile Include="DlgNoGeofence.cpp" />
     <ClCompile Include="EamilTarget.cpp" />
