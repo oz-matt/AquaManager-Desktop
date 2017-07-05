@@ -12,7 +12,7 @@ public:
 	virtual ~CDlgMacAddress();
 
 // Dialog Data
-	enum { IDD = IDD_DIALOG1 };
+	enum { IDD = IDD_DLG_MacAddr };
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
