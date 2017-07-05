@@ -57,6 +57,8 @@ CString g_m_aqsense_data[10];
 CString g_m_aqsense_data_head[10];
 int g_m_aqsense_count;
 
+int g_m_device_count;
+
 extern int currentTabSelected;
 extern CString g_m_device_name;
 
@@ -372,6 +374,8 @@ void CDevice::OnBnClickedBtnAddmarker()
 	nIndex = m_lst_device.InsertItem(0, dlg.m_device_name);
 	m_lst_device.SetItemText(nIndex, 1, location.c_str());
 	m_lst_device.SetItemText(nIndex, 2, battery_show);
+
+	g_m_device_count++;
 }
 
 

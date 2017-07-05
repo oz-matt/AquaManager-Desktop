@@ -20,4 +20,5 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CString m_device_name;
+	virtual BOOL OnInitDialog();
 };

@@ -25,4 +25,7 @@ public:
 	string trigger;
 	string geo_type;
 	string geo_data;
+	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedBtnDeviceselect();
+	CString m_device;
 };

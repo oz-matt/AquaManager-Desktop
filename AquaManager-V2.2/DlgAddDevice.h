@@ -23,4 +23,5 @@ public:
 	CString m_aquaid;
 	CString m_passcode;
 	CString m_device_name;
+	virtual BOOL OnInitDialog();
 };

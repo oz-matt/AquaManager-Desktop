@@ -34,3 +34,17 @@ END_MESSAGE_MAP()
 
 
 // CDeviceName message handlers
+
+
+BOOL CDeviceName::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	m_device_name = "USA";
+
+	UpdateData(False);
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+}

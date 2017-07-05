@@ -47,3 +47,18 @@ void CDlgAddDevice::OnBnClickedOk()
 	// TODO: Add your control notification handler code here
 	CDialogEx::OnOK();
 }
+
+
+BOOL CDlgAddDevice::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	// TODO:  Add extra initialization here
+	m_aquaid = "8DC8B056";
+	m_passcode = "849DEEE4";
+
+	UpdateData(False);
+
+	return TRUE;  // return TRUE unless you set the focus to a control
+	// EXCEPTION: OCX Property Pages should return FALSE
+}

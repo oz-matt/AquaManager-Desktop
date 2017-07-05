@@ -17,6 +17,8 @@
 using namespace std;
 
 extern int currentTabSelected;
+extern int g_m_device_count;
+
 // CNotification dialog
 
 IMPLEMENT_DYNAMIC(CNotification, CDialog)
@@ -126,6 +128,11 @@ HBRUSH CNotification::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CNotification::OnBnClickedBtnNewnotify()
 {
 	// TODO: Add your control notification handler code here
+	if (g_m_device_count == 0) {
+		MessageBox("You must add a device before creating a notification", "Need Device");
+		return;
+	}
+
 	CDlgNewNotify dlg;
 	dlg.DoModal();
 
