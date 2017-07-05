@@ -187,6 +187,9 @@
     <ClInclude Include="SelectTrigger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SelectAlarm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AquaManager-V2.2.cpp">
@@ -274,6 +277,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SelectTrigger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectAlarm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

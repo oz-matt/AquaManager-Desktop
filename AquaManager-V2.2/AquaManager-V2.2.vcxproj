@@ -148,6 +148,7 @@
     <ClInclude Include="NotificationRemove.h" />
     <ClInclude Include="NotificationSettings.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SelectAlarm.h" />
     <ClInclude Include="SelectDevice.h" />
     <ClInclude Include="SelectTrigger.h" />
     <ClInclude Include="stdafx.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Notification.cpp" />
     <ClCompile Include="NotificationRemove.cpp" />
     <ClCompile Include="NotificationSettings.cpp" />
+    <ClCompile Include="SelectAlarm.cpp" />
     <ClCompile Include="SelectDevice.cpp" />
     <ClCompile Include="SelectTrigger.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -8,10 +8,12 @@
 
 #include "SelectDevice.h"
 #include "SelectTrigger.h"
+#include "SelectAlarm.h"
 
 extern int g_m_select_device_notif;
 extern CString g_m_select_device_notif_name;
 extern CString g_m_select_trigger_notif_name;
+extern CString g_m_select_alarm_notif_name;
 
 // CDlgNewNotify dialog
 
@@ -23,6 +25,7 @@ CDlgNewNotify::CDlgNewNotify(CWnd* pParent /*=NULL*/)
 
 	m_device = _T("");
 	m_trigger = _T("");
+	m_alarm = _T("");
 }
 
 CDlgNewNotify::~CDlgNewNotify()
@@ -34,6 +37,7 @@ void CDlgNewNotify::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT_Device, m_device);
 	DDX_Text(pDX, IDC_EDIT_Trigger, m_trigger);
+	DDX_Text(pDX, IDC_EDIT_Alarm, m_alarm);
 }
 
 
@@ -41,6 +45,7 @@ BEGIN_MESSAGE_MAP(CDlgNewNotify, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CDlgNewNotify::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_Btn_DeviceSelect, &CDlgNewNotify::OnBnClickedBtnDeviceselect)
 	ON_BN_CLICKED(IDC_Btn_TriggerSelect, &CDlgNewNotify::OnBnClickedBtnTriggerselect)
+	ON_BN_CLICKED(IDC_Btn_AlarmSelect, &CDlgNewNotify::OnBnClickedBtnAlarmselect)
 END_MESSAGE_MAP()
 
 
@@ -83,5 +88,16 @@ void CDlgNewNotify::OnBnClickedBtnTriggerselect()
 	dlg.DoModal();
 
 	m_trigger = g_m_select_trigger_notif_name;
+	UpdateData(False);
+}
+
+
+void CDlgNewNotify::OnBnClickedBtnAlarmselect()
+{
+	// TODO: Add your control notification handler code here
+	CSelectAlarm dlg;
+	dlg.DoModal();
+
+	m_alarm = g_m_select_alarm_notif_name;
 	UpdateData(False);
 }

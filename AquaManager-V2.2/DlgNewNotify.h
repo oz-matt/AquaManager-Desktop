@@ -30,4 +30,6 @@ public:
 	CString m_device;
 	CString m_trigger;
 	afx_msg void OnBnClickedBtnTriggerselect();
+	afx_msg void OnBnClickedBtnAlarmselect();
+	CString m_alarm;
 };
