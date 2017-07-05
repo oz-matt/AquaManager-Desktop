@@ -41,9 +41,8 @@ BOOL CDLGInfo::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// TODO:  Add extra initialization here
-	m_info = "This option will set the notification \r\n"
-			 "to only send an alarm when the target \r\n"
-			 "Aqua changes from a non-triggered state \r\n"
+	m_info = "This option will set the notification to only send an alarm\r\n"
+			 "when the target Aqua changes from a non-triggered state\r\n"
 			 "to triggered one.";
 
 	UpdateData(False);
