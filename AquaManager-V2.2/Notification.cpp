@@ -80,7 +80,7 @@ BOOL CNotification::OnInitDialog()
 	lvColumn.iImage = 1;
 	lvColumn.cx = 70;
 	lvColumn.pszText =_T("Alarm");
-	m_lst_notificaton.InsertColumn(1, &lvColumn);
+	m_lst_notificaton.InsertColumn(2, &lvColumn);
 
 	// Add some columns to the list control
 	//m_lst_notificaton.InsertColumn( 0, _T("Device Name") );
@@ -365,4 +365,8 @@ void CNotification::OnBnClickedBtnNewnotify()
 		}"
 		);
 	}
+
+	nIndex = m_lst_notificaton.InsertItem(0, dlg.m_device);
+	m_lst_notificaton.SetItemText(nIndex, 1, dlg.m_trigger);
+	m_lst_notificaton.SetItemText(nIndex, 2, dlg.m_alarm);
 }
