@@ -32,4 +32,5 @@ public:
 	afx_msg void OnBnClickedBtnTriggerselect();
 	afx_msg void OnBnClickedBtnAlarmselect();
 	CString m_alarm;
+	afx_msg void OnBnClickedBtnOnchangeInfo();
 };

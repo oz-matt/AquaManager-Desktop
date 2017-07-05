@@ -11,6 +11,7 @@
 #include "SelectAlarm.h"
 #include "EamilTarget.h"
 #include "PhoneTarget.h"
+#include "DLGInfo.h"
 
 extern int g_m_select_device_notif;
 extern CString g_m_select_device_notif_name;
@@ -48,6 +49,7 @@ BEGIN_MESSAGE_MAP(CDlgNewNotify, CDialogEx)
 	ON_BN_CLICKED(IDC_Btn_DeviceSelect, &CDlgNewNotify::OnBnClickedBtnDeviceselect)
 	ON_BN_CLICKED(IDC_Btn_TriggerSelect, &CDlgNewNotify::OnBnClickedBtnTriggerselect)
 	ON_BN_CLICKED(IDC_Btn_AlarmSelect, &CDlgNewNotify::OnBnClickedBtnAlarmselect)
+	ON_BN_CLICKED(IDC_Btn_OnChange_Info, &CDlgNewNotify::OnBnClickedBtnOnchangeInfo)
 END_MESSAGE_MAP()
 
 
@@ -113,4 +115,12 @@ void CDlgNewNotify::OnBnClickedBtnAlarmselect()
 	}
 
 	UpdateData(False);
+}
+
+
+void CDlgNewNotify::OnBnClickedBtnOnchangeInfo()
+{
+	// TODO: Add your control notification handler code here
+	CDLGInfo dlg;
+	dlg.DoModal();
 }

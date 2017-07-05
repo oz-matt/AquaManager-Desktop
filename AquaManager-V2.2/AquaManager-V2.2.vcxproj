@@ -129,6 +129,7 @@
     <ClInclude Include="DlgAddDevice.h" />
     <ClInclude Include="DlgAddGeofence.h" />
     <ClInclude Include="DlgConfigureDevice.h" />
+    <ClInclude Include="DLGInfo.h" />
     <ClInclude Include="DlgNewNotify.h" />
     <ClInclude Include="EamilTarget.h" />
     <ClInclude Include="Geofence.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="DlgAddDevice.cpp" />
     <ClCompile Include="DlgAddGeofence.cpp" />
     <ClCompile Include="DlgConfigureDevice.cpp" />
+    <ClCompile Include="DLGInfo.cpp" />
     <ClCompile Include="DlgNewNotify.cpp" />
     <ClCompile Include="EamilTarget.cpp" />
     <ClCompile Include="Geofence.cpp" />
