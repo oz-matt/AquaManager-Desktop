@@ -33,4 +33,15 @@ public:
 	afx_msg void OnBnClickedBtnAlarmselect();
 	CString m_alarm;
 	afx_msg void OnBnClickedBtnOnchangeInfo();
+	BOOL m_continuous;
+//	CButton m_onchange;
+	CString m_tip;
+	BOOL m_onchange;
+	afx_msg void OnBnClickedCheckContinuous();
+	afx_msg void OnBnClickedCheckOnchange();
+
+	BOOL m_phone;
+	BOOL m_email;
+	CString m_phone_val;
+	CString m_email_val;
 };

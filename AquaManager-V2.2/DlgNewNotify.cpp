@@ -29,6 +29,10 @@ CDlgNewNotify::CDlgNewNotify(CWnd* pParent /*=NULL*/)
 	m_device = _T("");
 	m_trigger = _T("");
 	m_alarm = _T("");
+	m_tip = _T("");
+
+	m_phone = False;
+	m_email = False;
 }
 
 CDlgNewNotify::~CDlgNewNotify()
@@ -41,6 +45,10 @@ void CDlgNewNotify::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_Device, m_device);
 	DDX_Text(pDX, IDC_EDIT_Trigger, m_trigger);
 	DDX_Text(pDX, IDC_EDIT_Alarm, m_alarm);
+	DDX_Check(pDX, IDC_CHECK_Continuous, m_continuous);
+	//  DDX_Control(pDX, IDC_CHECK_OnChange, m_onchange);
+	DDX_Text(pDX, IDC_EDIT_Tip, m_tip);
+	DDX_Check(pDX, IDC_CHECK_OnChange, m_onchange);
 }
 
 
@@ -50,6 +58,8 @@ BEGIN_MESSAGE_MAP(CDlgNewNotify, CDialogEx)
 	ON_BN_CLICKED(IDC_Btn_TriggerSelect, &CDlgNewNotify::OnBnClickedBtnTriggerselect)
 	ON_BN_CLICKED(IDC_Btn_AlarmSelect, &CDlgNewNotify::OnBnClickedBtnAlarmselect)
 	ON_BN_CLICKED(IDC_Btn_OnChange_Info, &CDlgNewNotify::OnBnClickedBtnOnchangeInfo)
+	ON_BN_CLICKED(IDC_CHECK_Continuous, &CDlgNewNotify::OnBnClickedCheckContinuous)
+	ON_BN_CLICKED(IDC_CHECK_OnChange, &CDlgNewNotify::OnBnClickedCheckOnchange)
 END_MESSAGE_MAP()
 
 
@@ -81,6 +91,13 @@ void CDlgNewNotify::OnBnClickedBtnDeviceselect()
 	dlg.DoModal();
 
 	m_device = g_m_select_device_notif_name;
+
+	if (m_phone == True) {
+		m_tip = "Whenever " + m_device + " " + m_trigger + ", send " + m_phone_val + " a text";
+	}
+	else if (m_email == True) {
+		m_tip = "Whenever " + m_device + " " + m_trigger + ", send " + m_email_val + " an e-mail";
+	}
 	UpdateData(False);
 }
 
@@ -92,6 +109,13 @@ void CDlgNewNotify::OnBnClickedBtnTriggerselect()
 	dlg.DoModal();
 
 	m_trigger = g_m_select_trigger_notif_name;
+
+	if (m_phone == True) {
+		m_tip = "Whenever " + m_device + " " +  m_trigger + ", send " + m_phone_val + " a text";
+	}
+	else if (m_email == True) {
+		m_tip = "Whenever " + m_device + " " + m_trigger + ", send " + m_email_val + " an e-mail";
+	}
 	UpdateData(False);
 }
 
@@ -106,14 +130,24 @@ void CDlgNewNotify::OnBnClickedBtnAlarmselect()
 	if (m_alarm == "E-Mail") {
 		CEamilTarget dlg;
 		dlg.DoModal();
-		dlg.m_email;
+		m_email_val = dlg.m_email;
+		m_email = True;
+		m_phone = False;
 	}
 	if (m_alarm == "Text Message") {
 		CPhoneTarget dlg;
 		dlg.DoModal();
-		dlg.m_phone;
+		m_phone_val = dlg.m_phone;
+		m_phone = True;
+		m_email = False;
 	}
 
+	if (m_phone == True) {
+		m_tip = "Whenever " + m_device + " " + m_trigger + ", send " + m_phone_val + " a text.";
+	}
+	else if (m_email == True) {
+		m_tip = "Whenever " + m_device + " " + m_trigger + ", send " + m_email_val + " an e-mail.";
+	}
 	UpdateData(False);
 }
 
@@ -123,4 +157,16 @@ void CDlgNewNotify::OnBnClickedBtnOnchangeInfo()
 	// TODO: Add your control notification handler code here
 	CDLGInfo dlg;
 	dlg.DoModal();
+}
+
+
+void CDlgNewNotify::OnBnClickedCheckContinuous()
+{
+	// TODO: Add your control notification handler code here
+}
+
+
+void CDlgNewNotify::OnBnClickedCheckOnchange()
+{
+	// TODO: Add your control notification handler code here
 }
