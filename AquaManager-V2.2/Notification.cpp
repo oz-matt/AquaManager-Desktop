@@ -19,6 +19,12 @@ using namespace std;
 extern int currentTabSelected;
 extern int g_m_device_count;
 
+CString g_device_name;
+CString g_trigger;
+CString g_trigger_freq;
+CString g_alert;
+CString g_alert_target;
+
 // CNotification dialog
 
 IMPLEMENT_DYNAMIC(CNotification, CDialog)
@@ -369,4 +375,12 @@ void CNotification::OnBnClickedBtnNewnotify()
 	nIndex = m_lst_notificaton.InsertItem(0, dlg.m_device);
 	m_lst_notificaton.SetItemText(nIndex, 1, dlg.m_trigger);
 	m_lst_notificaton.SetItemText(nIndex, 2, dlg.m_alarm);
+
+	g_device_name = dlg.m_device;
+	g_trigger = dlg.m_trigger;
+	dlg.m_continuous ? g_trigger_freq = "Continuous" : 0;
+	dlg.m_onchange ? g_trigger_freq = "On Change" : 0;
+	g_alert = dlg.m_alarm;
+	dlg.m_phone ? g_alert_target = dlg.m_phone_val : 0;
+	dlg.m_email ? g_alert_target = dlg.m_email_val : 0;
 }

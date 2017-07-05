@@ -18,4 +18,14 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+public:
+	virtual BOOL OnInitDialog();
+	CString m_alert;
+	CString m_alert_trigger;
+	CString m_device_name;
+	CString m_geofence;
+	CString m_id;
+	CString m_trigger;
+	CString m_trigger_freq;
+	CString m_trigger_key;
 };
