@@ -9,6 +9,8 @@
 #include "SelectDevice.h"
 #include "SelectTrigger.h"
 #include "SelectAlarm.h"
+#include "EamilTarget.h"
+#include "PhoneTarget.h"
 
 extern int g_m_select_device_notif;
 extern CString g_m_select_device_notif_name;
@@ -99,5 +101,16 @@ void CDlgNewNotify::OnBnClickedBtnAlarmselect()
 	dlg.DoModal();
 
 	m_alarm = g_m_select_alarm_notif_name;
+	if (m_alarm == "E-Mail") {
+		CEamilTarget dlg;
+		dlg.DoModal();
+		dlg.m_email;
+	}
+	if (m_alarm == "Text Message") {
+		CPhoneTarget dlg;
+		dlg.DoModal();
+		dlg.m_phone;
+	}
+
 	UpdateData(False);
 }

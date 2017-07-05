@@ -190,6 +190,12 @@
     <ClInclude Include="SelectAlarm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EamilTarget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhoneTarget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AquaManager-V2.2.cpp">
@@ -280,6 +286,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SelectAlarm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EamilTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhoneTarget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

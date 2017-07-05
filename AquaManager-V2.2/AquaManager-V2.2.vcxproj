@@ -130,6 +130,7 @@
     <ClInclude Include="DlgAddGeofence.h" />
     <ClInclude Include="DlgConfigureDevice.h" />
     <ClInclude Include="DlgNewNotify.h" />
+    <ClInclude Include="EamilTarget.h" />
     <ClInclude Include="Geofence.h" />
     <ClInclude Include="GeofenceRemove.h" />
     <ClInclude Include="include\json\allocator.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Notification.h" />
     <ClInclude Include="NotificationRemove.h" />
     <ClInclude Include="NotificationSettings.h" />
+    <ClInclude Include="PhoneTarget.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SelectAlarm.h" />
     <ClInclude Include="SelectDevice.h" />
@@ -175,12 +177,14 @@
     <ClCompile Include="DlgAddGeofence.cpp" />
     <ClCompile Include="DlgConfigureDevice.cpp" />
     <ClCompile Include="DlgNewNotify.cpp" />
+    <ClCompile Include="EamilTarget.cpp" />
     <ClCompile Include="Geofence.cpp" />
     <ClCompile Include="GeofenceRemove.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Notification.cpp" />
     <ClCompile Include="NotificationRemove.cpp" />
     <ClCompile Include="NotificationSettings.cpp" />
+    <ClCompile Include="PhoneTarget.cpp" />
     <ClCompile Include="SelectAlarm.cpp" />
     <ClCompile Include="SelectDevice.cpp" />
     <ClCompile Include="SelectTrigger.cpp" />
