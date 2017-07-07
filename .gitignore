@@ -1,7 +1,9 @@
 ﻿#
-Debug/
+Debug/*
+AquaManager-V2.2/Debug/*
 screenshot/
 packages/
+!Google-Map.html
 *.opensdf
 *.sdf
 *.suo
