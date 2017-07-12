@@ -30,4 +30,5 @@ public:
 	CMFCButton m_btn_add_device;
 //	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnNMRClickLstDevice(NMHDR *pNMHDR, LRESULT *pResult);
+	void AddMarker(double lat, double lng);
 };

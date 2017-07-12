@@ -61,6 +61,7 @@ int g_m_device_count;
 
 extern int currentTabSelected;
 extern CString g_m_device_name;
+extern CComQIPtr<IHTMLDocument2> pDoc;
 
 // CDevice dialog
 
@@ -188,7 +189,7 @@ void CDevice::OnLvnItemchangedLstDevice(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-// should be add device
+// should be add device and add marker
 void CDevice::OnBnClickedBtnAddmarker()
 {
 	// TODO: Add your control notification handler code here
@@ -316,6 +317,10 @@ void CDevice::OnBnClickedBtnAddmarker()
 
 			lon_show = lon;
 			lat_show = lat;
+
+			// add marker
+			AddMarker(lat, lon);
+
 			battery_show.Format(_T("%d%%"), pct_battery);
 			g_m_pct_battery = battery_show;
 			g_m_temperature.Format(_T("%d"), temperature);
@@ -392,4 +397,28 @@ void CDevice::OnNMRClickLstDevice(NMHDR *pNMHDR, LRESULT *pResult)
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: Add your control notification handler code here
 	*pResult = 0;
+}
+
+
+void CDevice::AddMarker(double lat, double lng)
+{
+	// TODO: Add your control notification handler code here
+	CString js;
+	//float x = 45.378802;
+	//float y = -72.242796;
+	js.Format(_T("AddMarker(%.2f, %.2f);"), lat, lng);
+
+	//CComQIPtr<IHTMLDocument2> pDoc = (IHTMLDocument2*)GetHtmlDocument();
+	if (pDoc == NULL)
+		return;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return;
+
+	CComBSTR bstrJS = js.AllocSysString();
+	CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	VARIANT varResult;
+	pWin->execScript(bstrJS, bstrLanguage, &varResult);
 }
