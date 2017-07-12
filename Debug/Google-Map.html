@@ -316,8 +316,23 @@
 			var marker = new google.maps.Marker(markerOptions);
 			markerArray.push(marker);
 			//alert("marker:" + markerArray);
-			attachSecretMessage(marker, "Thu Jun 29 23:06:00 GMT+08:00 2017");
+			//attachSecretMessage(marker, "Thu Jun 29 23:06:00 GMT+08:00 2017");
+			var contentString = '<div id="content" onclick="show()">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<div id="bodyContent">' +
+                '<p>Thu Jun 29 23:06:00 GMT+08:00 2017</p>' +
+				'<p>Going 0.00543mph</p>' +
+				'<p>6 satelites in view</p>' +
+				'<p>85% battery</p>' +
+                '</div>' +
+                '</div>';
+			attachSecretMessage(marker, contentString);
 		}
+
+		function show() {
+            alert('Raw Data');
+        }
 
 		function attachSecretMessage(marker, secretMessage) {
 			var infowindow = new google.maps.InfoWindow({
@@ -328,9 +343,13 @@
 				infowindow.open(marker.get('map'), marker);
 			});
 
-			google.maps.event.addListener(infowindow, 'closeclick', function() {
-				alert("infoWindow closed:");
-			});
+			//google.maps.event.addListener(infowindow, 'click', function() {
+			//	alert("infoWindow clicked:");
+			//});
+
+			//google.maps.event.addListener(infowindow, 'closeclick', function() {
+			//	alert("infoWindow closed:");
+			//});
 		}
 
 		function SetZoom(type) {
