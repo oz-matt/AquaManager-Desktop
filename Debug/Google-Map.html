@@ -315,6 +315,22 @@
 			};
 			var marker = new google.maps.Marker(markerOptions);
 			markerArray.push(marker);
+			//alert("marker:" + markerArray);
+			attachSecretMessage(marker, "Thu Jun 29 23:06:00 GMT+08:00 2017");
+		}
+
+		function attachSecretMessage(marker, secretMessage) {
+			var infowindow = new google.maps.InfoWindow({
+				content: secretMessage
+			});
+
+			marker.addListener('click', function() {
+				infowindow.open(marker.get('map'), marker);
+			});
+
+			google.maps.event.addListener(infowindow, 'closeclick', function() {
+				alert("infoWindow closed:");
+			});
 		}
 
 		function SetZoom(type) {
