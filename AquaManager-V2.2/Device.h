@@ -31,4 +31,9 @@ public:
 //	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnNMRClickLstDevice(NMHDR *pNMHDR, LRESULT *pResult);
 	void AddMarker(double lat, double lng);
+	void AddRawData(CString datetime, CString uuid, CString time, CString numsat, CString lon, CString lat,
+	CString height, CString gspeed, CString direction, CString pct_battery, CString accelerometer, 
+	CString temperature, CString humidity, CString pressure, CString update_rate, CString incoming_ip,
+	CString install_id);
+	void AddRawDataStr(CString str);
 };

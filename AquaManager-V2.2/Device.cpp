@@ -359,6 +359,13 @@ void CDevice::OnBnClickedBtnAddmarker()
 			g_m_aqsense_data[i].Append("update_rate: " + g_m_update_rate + "\r\n");
 			g_m_aqsense_data[i].Append("incoming_ip: " + g_m_incoming_ip + "\r\n");
 			g_m_aqsense_data[i].Append("install_id: " + g_m_install_id);
+
+			//AddRawData(g_m_datetime, g_m_uuid, g_m_time, g_m_numsat, g_m_lon, g_m_lat, g_m_height, g_m_speed,
+			//	g_m_direction, g_m_pct_battery, g_m_accelerometer, g_m_temperature, g_m_humidity, g_m_pressure,
+			//	g_m_update_rate, g_m_incoming_ip, g_m_install_id);
+
+			AddRawDataStr(g_m_aqsense_data[i]);
+
 			g_m_aqsense_count++;
 		}
 	}
@@ -416,6 +423,57 @@ void CDevice::AddMarker(double lat, double lng)
 	pDoc->get_parentWindow(&pWin);
 	if (pWin == NULL)
 		return;
+
+	CComBSTR bstrJS = js.AllocSysString();
+	CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	VARIANT varResult;
+	pWin->execScript(bstrJS, bstrLanguage, &varResult);
+}
+
+
+void CDevice::AddRawData(CString datetime, CString uuid, CString time, CString numsat, CString lon, CString lat,
+	CString height, CString gspeed, CString direction, CString pct_battery, CString accelerometer, 
+	CString temperature, CString humidity, CString pressure, CString update_rate, CString incoming_ip,
+	CString install_id)
+{
+	if (pDoc == NULL)
+		return;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return;
+
+	CString js;
+	js.Format(_T("addRawData(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);"),
+		datetime, uuid, time, numsat, lon, lat, height, gspeed, direction, pct_battery, accelerometer, temperature, humidity, pressure, update_rate,
+		incoming_ip, install_id);
+
+	CComBSTR bstrJS = js.AllocSysString();
+	CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	VARIANT varResult;
+	pWin->execScript(bstrJS, bstrLanguage, &varResult);
+}
+
+
+void CDevice::AddRawDataStr(CString str)
+{
+	if (pDoc == NULL)
+		return;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return;
+
+	CString js;
+
+	//char test[10] = "abcdef";
+	//char *ptest = test;
+	//js.Format(_T("addRawDataStr(%s);"), ptest);
+	
+	char *ptest = (LPSTR)(LPCTSTR)str;
+	js.Format(_T("addRawDataStr(%s);"), ptest);
 
 	CComBSTR bstrJS = js.AllocSysString();
 	CComBSTR bstrLanguage = SysAllocString(L"javascript");

@@ -65,6 +65,8 @@
 		var is_draw_global = 0;
 		var side_input_global;
 		var center_global;
+		var g_m_aqsense_data = [];
+		var g_show_index;
 
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
@@ -331,7 +333,22 @@
 		}
 
 		function show() {
-            alert('Raw Data');
+		    //alert('Raw Data'); // need to update
+		    g_show_index = 0;
+		    alert(g_m_aqsense_data[g_show_index]);
+        }
+
+        function addRawData(datetime, uuid, time, numsat, lon, lat, height, gspeed, direction, pct_battery,
+            accelerometer, temperature, humidity, pressure, update_rate,
+		    incoming_ip, install_id) {
+            g_m_aqsense_data.push(datetime +
+                uuid + time + numsat + lon + lat + height + gspeed + direction + pct_battery +
+                accelerometer + temperature + humidity + pressur + update_rate +
+		        incoming_ip + install_id);
+        }
+
+        function addRawDataStr(str) {
+            g_m_aqsense_data.push(str);
         }
 
 		function attachSecretMessage(marker, secretMessage) {
