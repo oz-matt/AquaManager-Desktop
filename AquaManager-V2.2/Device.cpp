@@ -65,6 +65,12 @@ extern CComQIPtr<IHTMLDocument2> pDoc;
 
 // CDevice dialog
 
+enum
+{
+    FUNCTION_ShowMessageBox = 1,
+    FUNCTION_GetProcessID = 2,
+};
+
 IMPLEMENT_DYNAMIC(CDevice, CDialog)
 
 CDevice::CDevice(CWnd* pParent /*=NULL*/)
@@ -461,6 +467,32 @@ void CDevice::AddRawDataStr(CString str)
 	if (pDoc == NULL)
 		return;
 
+	CComDispatchDriver spScript;
+	pDoc->get_Script(&spScript);
+
+	CComVariant var1 = 10, var2 = 20, varRet;
+
+	spScript.Invoke2(L"Add", &var1, &var2, &varRet);
+
+	spScript.Invoke2(L"AddArray", &var1, &var2, &varRet);
+	CComDispatchDriver spArray = varRet.pdispVal;
+	CComVariant varArrayLen;
+	spArray.GetPropertyByName(L"length", &varArrayLen);
+	CComVariant varValue[3];
+	spArray.GetPropertyByName(L"0", &varValue[0]);
+	spArray.GetPropertyByName(L"1", &varValue[1]);
+	spArray.GetPropertyByName(L"2", &varValue[2]);
+
+	spScript.Invoke2(L"AddObj", &var1, &var2, &varRet);
+	CComDispatchDriver spData = varRet.pdispVal;
+	CComVariant varValue1, varValue2;
+	spData.GetPropertyByName(L"result", &varValue1);
+	spData.GetPropertyByName(L"str", &varValue2);
+
+	/* Next, i plan to use IDispatch to handle multi parameters, arrays and string to java script. */
+	CComVariant var(static_cast<IDispatch*>(this));
+	spScript.Invoke1(L"SaveVCObject", &var);
+
 	CComQIPtr<IHTMLWindow2> pWin;
 	pDoc->get_parentWindow(&pWin);
 	if (pWin == NULL)
@@ -468,15 +500,100 @@ void CDevice::AddRawDataStr(CString str)
 
 	CString js;
 
-	//char test[10] = "abcdef";
-	//char *ptest = test;
-	//js.Format(_T("addRawDataStr(%s);"), ptest);
-	
-	char *ptest = (LPSTR)(LPCTSTR)str;
+	char test[10] = "12345";
+	char *ptest = test;
 	js.Format(_T("addRawDataStr(%s);"), ptest);
+
+	//char *ptest = (LPSTR)(LPCTSTR)str;
+	//js.Format(_T("addRawDataStr(%s);"), ptest);
 
 	CComBSTR bstrJS = js.AllocSysString();
 	CComBSTR bstrLanguage = SysAllocString(L"javascript");
 	VARIANT varResult;
 	pWin->execScript(bstrJS, bstrLanguage, &varResult);
+}
+
+HRESULT STDMETHODCALLTYPE CDevice::GetTypeInfoCount(UINT *pctinfo)
+{
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CDevice::GetTypeInfo(UINT iTInfo, LCID lcid, ITypeInfo **ppTInfo)
+{
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CDevice::GetIDsOfNames(REFIID riid, LPOLESTR *rgszNames, UINT cNames, LCID lcid, DISPID *rgDispId)
+{
+    if (cNames != 1)
+        return E_NOTIMPL;
+
+    if (wcscmp(rgszNames[0], L"ShowMessageBox") == 0)
+    {
+        *rgDispId = FUNCTION_ShowMessageBox;
+        return S_OK;
+    }
+
+    else if (wcscmp(rgszNames[0], L"GetProcessID") == 0)
+    {
+        *rgDispId = FUNCTION_GetProcessID;
+        return S_OK;
+    }
+    else
+        return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CDevice::Invoke(DISPID dispIdMember, REFIID riid, LCID lcid,
+    WORD wFlags, DISPPARAMS *pDispParams, VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr)
+{
+    if (dispIdMember == FUNCTION_ShowMessageBox)
+    {
+        if (pDispParams->cArgs != 1)
+            return E_NOTIMPL;
+
+        if (pDispParams->rgvarg[0].vt != VT_BSTR)
+            return E_NOTIMPL;
+
+        ShowMessageBox(pDispParams->rgvarg[0].bstrVal);
+        return S_OK;
+    }
+    else if (dispIdMember == FUNCTION_GetProcessID)
+    {
+        DWORD id = GetProcessID();
+        *pVarResult = CComVariant(id);
+        return S_OK;
+    }
+    else
+        return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CDevice::QueryInterface(REFIID riid, void **ppvObject)
+{
+    if (riid == IID_IDispatch || riid == IID_IUnknown)
+    {
+        *ppvObject = static_cast<IDispatch*>(this);
+        return S_OK;
+    }
+    else
+        return E_NOINTERFACE;
+}
+
+ULONG STDMETHODCALLTYPE CDevice::AddRef()
+{
+    return 1;
+}
+
+ULONG STDMETHODCALLTYPE CDevice::Release()
+{
+    return 1;
+}
+
+DWORD CDevice::GetProcessID()
+{
+    return GetCurrentProcessId();
+}
+
+void CDevice::ShowMessageBox(const wchar_t *msg)
+{
+    MessageBox(CW2T(msg), _T("the message come from java script"));
 }

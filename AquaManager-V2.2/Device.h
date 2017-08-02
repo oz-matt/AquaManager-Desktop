@@ -3,7 +3,7 @@
 
 // CDevice dialog
 
-class CDevice : public CDialog
+class CDevice : public CDialog, public IDispatch
 {
 	DECLARE_DYNAMIC(CDevice)
 
@@ -36,4 +36,16 @@ public:
 	CString temperature, CString humidity, CString pressure, CString update_rate, CString incoming_ip,
 	CString install_id);
 	void AddRawDataStr(CString str);
+
+	virtual HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT *pctinfo);
+	virtual HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT iTInfo, LCID lcid, ITypeInfo **ppTInfo);
+	virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, LPOLESTR *rgszNames, UINT cNames, LCID lcid, DISPID *rgDispId);
+	virtual HRESULT STDMETHODCALLTYPE CDevice::Invoke(DISPID dispIdMember, REFIID riid, LCID lcid,
+		WORD wFlags, DISPPARAMS *pDispParams, VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr);
+	virtual HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void **ppvObject);
+	virtual ULONG STDMETHODCALLTYPE AddRef();
+	virtual ULONG STDMETHODCALLTYPE Release();
+
+	DWORD GetProcessID();
+	void ShowMessageBox(const wchar_t *msg);
 };

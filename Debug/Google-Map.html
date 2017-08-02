@@ -25,7 +25,7 @@
 
   <body>
     <div id="map"></div>
-    <script>
+    <script type="text/javascript">
 		var map;
 		var markerArray = new Array();
 
@@ -349,6 +349,25 @@
 
         function addRawDataStr(str) {
             g_m_aqsense_data.push(str);
+        }
+
+        function Add(value1, value2) {
+            return value1 + value2;
+        }
+
+        function AddArray(value1, value2) {
+            var array = new Array();
+            array[0] = value1;
+            array[1] = value2;
+            array[2] = value1 + value2;
+            return array;
+        }
+
+        function AddObj(value1, value2) {
+            var data = new Object();
+            data.result = value1 + value2;
+            data.str = "Aqua";
+            return data;
         }
 
 		function attachSecretMessage(marker, secretMessage) {
