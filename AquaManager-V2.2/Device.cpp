@@ -472,22 +472,22 @@ void CDevice::AddRawDataStr(CString str)
 
 	CComVariant var1 = 10, var2 = 20, varRet;
 
-	spScript.Invoke2(L"Add", &var1, &var2, &varRet);
+	//spScript.Invoke2(L"Add", &var1, &var2, &varRet);
 
-	spScript.Invoke2(L"AddArray", &var1, &var2, &varRet);
-	CComDispatchDriver spArray = varRet.pdispVal;
-	CComVariant varArrayLen;
-	spArray.GetPropertyByName(L"length", &varArrayLen);
-	CComVariant varValue[3];
-	spArray.GetPropertyByName(L"0", &varValue[0]);
-	spArray.GetPropertyByName(L"1", &varValue[1]);
-	spArray.GetPropertyByName(L"2", &varValue[2]);
+	//spScript.Invoke2(L"AddArray", &var1, &var2, &varRet);
+	//CComDispatchDriver spArray = varRet.pdispVal;
+	//CComVariant varArrayLen;
+	//spArray.GetPropertyByName(L"length", &varArrayLen);
+	//CComVariant varValue[3];
+	//spArray.GetPropertyByName(L"0", &varValue[0]);
+	//spArray.GetPropertyByName(L"1", &varValue[1]);
+	//spArray.GetPropertyByName(L"2", &varValue[2]);
 
-	spScript.Invoke2(L"AddObj", &var1, &var2, &varRet);
-	CComDispatchDriver spData = varRet.pdispVal;
-	CComVariant varValue1, varValue2;
-	spData.GetPropertyByName(L"result", &varValue1);
-	spData.GetPropertyByName(L"str", &varValue2);
+	//spScript.Invoke2(L"AddObj", &var1, &var2, &varRet);
+	//CComDispatchDriver spData = varRet.pdispVal;
+	//CComVariant varValue1, varValue2;
+	//spData.GetPropertyByName(L"result", &varValue1);
+	//spData.GetPropertyByName(L"str", &varValue2);
 
 	/* Next, i plan to use IDispatch to handle multi parameters, arrays and string to java script. */
 	CComVariant var(static_cast<IDispatch*>(this));
