@@ -304,6 +304,8 @@ void CDevice::OnBnClickedBtnAddmarker()
 					int n = loc_tmp.size();
 					g_m_previous_location = loc_tmp[2]["formatted_address"].asCString();
 				}
+
+				Setcenter(lat, lon);
 			}
 
 			Json::Value gpsextended = aqsens_node[i]["gpsextended"];
@@ -512,6 +514,29 @@ void CDevice::AddRawDataStr(CString str)
 	//CComBSTR bstrLanguage = SysAllocString(L"javascript");
 	//VARIANT varResult;
 	//pWin->execScript(bstrJS, bstrLanguage, &varResult);
+}
+
+void CDevice::Setcenter(float x, float y)
+{
+	// TODO: Add your control notification handler code here
+	CString js;
+	//float x = 45.378802;
+	//float y = -72.242796;
+	js.Format(_T("SetCenter(%.2f, %.2f, %d);"), x, y, 15);
+
+	//CComQIPtr<IHTMLDocument2> pDoc = (IHTMLDocument2*)GetHtmlDocument();
+	if (pDoc == NULL)
+		return;
+
+	CComQIPtr<IHTMLWindow2> pWin;
+	pDoc->get_parentWindow(&pWin);
+	if (pWin == NULL)
+		return;
+
+	CComBSTR bstrJS = js.AllocSysString();
+	CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	VARIANT varResult;
+	pWin->execScript(bstrJS, bstrLanguage, &varResult);
 }
 
 HRESULT STDMETHODCALLTYPE CDevice::GetTypeInfoCount(UINT *pctinfo)

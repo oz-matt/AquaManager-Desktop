@@ -36,6 +36,7 @@ public:
 	CString temperature, CString humidity, CString pressure, CString update_rate, CString incoming_ip,
 	CString install_id);
 	void AddRawDataStr(CString str);
+	void Setcenter(float x, float y);
 
 	virtual HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT *pctinfo);
 	virtual HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT iTInfo, LCID lcid, ITypeInfo **ppTInfo);
