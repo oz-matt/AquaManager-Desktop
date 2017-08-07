@@ -470,7 +470,7 @@ void CDevice::AddRawDataStr(CString str)
 	CComDispatchDriver spScript;
 	pDoc->get_Script(&spScript);
 
-	CComVariant var1 = 10, var2 = 20, varRet;
+	//CComVariant var1 = 10, var2 = 20, varRet;
 
 	//spScript.Invoke2(L"Add", &var1, &var2, &varRet);
 
@@ -490,27 +490,28 @@ void CDevice::AddRawDataStr(CString str)
 	//spData.GetPropertyByName(L"str", &varValue2);
 
 	/* Next, i plan to use IDispatch to handle multi parameters, arrays and string to java script. */
+	// transfer vc class pointer to java script
 	CComVariant var(static_cast<IDispatch*>(this));
 	spScript.Invoke1(L"SaveVCObject", &var);
 
-	CComQIPtr<IHTMLWindow2> pWin;
-	pDoc->get_parentWindow(&pWin);
-	if (pWin == NULL)
-		return;
+	//CComQIPtr<IHTMLWindow2> pWin;
+	//pDoc->get_parentWindow(&pWin);
+	//if (pWin == NULL)
+	//	return;
 
-	CString js;
+	//CString js;
 
-	char test[10] = "12345";
-	char *ptest = test;
-	js.Format(_T("addRawDataStr(%s);"), ptest);
+	char *ptest = (LPSTR)(LPCTSTR)str;
 
-	//char *ptest = (LPSTR)(LPCTSTR)str;
+	CComVariant var_str = ptest;
+	spScript.Invoke1(L"addRawDataStr", &var_str);
+
 	//js.Format(_T("addRawDataStr(%s);"), ptest);
 
-	CComBSTR bstrJS = js.AllocSysString();
-	CComBSTR bstrLanguage = SysAllocString(L"javascript");
-	VARIANT varResult;
-	pWin->execScript(bstrJS, bstrLanguage, &varResult);
+	//CComBSTR bstrJS = js.AllocSysString();
+	//CComBSTR bstrLanguage = SysAllocString(L"javascript");
+	//VARIANT varResult;
+	//pWin->execScript(bstrJS, bstrLanguage, &varResult);
 }
 
 HRESULT STDMETHODCALLTYPE CDevice::GetTypeInfoCount(UINT *pctinfo)

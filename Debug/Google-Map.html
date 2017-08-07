@@ -68,6 +68,8 @@
 		var g_m_aqsense_data = [];
 		var g_show_index;
 
+		var cpp_object;
+
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
 			map = new google.maps.Map(document.getElementById('map'), {
@@ -368,6 +370,10 @@
             data.result = value1 + value2;
             data.str = "Aqua";
             return data;
+        }
+
+        function SaveCppObject(obj) {
+            cpp_object = obj;
         }
 
 		function attachSecretMessage(marker, secretMessage) {
