@@ -170,6 +170,13 @@ BOOL CDevice::OnInitDialog()
 	m_btn_add_device.SetFaceColor(RGB(255, 255, 255), true);
 	m_btn_add_device.SetTextColor(RGB(0, 0, 255));
 
+	if (pDoc == NULL)
+		return TRUE;
+	CComDispatchDriver spScript;
+	pDoc->get_Script(&spScript);
+	CComVariant var(static_cast<IDispatch*>(this));
+	spScript.Invoke1(L"SaveGeoObject", &var);
+
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
@@ -493,8 +500,8 @@ void CDevice::AddRawDataStr(CString str)
 
 	/* Next, i plan to use IDispatch to handle multi parameters, arrays and string to java script. */
 	// transfer vc class pointer to java script
-	CComVariant var(static_cast<IDispatch*>(this));
-	spScript.Invoke1(L"SaveVCObject", &var);
+	//CComVariant var(static_cast<IDispatch*>(this));
+	//spScript.Invoke1(L"SaveCPPObject", &var);
 
 	//CComQIPtr<IHTMLWindow2> pWin;
 	//pDoc->get_parentWindow(&pWin);
