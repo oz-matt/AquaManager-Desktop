@@ -20,6 +20,12 @@ extern int currentTabSelected;
 extern CComQIPtr<IHTMLDocument2> pDoc;
 // CGeofence dialog
 
+enum
+{
+    FUNCTION_ShowMessageBox = 1,
+    FUNCTION_GetProcessID = 2,
+};
+
 IMPLEMENT_DYNAMIC(CGeofence, CDialog)
 
 CGeofence::CGeofence(CWnd* pParent /*=NULL*/)
@@ -115,6 +121,13 @@ BOOL CGeofence::OnInitDialog()
 
 	m_btn_cancel.SetFaceColor(RGB(255, 255, 255), true);
 	m_btn_cancel.SetTextColor(RGB(0, 0, 255));
+
+	if (pDoc == NULL)
+		return TRUE;
+	CComDispatchDriver spScript;
+	pDoc->get_Script(&spScript);
+	CComVariant var(static_cast<IDispatch*>(this));
+	spScript.Invoke1(L"SaveGeoObject", &var);
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
@@ -622,4 +635,89 @@ void CGeofence::getPolygonLng4(double * lng)
             }
         }
     }
+}
+
+HRESULT STDMETHODCALLTYPE CGeofence::GetTypeInfoCount(UINT *pctinfo)
+{
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CGeofence::GetTypeInfo(UINT iTInfo, LCID lcid, ITypeInfo **ppTInfo)
+{
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CGeofence::GetIDsOfNames(REFIID riid, LPOLESTR *rgszNames, UINT cNames, LCID lcid, DISPID *rgDispId)
+{
+    if (cNames != 1)
+        return E_NOTIMPL;
+
+    if (wcscmp(rgszNames[0], L"ShowMessageBox") == 0)
+    {
+        *rgDispId = FUNCTION_ShowMessageBox;
+        return S_OK;
+    }
+
+    else if (wcscmp(rgszNames[0], L"GetProcessID") == 0)
+    {
+        *rgDispId = FUNCTION_GetProcessID;
+        return S_OK;
+    }
+    else
+        return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CGeofence::Invoke(DISPID dispIdMember, REFIID riid, LCID lcid,
+    WORD wFlags, DISPPARAMS *pDispParams, VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr)
+{
+    if (dispIdMember == FUNCTION_ShowMessageBox)
+    {
+        if (pDispParams->cArgs != 1)
+            return E_NOTIMPL;
+
+        if (pDispParams->rgvarg[0].vt != VT_BSTR)
+            return E_NOTIMPL;
+
+        ShowMessageBox(pDispParams->rgvarg[0].bstrVal);
+        return S_OK;
+    }
+    else if (dispIdMember == FUNCTION_GetProcessID)
+    {
+        DWORD id = GetProcessID();
+        *pVarResult = CComVariant(id);
+        return S_OK;
+    }
+    else
+        return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CGeofence::QueryInterface(REFIID riid, void **ppvObject)
+{
+    if (riid == IID_IDispatch || riid == IID_IUnknown)
+    {
+        *ppvObject = static_cast<IDispatch*>(this);
+        return S_OK;
+    }
+    else
+        return E_NOINTERFACE;
+}
+
+ULONG STDMETHODCALLTYPE CGeofence::AddRef()
+{
+    return 1;
+}
+
+ULONG STDMETHODCALLTYPE CGeofence::Release()
+{
+    return 1;
+}
+
+DWORD CGeofence::GetProcessID()
+{
+    return GetCurrentProcessId();
+}
+
+void CGeofence::ShowMessageBox(const wchar_t *msg)
+{
+    MessageBox(CW2T(msg), _T("the message come from java script"));
 }

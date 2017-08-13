@@ -3,7 +3,7 @@
 
 // CGeofence dialog
 
-class CGeofence : public CDialog
+class CGeofence : public CDialog, public IDispatch
 {
 	DECLARE_DYNAMIC(CGeofence)
 
@@ -46,4 +46,16 @@ public:
 	void getPolygonLng2(double * lng);
 	void getPolygonLng3(double * lng);
 	void getPolygonLng4(double * lng);
+
+	virtual HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT *pctinfo);
+	virtual HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT iTInfo, LCID lcid, ITypeInfo **ppTInfo);
+	virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, LPOLESTR *rgszNames, UINT cNames, LCID lcid, DISPID *rgDispId);
+	virtual HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember, REFIID riid, LCID lcid,
+		WORD wFlags, DISPPARAMS *pDispParams, VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr);
+	virtual HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void **ppvObject);
+	virtual ULONG STDMETHODCALLTYPE AddRef();
+	virtual ULONG STDMETHODCALLTYPE Release();
+
+	DWORD GetProcessID();
+	void ShowMessageBox(const wchar_t *msg);
 };
