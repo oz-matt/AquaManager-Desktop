@@ -58,4 +58,6 @@ public:
 
 	DWORD GetProcessID();
 	void ShowMessageBox(const wchar_t *msg);
+
+	void SaveGeoObject();
 };

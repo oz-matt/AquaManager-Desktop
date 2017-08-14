@@ -16,6 +16,9 @@
 #define new DEBUG_NEW
 #endif
 
+#include "Geofence.h"
+
+extern CGeofence *CGeofence_Instance;
 
 CComQIPtr<IHTMLDocument2> pDoc;
 
@@ -56,6 +59,8 @@ void CAquaManagerV22View::OnInitialUpdate()
 
 	pDoc = (IHTMLDocument2*)GetHtmlDocument();
 	//(CAquaManagerV22Doc*)m_pDocument;
+
+	CGeofence_Instance->SaveGeoObject();
 }
 
 void CAquaManagerV22View::OnRButtonUp(UINT /* nFlags */, CPoint point)

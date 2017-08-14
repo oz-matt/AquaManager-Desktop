@@ -20,6 +20,8 @@ extern int currentTabSelected;
 extern CComQIPtr<IHTMLDocument2> pDoc;
 // CGeofence dialog
 
+CGeofence *CGeofence_Instance;
+
 enum
 {
     FUNCTION_ShowMessageBox = 1,
@@ -33,6 +35,8 @@ CGeofence::CGeofence(CWnd* pParent /*=NULL*/)
 {
 	m_lst_geofence.type = 2;
 	ImgHeaders = new CImageList;
+
+	CGeofence_Instance = this;
 }
 
 CGeofence::~CGeofence()
@@ -122,17 +126,20 @@ BOOL CGeofence::OnInitDialog()
 	m_btn_cancel.SetFaceColor(RGB(255, 255, 255), true);
 	m_btn_cancel.SetTextColor(RGB(0, 0, 255));
 
-	if (pDoc == NULL)
-		return TRUE;
-	CComDispatchDriver spScript;
-	pDoc->get_Script(&spScript);
-	CComVariant var(static_cast<IDispatch*>(this));
-	spScript.Invoke1(L"SaveGeoObject", &var);
-
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// EXCEPTION: OCX Property Pages should return FALSE
 }
 
+void CGeofence::SaveGeoObject()
+{
+	if (pDoc == NULL)
+		return ;
+
+	CComDispatchDriver spScript;
+	pDoc->get_Script(&spScript);
+	CComVariant var(static_cast<IDispatch*>(this));
+	spScript.Invoke1(L"SaveGeoObject", &var);
+}
 
 HBRUSH CGeofence::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
@@ -150,6 +157,8 @@ HBRUSH CGeofence::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CGeofence::OnBnClickedBtnGeofence()
 {
 	// TODO: Add your control notification handler code here
+
+	SaveGeoObject();
 
 	CDlgAddGeofence dlg;
 	dlg.DoModal();
