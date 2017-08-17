@@ -60,4 +60,5 @@ public:
 	void ShowMessageBox(const wchar_t *msg);
 
 	void SaveGeoObject();
+	void AddGeofence(void);
 };

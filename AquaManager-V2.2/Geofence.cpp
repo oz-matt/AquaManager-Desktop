@@ -26,6 +26,7 @@ enum
 {
     FUNCTION_ShowMessageBox = 1,
     FUNCTION_GetProcessID = 2,
+	FUNCTION_AddGeofence = 3,
 };
 
 IMPLEMENT_DYNAMIC(CGeofence, CDialog)
@@ -157,25 +158,8 @@ HBRUSH CGeofence::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 void CGeofence::OnBnClickedBtnGeofence()
 {
 	// TODO: Add your control notification handler code here
-
-	SaveGeoObject();
-
-	CDlgAddGeofence dlg;
-	dlg.DoModal();
-
-	if (dlg.m_circle) {
-		draw_circle(dlg.m_radius_double);
-		m_circle = True;
-		m_polygon = False;
-	}
-	else if (dlg.m_polygon) {
-		draw_polygon(dlg.m_radius_double);
-		m_circle = False;
-		m_polygon = True;
-	}
-
-	m_geo_name = dlg.m_geo_name;
-	m_radius = dlg.m_radius_double;
+	// should switch from navigate tab to map view.
+	//AddGeofence();
 }
 
 
@@ -672,6 +656,11 @@ HRESULT STDMETHODCALLTYPE CGeofence::GetIDsOfNames(REFIID riid, LPOLESTR *rgszNa
         *rgDispId = FUNCTION_GetProcessID;
         return S_OK;
     }
+	else if (wcscmp(rgszNames[0], L"AddGeofence") == 0)
+    {
+        *rgDispId = FUNCTION_AddGeofence;
+        return S_OK;
+    }
     else
         return E_NOTIMPL;
 }
@@ -694,6 +683,11 @@ HRESULT STDMETHODCALLTYPE CGeofence::Invoke(DISPID dispIdMember, REFIID riid, LC
     {
         DWORD id = GetProcessID();
         *pVarResult = CComVariant(id);
+        return S_OK;
+    }
+	else if (dispIdMember == FUNCTION_AddGeofence)
+    {
+        AddGeofence();
         return S_OK;
     }
     else
@@ -729,4 +723,25 @@ DWORD CGeofence::GetProcessID()
 void CGeofence::ShowMessageBox(const wchar_t *msg)
 {
     MessageBox(CW2T(msg), _T("the message come from java script"));
+}
+
+
+void CGeofence::AddGeofence(void)
+{
+	CDlgAddGeofence dlg;
+	dlg.DoModal();
+
+	if (dlg.m_circle) {
+		draw_circle(dlg.m_radius_double);
+		m_circle = True;
+		m_polygon = False;
+	}
+	else if (dlg.m_polygon) {
+		draw_polygon(dlg.m_radius_double);
+		m_circle = False;
+		m_polygon = True;
+	}
+
+	m_geo_name = dlg.m_geo_name;
+	m_radius = dlg.m_radius_double;
 }
