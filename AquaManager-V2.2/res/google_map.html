@@ -75,11 +75,15 @@
 		var cpp_object; // device object
 		var geo_object;
 
+		var geoControlDiv;
+		var geoOkCancelDiv;
+
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
 			map = new google.maps.Map(document.getElementById('map'), {
 				zoom: 7,
-				center: pos
+				center: pos,
+				fullscreenControl: true
 			});
 			//var marker = new google.maps.Marker({
 			//    position: pos,
@@ -280,15 +284,18 @@
 
 			setInterval( "timer()", 3000 );
 
-			var geoControlDiv = document.createElement('div');
+			geoControlDiv = document.createElement('div');
 			var geoControl = new GeoControl(geoControlDiv, map);
 			geoControlDiv.index = 1;
 			map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
 
-			var geoOkCancelDiv = document.createElement('div');
+			geoOkCancelDiv = document.createElement('div');
 			var geoOkCancel = new GeoOkCancel(geoOkCancelDiv, map);
-			geoOkCancelDiv.index = 2;
+			geoOkCancelDiv.index = 1;
 			map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+
+			geoControlDiv.style.display = 'block';
+			geoOkCancelDiv.style.display = 'none';
 		}
 
 		function GeoControl(controlDiv, map) {
@@ -319,6 +326,12 @@
 		    controlUI.addEventListener('click', function () {
 		        //alert("OK");
 		        geo_object.AddGeofence();
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
+		        geoControlDiv.style.display = 'none';
+		        geoOkCancelDiv.style.display = 'block';
 		    });
 		}
 
@@ -350,6 +363,12 @@
 		    controlUI.addEventListener('click', function () {
 		        alert("OK");
 		        geo_object.AddGeofence();
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+		        geoControlDiv.style.display = 'block';
+		        geoOkCancelDiv.style.display = 'none';
 		    });
 		}
 
