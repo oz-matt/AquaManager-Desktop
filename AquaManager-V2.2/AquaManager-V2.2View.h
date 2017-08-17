@@ -43,6 +43,8 @@ protected:
 public:
 	void Init(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+//	virtual HRESULT accNavigate(long navDir, VARIANT varStart, VARIANT *pvarEndUpAt);
+	virtual void OnDocumentComplete(LPCTSTR lpszURL);
 };
 
 #ifndef _DEBUG  // debug version in AquaManager-V2.2View.cpp

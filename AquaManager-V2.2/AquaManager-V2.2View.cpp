@@ -61,7 +61,7 @@ void CAquaManagerV22View::OnInitialUpdate()
 	pDoc = (IHTMLDocument2*)GetHtmlDocument();
 	//(CAquaManagerV22Doc*)m_pDocument;
 
-	SetTimer(1, 1000, NULL);
+	//SetTimer(1, 1000, NULL);
 	//CGeofence_Instance->SaveGeoObject();
 }
 
@@ -136,4 +136,21 @@ void CAquaManagerV22View::OnTimer(UINT_PTR nIDEvent)
 	CGeofence_Instance->SaveGeoObject();
 
 	CHtmlView::OnTimer(nIDEvent);
+}
+
+
+//HRESULT CAquaManagerV22View::accNavigate(long navDir, VARIANT varStart, VARIANT *pvarEndUpAt)
+//{
+//	// TODO: Add your specialized code here and/or call the base class
+//
+//	return CHtmlView::accNavigate(navDir, varStart, pvarEndUpAt);
+//}
+
+
+void CAquaManagerV22View::OnDocumentComplete(LPCTSTR lpszURL)
+{
+	// TODO: Add your specialized code here and/or call the base class
+	CGeofence_Instance->SaveGeoObject();
+
+	CHtmlView::OnDocumentComplete(lpszURL);
 }
