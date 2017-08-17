@@ -118,13 +118,13 @@ void CAquaManagerV22View::Init(void)
 	app = app.Left(end);
 
 	// Get Google Map template
-	//CString res;
-	//res.Format("%s", app);
-	//end = res.ReverseFind('\\');
-	//res = res.Left(end);
+	CString res;
+	res.Format("%s", app);
+	end = res.ReverseFind('\\');
+	res = res.Left(end);
 	CString sPath;
-	//sPath.Format(_T("%s\\%s"), res, "AquaManager-V2.2\\res\\google_map.html");
-	sPath.Format(_T("res://%s//%d"), szCurDir, IDR_HTML1);
+	sPath.Format(_T("%s\\%s"), res, "AquaManager-V2.2\\res\\google_map.html");
+	//sPath.Format(_T("res://%s//%d"), szCurDir, IDR_HTML1);
 
 	Navigate2(_T(sPath), NULL, NULL);
 }
