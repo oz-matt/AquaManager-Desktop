@@ -106,7 +106,7 @@ CAquaManagerV22Doc* CAquaManagerV22View::GetDocument() const // non-debug versio
 void CAquaManagerV22View::Init(void)
 {
 	// Read full path
-	char szCurDir[255];
+	char szCurDir[MAX_PATH];
 	memset(szCurDir, 0, sizeof(szCurDir));
 	DWORD length = sizeof(szCurDir);
 	GetModuleFileName(NULL, szCurDir, length);
@@ -118,8 +118,13 @@ void CAquaManagerV22View::Init(void)
 	app = app.Left(end);
 
 	// Get Google Map template
+	//CString res;
+	//res.Format("%s", app);
+	//end = res.ReverseFind('\\');
+	//res = res.Left(end);
 	CString sPath;
-	sPath.Format(_T("%s\\%s"), app, "Google-Map.html");
+	//sPath.Format(_T("%s\\%s"), res, "AquaManager-V2.2\\res\\google_map.html");
+	sPath.Format(_T("res://%s//%d"), szCurDir, IDR_HTML1);
 
 	Navigate2(_T(sPath), NULL, NULL);
 }
