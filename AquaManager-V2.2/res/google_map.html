@@ -356,13 +356,12 @@
 		    controlText.style.lineHeight = '38px';
 		    controlText.style.paddingLeft = '5px';
 		    controlText.style.paddingRight = '5px';
-		    controlText.innerHTML = 'Save this geofence?';
+		    controlText.innerHTML = 'Save this geofence? CANCEL SAVE';
 		    controlUI.appendChild(controlText);
 
 		    // Setup the click event listeners: simply set the map to Chicago.
 		    controlUI.addEventListener('click', function () {
-		        alert("OK");
-		        geo_object.AddGeofence();
+                // save or cancel?
 		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
 		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
 		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
