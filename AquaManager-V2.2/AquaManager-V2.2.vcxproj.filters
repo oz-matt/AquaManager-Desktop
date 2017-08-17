@@ -19,6 +19,9 @@
     <Filter Include="Header Files\include\json">
       <UniqueIdentifier>{d76301c3-ad97-4754-92e9-3cac5c8c5ab2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lib Files">
+      <UniqueIdentifier>{05e260f8-5298-4e98-8717-483336567865}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -322,6 +325,8 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib_json.lib" />
+    <Library Include="lib\lib_json.lib">
+      <Filter>Lib Files</Filter>
+    </Library>
   </ItemGroup>
 </Project>

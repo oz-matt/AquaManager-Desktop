@@ -205,7 +205,7 @@
     <ResourceCompile Include="AquaManager-V2.2.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib_json.lib" />
+    <Library Include="lib\lib_json.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

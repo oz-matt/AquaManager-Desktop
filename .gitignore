@@ -1,13 +1,14 @@
 ﻿#
 Debug/*
-AquaManager-V2.2/Debug/*
 Release/*
+AquaManager-V2.2/Debug/*
 AquaManager-V2.2/Release/*
+AquaManager-V2.2/*.aps
+ipch/*
 packages/
 screenshot/
 video/
 *.opensdf
 *.sdf
 *.suo
-*.aps
-*.ipch
+!AquaManager-V2.2/lib/lib_json.lib
