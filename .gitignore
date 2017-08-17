@@ -3,9 +3,9 @@ Debug/*
 AquaManager-V2.2/Debug/*
 Release/*
 AquaManager-V2.2/Release/*
-screenshot/
 packages/
-!Google-Map.html
+screenshot/
+video/
 *.opensdf
 *.sdf
 *.suo
