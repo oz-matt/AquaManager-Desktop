@@ -77,6 +77,8 @@
 
 		var geoControlDiv;
 		var geoOkCancelDiv;
+		var geoOkDiv;
+		var geoCancelDiv;
 
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
@@ -291,11 +293,23 @@
 
 			geoOkCancelDiv = document.createElement('div');
 			var geoOkCancel = new GeoOkCancel(geoOkCancelDiv, map);
-			geoOkCancelDiv.index = 1;
+			geoOkCancelDiv.index = 2;
 			map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+
+			geoCancelDiv = document.createElement('div');
+			var geoCancel = new GeoCancel(geoCancelDiv, map);
+			geoCancelDiv.index = 3;
+			map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoCancelDiv);
+
+			geoOkDiv = document.createElement('div');
+			var geoOk = new GeoOk(geoOkDiv, map);
+			geoOkDiv.index = 4;
+			map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkDiv);
 
 			geoControlDiv.style.display = 'block';
 			geoOkCancelDiv.style.display = 'none';
+			geoOkDiv.style.display = 'none';
+			geoCancelDiv.style.display = 'none';
 		}
 
 		function GeoControl(controlDiv, map) {
@@ -326,12 +340,19 @@
 		    controlUI.addEventListener('click', function () {
 		        //alert("OK");
 		        geo_object.AddGeofence();
-		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
+
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoCancelDiv);
 		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
-		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
 		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoCancelDiv);
 		        geoControlDiv.style.display = 'none';
 		        geoOkCancelDiv.style.display = 'block';
+		        geoOkDiv.style.display = 'block';
+		        geoCancelDiv.style.display = 'block';
 		    });
 		}
 
@@ -356,18 +377,91 @@
 		    controlText.style.lineHeight = '38px';
 		    controlText.style.paddingLeft = '5px';
 		    controlText.style.paddingRight = '5px';
-		    controlText.innerHTML = 'Save this geofence? CANCEL SAVE';
+		    controlText.innerHTML = 'Save this geofence?';
+		    controlUI.appendChild(controlText);
+		}
+
+		function GeoOk(okDiv, map) {
+		    // Set CSS for the control border.
+		    var controlUI = document.createElement('div');
+		    controlUI.style.backgroundColor = '#fff';
+		    controlUI.style.border = '2px solid #fff';
+		    controlUI.style.borderRadius = '3px';
+		    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+		    controlUI.style.cursor = 'pointer';
+		    controlUI.style.marginBottom = '22px';
+		    controlUI.style.textAlign = 'center';
+		    controlUI.title = 'Click to add new Geo';
+		    okDiv.appendChild(controlUI);
+
+		    // Set CSS for the control interior.
+		    var controlText = document.createElement('div');
+		    controlText.style.color = 'rgb(25,25,25)';
+		    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+		    controlText.style.fontSize = '16px';
+		    controlText.style.lineHeight = '38px';
+		    controlText.style.paddingLeft = '5px';
+		    controlText.style.paddingRight = '5px';
+		    controlText.innerHTML = 'SAVE';
 		    controlUI.appendChild(controlText);
 
 		    // Setup the click event listeners: simply set the map to Chicago.
 		    controlUI.addEventListener('click', function () {
-                // save or cancel?
-		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
+		        // save or cancel?
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoCancelDiv);
 		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
 		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
 		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoCancelDiv);
 		        geoControlDiv.style.display = 'block';
 		        geoOkCancelDiv.style.display = 'none';
+		        geoOkDiv.style.display = 'none';
+		        geoCancelDiv.style.display = 'none';
+		    });
+		}
+
+		function GeoCancel(cancelDiv, map) {
+		    // Set CSS for the control border.
+		    var controlUI = document.createElement('div');
+		    controlUI.style.backgroundColor = '#fff';
+		    controlUI.style.border = '2px solid #fff';
+		    controlUI.style.borderRadius = '3px';
+		    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+		    controlUI.style.cursor = 'pointer';
+		    controlUI.style.marginBottom = '22px';
+		    controlUI.style.textAlign = 'center';
+		    controlUI.title = 'Click to add new Geo';
+		    cancelDiv.appendChild(controlUI);
+
+		    // Set CSS for the control interior.
+		    var controlText = document.createElement('div');
+		    controlText.style.color = 'rgb(25,25,25)';
+		    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+		    controlText.style.fontSize = '16px';
+		    controlText.style.lineHeight = '38px';
+		    controlText.style.paddingLeft = '5px';
+		    controlText.style.paddingRight = '5px';
+		    controlText.innerHTML = 'CANCEL';
+		    controlUI.appendChild(controlText);
+
+		    // Setup the click event listeners: simply set the map to Chicago.
+		    controlUI.addEventListener('click', function () {
+		        // save or cancel?
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkDiv);
+		        map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoCancelDiv);
+		        geoControlDiv.style.display = 'block';
+		        geoOkCancelDiv.style.display = 'none';
+		        geoOkDiv.style.display = 'none';
+		        geoCancelDiv.style.display = 'none';
 		    });
 		}
 
