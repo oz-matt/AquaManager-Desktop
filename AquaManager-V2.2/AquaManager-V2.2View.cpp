@@ -29,6 +29,7 @@ IMPLEMENT_DYNCREATE(CAquaManagerV22View, CHtmlView)
 BEGIN_MESSAGE_MAP(CAquaManagerV22View, CHtmlView)
 	ON_WM_CONTEXTMENU()
 	ON_WM_RBUTTONUP()
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 // CAquaManagerV22View construction/destruction
@@ -60,7 +61,8 @@ void CAquaManagerV22View::OnInitialUpdate()
 	pDoc = (IHTMLDocument2*)GetHtmlDocument();
 	//(CAquaManagerV22Doc*)m_pDocument;
 
-	CGeofence_Instance->SaveGeoObject();
+	SetTimer(1, 1000, NULL);
+	//CGeofence_Instance->SaveGeoObject();
 }
 
 void CAquaManagerV22View::OnRButtonUp(UINT /* nFlags */, CPoint point)
@@ -120,4 +122,13 @@ void CAquaManagerV22View::Init(void)
 	sPath.Format(_T("%s\\%s"), app, "Google-Map.html");
 
 	Navigate2(_T(sPath), NULL, NULL);
+}
+
+
+void CAquaManagerV22View::OnTimer(UINT_PTR nIDEvent)
+{
+	// TODO: Add your message handler code here and/or call default
+	CGeofence_Instance->SaveGeoObject();
+
+	CHtmlView::OnTimer(nIDEvent);
 }
