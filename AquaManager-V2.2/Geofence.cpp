@@ -151,6 +151,14 @@ HBRUSH CGeofence::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	currentTabSelected = 2;
 	// TODO:  Return a different brush if the default is not desired
+	if (pDoc == NULL)
+		return hbr;
+
+	CComDispatchDriver spScript;
+	pDoc->get_Script(&spScript);
+	CComVariant var(static_cast<IDispatch*>(this));
+	spScript.Invoke1(L"ShowGeoControls", &var);
+
 	return hbr;
 }
 
