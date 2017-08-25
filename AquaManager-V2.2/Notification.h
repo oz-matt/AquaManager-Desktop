@@ -3,7 +3,7 @@
 
 // CNotification dialog
 
-class CNotification : public CDialog
+class CNotification : public CDialog, public IDispatch
 {
 	DECLARE_DYNAMIC(CNotification)
 
@@ -27,4 +27,16 @@ public:
 	CImageList *ImgHeaders;
 	afx_msg void OnBnClickedBtnNewnotify();
 	CMFCButton m_btn_newNotify;
+
+	virtual HRESULT STDMETHODCALLTYPE GetTypeInfoCount(UINT *pctinfo);
+	virtual HRESULT STDMETHODCALLTYPE GetTypeInfo(UINT iTInfo, LCID lcid, ITypeInfo **ppTInfo);
+	virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, LPOLESTR *rgszNames, UINT cNames, LCID lcid, DISPID *rgDispId);
+	virtual HRESULT STDMETHODCALLTYPE Invoke(DISPID dispIdMember, REFIID riid, LCID lcid,
+		WORD wFlags, DISPPARAMS *pDispParams, VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr);
+	virtual HRESULT STDMETHODCALLTYPE QueryInterface(REFIID riid, void **ppvObject);
+	virtual ULONG STDMETHODCALLTYPE AddRef();
+	virtual ULONG STDMETHODCALLTYPE Release();
+
+	DWORD GetProcessID();
+	void ShowMessageBox(const wchar_t *msg);
 };

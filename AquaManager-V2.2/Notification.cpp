@@ -19,6 +19,8 @@ using namespace std;
 extern int currentTabSelected;
 extern int g_m_device_count;
 
+extern CComQIPtr<IHTMLDocument2> pDoc;
+
 CString g_device_name;
 CString g_trigger;
 CString g_trigger_freq;
@@ -26,6 +28,12 @@ CString g_alert;
 CString g_alert_target;
 
 // CNotification dialog
+
+enum
+{
+    FUNCTION_ShowMessageBox = 1,
+    FUNCTION_GetProcessID = 2,
+};
 
 IMPLEMENT_DYNAMIC(CNotification, CDialog)
 
@@ -127,6 +135,14 @@ HBRUSH CNotification::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 	currentTabSelected = 1;
 	// TODO:  Return a different brush if the default is not desired
+	if (pDoc == NULL)
+		return hbr;
+
+	CComDispatchDriver spScript;
+	pDoc->get_Script(&spScript);
+	CComVariant var(static_cast<IDispatch*>(this));
+	spScript.Invoke1(L"HideGeoControls", &var);
+
 	return hbr;
 }
 
@@ -383,4 +399,89 @@ void CNotification::OnBnClickedBtnNewnotify()
 	g_alert = dlg.m_alarm;
 	dlg.m_phone ? g_alert_target = dlg.m_phone_val : 0;
 	dlg.m_email ? g_alert_target = dlg.m_email_val : 0;
+}
+
+HRESULT STDMETHODCALLTYPE CNotification::GetTypeInfoCount(UINT *pctinfo)
+{
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CNotification::GetTypeInfo(UINT iTInfo, LCID lcid, ITypeInfo **ppTInfo)
+{
+    return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CNotification::GetIDsOfNames(REFIID riid, LPOLESTR *rgszNames, UINT cNames, LCID lcid, DISPID *rgDispId)
+{
+    if (cNames != 1)
+        return E_NOTIMPL;
+
+    if (wcscmp(rgszNames[0], L"ShowMessageBox") == 0)
+    {
+        *rgDispId = FUNCTION_ShowMessageBox;
+        return S_OK;
+    }
+
+    else if (wcscmp(rgszNames[0], L"GetProcessID") == 0)
+    {
+        *rgDispId = FUNCTION_GetProcessID;
+        return S_OK;
+    }
+    else
+        return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CNotification::Invoke(DISPID dispIdMember, REFIID riid, LCID lcid,
+    WORD wFlags, DISPPARAMS *pDispParams, VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr)
+{
+    if (dispIdMember == FUNCTION_ShowMessageBox)
+    {
+        if (pDispParams->cArgs != 1)
+            return E_NOTIMPL;
+
+        if (pDispParams->rgvarg[0].vt != VT_BSTR)
+            return E_NOTIMPL;
+
+        ShowMessageBox(pDispParams->rgvarg[0].bstrVal);
+        return S_OK;
+    }
+    else if (dispIdMember == FUNCTION_GetProcessID)
+    {
+        DWORD id = GetProcessID();
+        *pVarResult = CComVariant(id);
+        return S_OK;
+    }
+    else
+        return E_NOTIMPL;
+}
+
+HRESULT STDMETHODCALLTYPE CNotification::QueryInterface(REFIID riid, void **ppvObject)
+{
+    if (riid == IID_IDispatch || riid == IID_IUnknown)
+    {
+        *ppvObject = static_cast<IDispatch*>(this);
+        return S_OK;
+    }
+    else
+        return E_NOINTERFACE;
+}
+
+ULONG STDMETHODCALLTYPE CNotification::AddRef()
+{
+    return 1;
+}
+
+ULONG STDMETHODCALLTYPE CNotification::Release()
+{
+    return 1;
+}
+
+DWORD CNotification::GetProcessID()
+{
+    return GetCurrentProcessId();
+}
+
+void CNotification::ShowMessageBox(const wchar_t *msg)
+{
+    MessageBox(CW2T(msg), _T("the message come from java script"));
 }
