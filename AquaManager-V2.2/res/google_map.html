@@ -306,7 +306,7 @@
 			geoOkDiv.index = 4;
 			map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkDiv);
 
-			geoControlDiv.style.display = 'block';
+			geoControlDiv.style.display = 'none';
 			geoOkCancelDiv.style.display = 'none';
 			geoOkDiv.style.display = 'none';
 			geoCancelDiv.style.display = 'none';
@@ -463,6 +463,36 @@
 		        geoOkDiv.style.display = 'none';
 		        geoCancelDiv.style.display = 'none';
 		    });
+		}
+
+		function HideGeoControls() {
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoCancelDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoCancelDiv);
+		    geoControlDiv.style.display = 'none';
+		    geoOkCancelDiv.style.display = 'none';
+		    geoOkDiv.style.display = 'none';
+		    geoCancelDiv.style.display = 'none';
+		}
+
+		function ShowGeoControls() {
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoCancelDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkDiv);
+		    map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoCancelDiv);
+		    geoControlDiv.style.display = 'block';
+		    geoOkCancelDiv.style.display = 'none';
+		    geoOkDiv.style.display = 'none';
+		    geoCancelDiv.style.display = 'none';
 		}
 
 		function timer() {
