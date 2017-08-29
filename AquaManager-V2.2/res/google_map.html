@@ -186,7 +186,9 @@
 			//});
 
 			google.maps.event.addListener(map, 'click', function (event) {
-				//alert("clicked");
+			    //alert("clicked");
+			    geo_object.AddGeofence();
+
 				if (is_draw_global == 0)
 					return;
 
@@ -209,6 +211,8 @@
 
 					//alert("center:" + center_global.lat());
 					//alert("center:" + center_global.lng());
+
+					geo_object.AddGeofence();
 				}
 
 				if (is_draw_global == 2) {
@@ -270,6 +274,8 @@
 
 					//alert("click:" + path_global);
 					//alert("click:" + bounds_global);
+
+					geo_object.AddGeofence();
 				}
 
 				is_draw_global = 0;
