@@ -159,6 +159,9 @@ HBRUSH CGeofence::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	CComVariant var(static_cast<IDispatch*>(this));
 	spScript.Invoke1(L"ShowGeoControls", &var);
 
+	CComVariant var_int = 2;
+	spScript.Invoke1(L"SetCurrentTab", &var_int);
+
 	return hbr;
 }
 

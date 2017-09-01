@@ -199,6 +199,9 @@ HBRUSH CDevice::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	CComVariant var(static_cast<IDispatch*>(this));
 	spScript.Invoke1(L"HideGeoControls", &var);
 
+	CComVariant var_int = 0;
+	spScript.Invoke1(L"SetCurrentTab", &var_int);
+
 	return hbr;
 }
 

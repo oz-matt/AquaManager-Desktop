@@ -189,99 +189,101 @@
 
 			google.maps.event.addListener(map, 'click', function (event) {
 			    //alert("clicked");
-                // need get current tab status
-			    geo_object.AddGeofence();
+			    // need get current tab status
+			    if (current_tab_global == 2) {
+			        geo_object.AddGeofence();
+			    }
 
-				if (is_draw_global == 0)
-					return;
+			    if (is_draw_global == 0)
+			        return;
 
-				if (is_draw_global == 1) {
-					var circleOptions = {
-						map: map,
-						center: event.latLng,
-						radius: radius_input_global,
-						strokeWeight: 3,
-						strokeColor: '#FF0000',
-						strokeOpacity: 0.8,
-						fillColor: '#0000FF',
-						fillOpacity: 0.1,
-						//clickable: false,
-						editable: true,
-						draggable:true
-					};
-					circle_global = new google.maps.Circle(circleOptions);
-					center_global = event.latLng;
+			    if (is_draw_global == 1) {
+			        var circleOptions = {
+			            map: map,
+			            center: event.latLng,
+			            radius: radius_input_global,
+			            strokeWeight: 3,
+			            strokeColor: '#FF0000',
+			            strokeOpacity: 0.8,
+			            fillColor: '#0000FF',
+			            fillOpacity: 0.1,
+			            //clickable: false,
+			            editable: true,
+			            draggable: true
+			        };
+			        circle_global = new google.maps.Circle(circleOptions);
+			        center_global = event.latLng;
 
-					//alert("center:" + center_global.lat());
-					//alert("center:" + center_global.lng());
+			        //alert("center:" + center_global.lat());
+			        //alert("center:" + center_global.lng());
 
-					geo_object.AddGeofence();
-				}
+			        //geo_object.AddGeofence();
+			    }
 
-				if (is_draw_global == 2) {
-					var side = side_input_global;
-					var center = event.latLng;
-					//alert("side:" + side);
-					//alert("center:" + center);
-					//alert("center.lat:" + center.lat());
-					//alert("center.lng:" + center.lng());
+			    if (is_draw_global == 2) {
+			        var side = side_input_global;
+			        var center = event.latLng;
+			        //alert("side:" + side);
+			        //alert("center:" + center);
+			        //alert("center.lat:" + center.lat());
+			        //alert("center.lng:" + center.lng());
 
-					var PathData = [
+			        var PathData = [
 						[center.lat() + side / 111.31955, center.lng() - side / 111.31955],
 						[center.lat() - side / 111.31955, center.lng() - side / 111.31955],
 						[center.lat() - side / 111.31955, center.lng() + side / 111.31955],
 						[center.lat() + side / 111.31955, center.lng() + side / 111.31955],
 						[center.lat() + side / 111.31955, center.lng() - side / 111.31955]
 					];
-					//var center = new google.maps.LatLng(PathData[2][1], PathData[2][2]);
+			        //var center = new google.maps.LatLng(PathData[2][1], PathData[2][2]);
 
-					//bounds_global = new google.maps.LatLngBounds();
-					//bounds_global.extend(center);
+			        //bounds_global = new google.maps.LatLngBounds();
+			        //bounds_global.extend(center);
 
-					for (var i in PathData)	{
-						var p = PathData[i];
-						var latlng = new google.maps.LatLng(p[0], p[1]);
-						path_global.push(latlng);
+			        for (var i in PathData) {
+			            var p = PathData[i];
+			            var latlng = new google.maps.LatLng(p[0], p[1]);
+			            path_global.push(latlng);
 
-						//bounds_global.extend(latlng);
-					}
+			            //bounds_global.extend(latlng);
+			        }
 
-					lat1_global = PathData[0][0];
-					lng1_global = PathData[0][1];
-					lat2_global = PathData[1][0];
-					lng2_global = PathData[1][1];
-					lat3_global = PathData[2][0];
-					lng3_global = PathData[2][1];
-					lat4_global = PathData[3][0];
-					lng4_global = PathData[3][1];
+			        lat1_global = PathData[0][0];
+			        lng1_global = PathData[0][1];
+			        lat2_global = PathData[1][0];
+			        lng2_global = PathData[1][1];
+			        lat3_global = PathData[2][0];
+			        lng3_global = PathData[2][1];
+			        lat4_global = PathData[3][0];
+			        lng4_global = PathData[3][1];
 
-					var polygonOptions = {
-						//map: map,
-						center: event.latLng,
-						paths: path_global,
-						strokeWeight: 3,
-						strokeColor: '#FF0000',
-						strokeOpacity: 0.8,
-						fillColor: '#0000FF',
-						fillOpacity: 0.1,
-						//clickable: false,
-						editable: true,
-						draggable:true
-					};
-					polygon_global = new google.maps.Polygon(polygonOptions);
-					polygon_global.setMap(map);
-					center_global = event.latLng;
+			        var polygonOptions = {
+			            //map: map,
+			            center: event.latLng,
+			            paths: path_global,
+			            strokeWeight: 3,
+			            strokeColor: '#FF0000',
+			            strokeOpacity: 0.8,
+			            fillColor: '#0000FF',
+			            fillOpacity: 0.1,
+			            //clickable: false,
+			            editable: true,
+			            draggable: true
+			        };
+			        polygon_global = new google.maps.Polygon(polygonOptions);
+			        polygon_global.setMap(map);
+			        center_global = event.latLng;
 
-					//bounds_global.extend(event.latLng);
-					//map.fitBounds(bounds_global);
+			        //bounds_global.extend(event.latLng);
+			        //map.fitBounds(bounds_global);
 
-					//alert("click:" + path_global);
-					//alert("click:" + bounds_global);
+			        //alert("click:" + path_global);
+			        //alert("click:" + bounds_global);
 
-					geo_object.AddGeofence();
-				}
+			        //geo_object.AddGeofence();
+			    }
 
-				is_draw_global = 0;
+			    is_draw_global = 0;
 			});
 
 			google.maps.event.addListener(map, 'idle', function() {
