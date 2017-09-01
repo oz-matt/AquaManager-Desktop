@@ -80,6 +80,8 @@
 		var geoOkDiv;
 		var geoCancelDiv;
 
+		var current_tab_global;
+
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
 			map = new google.maps.Map(document.getElementById('map'), {
@@ -187,6 +189,7 @@
 
 			google.maps.event.addListener(map, 'click', function (event) {
 			    //alert("clicked");
+                // need get current tab status
 			    geo_object.AddGeofence();
 
 				if (is_draw_global == 0)
@@ -505,6 +508,10 @@
 			//alert("timer radius_input_global:" + radius_input_global);
 			//alert("timer path_global:" + path_global);
 		}
+
+		function SetCurrentTab(tab) {
+		    current_tab_global = tab;
+        }
 
 		function DrawCircle(input_radius) {
 			radius_input_global = input_radius;
