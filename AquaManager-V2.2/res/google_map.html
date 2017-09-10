@@ -81,6 +81,7 @@
 		var geoCancelDiv;
 
 		var current_tab_global;
+		var mapClicked = false;
 
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
@@ -190,10 +191,7 @@
 			google.maps.event.addListener(map, 'click', function (event) {
 			    //alert("clicked");
 			    // need get current tab status
-			    if (current_tab_global == 2) {
-			        geo_object.AddGeofence();
-			    }
-
+			    
 			    if (is_draw_global == 0)
 			        return;
 
@@ -286,16 +284,51 @@
 			    is_draw_global = 0;
 			});
 
-			google.maps.event.addListener(map, 'idle', function() {
-				if (polygon_global == null)
-					return;
+			google.maps.event.addListener(map, 'mousedown', function () {
+			    mapClicked = true; // hold
+			    setTimeout(function () {
+			        if (mapClicked) {
+			            if (current_tab_global == 2) {
+			                geo_object.AddGeofence();
+			            }
+			        }
+			    }, 3000);
+			});
+
+			google.maps.event.addListener(map, 'mouseup', function () {
+			    mapClicked = false; // release
+			});
+
+			google.maps.event.addListener(map, 'dragstart', function () {
+			    mapClicked = false;
+			});
+
+			google.maps.event.addListener(map, 'dragend', function () {
+			    mapClicked = false;
+			});
+
+			google.maps.event.addListener(map, 'drag', function () {
+			    mapClicked = false;
+			});
+
+			google.maps.event.addListener(map, 'zoom_changed', function () {
+			    mapClicked = false;
+			});
+
+			google.maps.event.addListener(map, 'mousemove', function () {
+			    mapClicked = false;
+			});
+
+			//google.maps.event.addListener(map, 'idle', function() {
+				//if (polygon_global == null)
+					//return;
 
 				//var coordinatesArray = polygon_global.getPath().getArray();
 				//alert("idle:" + coordinatesArray);
 				//alert("idle:" + bounds_global);
-			});
+			//});
 
-			setInterval( "timer()", 3000 );
+			//setInterval( "timer()", 3000 );
 
 			geoControlDiv = document.createElement('div');
 			var geoControl = new GeoControl(geoControlDiv, map);
@@ -506,10 +539,10 @@
 		    geoCancelDiv.style.display = 'none';
 		}
 
-		function timer() {
+		//function timer() {
 			//alert("timer radius_input_global:" + radius_input_global);
 			//alert("timer path_global:" + path_global);
-		}
+		//}
 
 		function SetCurrentTab(tab) {
 		    current_tab_global = tab;
