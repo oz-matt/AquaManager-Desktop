@@ -60,6 +60,7 @@ BEGIN_MESSAGE_MAP(CGeofence, CDialog)
 	ON_BN_CLICKED(IDC_BTN_Geofence, &CGeofence::OnBnClickedBtnGeofence)
 	ON_BN_CLICKED(IDC_BTN_Save, &CGeofence::OnBnClickedBtnSave)
 	ON_BN_CLICKED(IDC_BTN_Cancel, &CGeofence::OnBnClickedBtnCancel)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -755,4 +756,17 @@ void CGeofence::AddGeofence(void)
 
 	m_geo_name = dlg.m_geo_name;
 	m_radius = dlg.m_radius_double;
+
+	// try to relase mouse here
+	CPoint point;
+	ClientToScreen(&point);
+	OnLButtonDown(0, point);
+}
+
+
+void CGeofence::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	__super::OnLButtonDown(nFlags, point);
 }

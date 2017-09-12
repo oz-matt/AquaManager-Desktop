@@ -290,6 +290,8 @@
 			        if (mapClicked) {
 			            if (current_tab_global == 2) {
 			                geo_object.AddGeofence();
+                            // trigger mouse up.
+			                google.maps.event.trigger(map, 'mouseup');
 			            }
 			        }
 			    }, 3000);

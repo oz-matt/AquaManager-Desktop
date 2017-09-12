@@ -61,4 +61,5 @@ public:
 
 	void SaveGeoObject();
 	void AddGeofence(void);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };
