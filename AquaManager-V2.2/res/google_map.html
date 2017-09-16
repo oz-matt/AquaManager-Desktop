@@ -296,8 +296,9 @@
 			    myTimer = setInterval(timer_hold, 5000); // timer is function that do the real thing, here is for starting the timer.
 			    timeElapsed = 0;
 			    //geo_object.AddGeofence();
-
-			    setTimeout(function () {
+                /*
+			    // setTimeout can clear by clearTimeout(timer_id);
+			    timer_id = setTimeout(function () {
 			        if (mapClicked) {
 			            if (current_tab_global == 2) {
 			                //timeElapsed = 1;
@@ -309,15 +310,17 @@
 			                //google.maps.event.trigger(map, 'mouseup');
 			            }
 			        }
-			    }, 5000);
+			    }, 5000);*/
 			});
 
 			google.maps.event.addListener(map, 'mouseup', function () {
 			    mapClicked = false; // release
 			    //clearInterval(myTimer);
-			    if (timeElapsed == 1) {
-			        geo_object.AddGeofence();
-			        timeElapsed = 0;
+			    if (current_tab_global == 2) {
+			        if (timeElapsed == 1) {
+			            geo_object.AddGeofence();
+			            timeElapsed = 0;
+			        }
 			    }
 			    //google.maps.event.trigger(map, 'mousedown');
 			    //google.maps.event.trigger(map, 'mouseup');
