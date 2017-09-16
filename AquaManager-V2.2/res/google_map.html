@@ -83,6 +83,7 @@
 		var current_tab_global;
 		var mapClicked = false;
 		var timeElapsed = 0;
+		var myTimer;
 
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
@@ -290,13 +291,17 @@
 
 			google.maps.event.addListener(map, 'mousedown', function () {
 			    mapClicked = true; // hold
+
+			    clearInterval(myTimer);
+			    myTimer = setInterval(timer_hold, 5000); // timer is function that do the real thing, here is for starting the timer.
 			    timeElapsed = 0;
 			    //geo_object.AddGeofence();
-                /*
+
 			    setTimeout(function () {
 			        if (mapClicked) {
 			            if (current_tab_global == 2) {
-			                geo_object.AddGeofence();
+			                //timeElapsed = 1;
+			                //geo_object.AddGeofence();
 			                // trigger mouse up.
 			                //google.maps.event.trigger(map, 'mouseup');
 			                //alert("demo for showing move issue to Matt.");
@@ -304,11 +309,12 @@
 			                //google.maps.event.trigger(map, 'mouseup');
 			            }
 			        }
-			    }, 3000);*/
+			    }, 5000);
 			});
 
 			google.maps.event.addListener(map, 'mouseup', function () {
 			    mapClicked = false; // release
+			    //clearInterval(myTimer);
 			    if (timeElapsed == 1) {
 			        geo_object.AddGeofence();
 			        timeElapsed = 0;
@@ -346,7 +352,7 @@
 				//alert("idle:" + bounds_global);
 			//});
 
-			setInterval( "timer_hold()", 5000 ); // timer is function that do the real thing, here is for starting the timer.
+			myTimer = setInterval(timer_hold, 5000);
 
 			geoControlDiv = document.createElement('div');
 			var geoControl = new GeoControl(geoControlDiv, map);
