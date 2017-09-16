@@ -758,9 +758,9 @@ void CGeofence::AddGeofence(void)
 	m_radius = dlg.m_radius_double;
 
 	// try to relase mouse here
-	CPoint point;
-	ClientToScreen(&point);
-	OnLButtonDown(0, point);
+	//CPoint point;
+	//ClientToScreen(&point);
+	//OnLButtonDown(0, point);
 }
 
 

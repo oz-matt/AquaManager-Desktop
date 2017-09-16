@@ -82,6 +82,7 @@
 
 		var current_tab_global;
 		var mapClicked = false;
+		var timeElapsed = 0;
 
 		function initMap() {
 			var pos = {lat: 45.378802, lng: -70.242796};
@@ -191,7 +192,10 @@
 			google.maps.event.addListener(map, 'click', function (event) {
 			    //alert("clicked");
 			    // need get current tab status
-			    
+			    //if (mapClicked) {
+			        //geo_object.AddGeofence();
+			    //}
+
 			    if (is_draw_global == 0)
 			        return;
 
@@ -286,19 +290,31 @@
 
 			google.maps.event.addListener(map, 'mousedown', function () {
 			    mapClicked = true; // hold
+			    timeElapsed = 0;
+			    //geo_object.AddGeofence();
+                /*
 			    setTimeout(function () {
 			        if (mapClicked) {
 			            if (current_tab_global == 2) {
 			                geo_object.AddGeofence();
-                            // trigger mouse up.
-			                google.maps.event.trigger(map, 'mouseup');
+			                // trigger mouse up.
+			                //google.maps.event.trigger(map, 'mouseup');
+			                //alert("demo for showing move issue to Matt.");
+			                //google.maps.event.trigger(map, 'mousedown');
+			                //google.maps.event.trigger(map, 'mouseup');
 			            }
 			        }
-			    }, 3000);
+			    }, 3000);*/
 			});
 
 			google.maps.event.addListener(map, 'mouseup', function () {
 			    mapClicked = false; // release
+			    if (timeElapsed == 1) {
+			        geo_object.AddGeofence();
+			        timeElapsed = 0;
+			    }
+			    //google.maps.event.trigger(map, 'mousedown');
+			    //google.maps.event.trigger(map, 'mouseup');
 			});
 
 			google.maps.event.addListener(map, 'dragstart', function () {
@@ -317,9 +333,9 @@
 			    mapClicked = false;
 			});
 
-			google.maps.event.addListener(map, 'mousemove', function () {
-			    mapClicked = false;
-			});
+			//google.maps.event.addListener(map, 'mousemove', function () {
+			    //mapClicked = false;
+			//});
 
 			//google.maps.event.addListener(map, 'idle', function() {
 				//if (polygon_global == null)
@@ -330,7 +346,7 @@
 				//alert("idle:" + bounds_global);
 			//});
 
-			//setInterval( "timer()", 3000 );
+			setInterval( "timer_hold()", 5000 ); // timer is function that do the real thing, here is for starting the timer.
 
 			geoControlDiv = document.createElement('div');
 			var geoControl = new GeoControl(geoControlDiv, map);
@@ -356,6 +372,10 @@
 			geoOkCancelDiv.style.display = 'none';
 			geoOkDiv.style.display = 'none';
 			geoCancelDiv.style.display = 'none';
+		}
+
+		function timer_hold() {
+		    timeElapsed = 1;
 		}
 
 		function GeoControl(controlDiv, map) {
@@ -540,11 +560,6 @@
 		    geoOkDiv.style.display = 'none';
 		    geoCancelDiv.style.display = 'none';
 		}
-
-		//function timer() {
-			//alert("timer radius_input_global:" + radius_input_global);
-			//alert("timer path_global:" + path_global);
-		//}
 
 		function SetCurrentTab(tab) {
 		    current_tab_global = tab;
