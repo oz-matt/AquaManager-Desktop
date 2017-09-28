@@ -319,6 +319,19 @@
 			    if (current_tab_global == 2) {
 			        if (timeElapsed == 1) {
 			            geo_object.AddGeofence();
+
+			            map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkDiv);
+			            map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoCancelDiv);
+			            map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoOkCancelDiv);
+			            map.controls[google.maps.ControlPosition.TOP_CENTER].pop(geoControlDiv);
+			            map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoControlDiv);
+			            map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkCancelDiv);
+			            map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoOkDiv);
+			            map.controls[google.maps.ControlPosition.TOP_CENTER].push(geoCancelDiv);
+			            geoControlDiv.style.display = 'none';
+			            geoOkCancelDiv.style.display = 'block';
+			            geoOkDiv.style.display = 'block';
+			            geoCancelDiv.style.display = 'block';
 			            timeElapsed = 0;
 			        }
 			    }
