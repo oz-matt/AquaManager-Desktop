@@ -1,6 +1,59 @@
 #pragma once
 #include "ColorListCtrol.h"
 
+#include<string>
+
+using namespace std;
+
+typedef struct {
+	string g_m_aquaid;
+	string g_m_passcode;
+	string g_m_pct_battery;
+	string g_m_temperature;
+	string g_m_humidity;
+	string g_m_height;
+	string g_m_speed;
+	string g_m_direction;
+	string g_m_numsat;
+	string g_m_phone;
+	string g_m_aquakey;
+
+	double g_m_previous_lat;
+	double g_m_previous_lng;
+	double g_m_current_lat;
+	double g_m_current_lng;
+	string g_m_previous_location;
+	string g_m_current_location;
+	string g_m_previous_time;
+	string g_m_current_time;
+
+	string g_m_datetime;
+	string g_m_uuid;
+	string g_m_time;
+	//string g_m_numsat;
+	string g_m_lon;///////////////
+	string g_m_lat;
+	//string g_m_height;
+	//string g_m_gspeed;
+	string g_m_accelerometer;
+	string g_m_pressure;
+	string g_m_update_rate;
+	string g_m_incoming_ip;
+	string g_m_install_id;////////////
+	string g_m_aqsense_data[10];
+	string g_m_aqsense_data_head[10];
+
+	int g_m_aqsense_count;
+	int g_m_device_count;
+} _DeviceData;
+
+struct __Device {
+	_DeviceData &data;
+	__Device &next;
+};
+
+typedef struct __Device _Device;
+
 // CDevice dialog
 
 class CDevice : public CDialog, public IDispatch
