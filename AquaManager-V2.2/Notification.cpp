@@ -27,6 +27,14 @@ CString g_trigger_freq;
 CString g_alert;
 CString g_alert_target;
 
+struct _notify_data {
+	CString g_device_name;
+	CString g_trigger;
+	CString g_trigger_freq;
+	CString g_alert;
+	CString g_alert_target;
+}notify_data;
+
 // CNotification dialog
 
 enum

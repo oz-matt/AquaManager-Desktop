@@ -149,6 +149,9 @@
     <ClInclude Include="include\json\version.h" />
     <ClInclude Include="include\json\writer.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MultiDevice.h" />
+    <ClInclude Include="MultiGeofence.h" />
+    <ClInclude Include="MultiNotify.h" />
     <ClInclude Include="Notification.h" />
     <ClInclude Include="NotificationRemove.h" />
     <ClInclude Include="NotificationSettings.h" />
@@ -188,6 +191,9 @@
     <ClCompile Include="Geofence.cpp" />
     <ClCompile Include="GeofenceRemove.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MultiDevice.cpp" />
+    <ClCompile Include="MultiGeofence.cpp" />
+    <ClCompile Include="MultiNotify.cpp" />
     <ClCompile Include="Notification.cpp" />
     <ClCompile Include="NotificationRemove.cpp" />
     <ClCompile Include="NotificationSettings.cpp" />
