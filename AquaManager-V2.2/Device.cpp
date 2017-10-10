@@ -2,17 +2,16 @@
 //
 
 #include "stdafx.h"
-#include "AquaManager-V2.2.h"
-#include "Device.h"
 #include "afxdialogex.h"
+#include "AquaManager-V2.2.h"
+#include "AquaLib.h"
+#include "Device.h"
+#include "DlgAddDevice.h"
+#include "DeviceName.h"
 
 #include<fstream>
 #include<string>
 #include<iterator>
-
-#include "DlgAddDevice.h"
-#include "AquaLib.h"
-#include "DeviceName.h"
 
 #include "include/json/reader.h"
 #include "include/json/value.h"
@@ -63,55 +62,55 @@ extern int currentTabSelected;
 extern CString g_m_device_name;
 extern CComQIPtr<IHTMLDocument2> pDoc;
 
-struct _device_data {
-	CString g_m_aquaid;
-	CString g_m_passcode;
-	CString g_m_pct_battery;
-	CString g_m_temperature;
-	CString g_m_humidity;
-	CString g_m_height;
-	CString g_m_speed;
-	CString g_m_direction;
-	CString g_m_numsat;
-	CString g_m_phone;
-	CString g_m_aquakey;
+typedef struct {
+	string g_m_aquaid;
+	string g_m_passcode;
+	string g_m_pct_battery;
+	string g_m_temperature;
+	string g_m_humidity;
+	string g_m_height;
+	string g_m_speed;
+	string g_m_direction;
+	string g_m_numsat;
+	string g_m_phone;
+	string g_m_aquakey;
 
 	double g_m_previous_lat;
 	double g_m_previous_lng;
 	double g_m_current_lat;
 	double g_m_current_lng;
-	CString g_m_previous_location;
-	CString g_m_current_location;
-	CString g_m_previous_time;
-	CString g_m_current_time;
+	string g_m_previous_location;
+	string g_m_current_location;
+	string g_m_previous_time;
+	string g_m_current_time;
 
-	CString g_m_datetime;
-	CString g_m_uuid;
-	CString g_m_time;
-	//CString g_m_numsat;
-	CString g_m_lon;///////////////
-	CString g_m_lat;
-	//CString g_m_height;
-	//CString g_m_gspeed;
-	CString g_m_accelerometer;
-	CString g_m_pressure;
-	CString g_m_update_rate;
-	CString g_m_incoming_ip;
-	CString g_m_install_id;////////////
-	CString g_m_aqsense_data[10];
-	CString g_m_aqsense_data_head[10];
+	string g_m_datetime;
+	string g_m_uuid;
+	string g_m_time;
+	//string g_m_numsat;
+	string g_m_lon;///////////////
+	string g_m_lat;
+	//string g_m_height;
+	//string g_m_gspeed;
+	string g_m_accelerometer;
+	string g_m_pressure;
+	string g_m_update_rate;
+	string g_m_incoming_ip;
+	string g_m_install_id;////////////
+	string g_m_aqsense_data[10];
+	string g_m_aqsense_data_head[10];
+
 	int g_m_aqsense_count;
-
 	int g_m_device_count;
-} device_data;
-
-// CDevice dialog
+} _DeviceData;
 
 enum
 {
     FUNCTION_ShowMessageBox = 1,
     FUNCTION_GetProcessID = 2,
 };
+
+// CDevice dialog
 
 IMPLEMENT_DYNAMIC(CDevice, CDialog)
 
