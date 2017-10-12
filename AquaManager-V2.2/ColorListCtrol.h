@@ -11,11 +11,15 @@ public:
 	CColorListCtrol();
 	virtual ~CColorListCtrol();
 
+	friend class CDevice;
+
 protected:
 	DECLARE_MESSAGE_MAP()
 	virtual void PreSubclassWindow();
 
 	CColorHeaderCtrl m_HeaderCtrl;
+	void *pdevice;
+
 public:
 	afx_msg void OnNMCustomdraw(NMHDR *pNMHDR, LRESULT *pResult);
 	int type;

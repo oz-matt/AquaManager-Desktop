@@ -8,40 +8,18 @@
 #include "DlgConfigureDevice.h"
 #include "DeviceRawData.h"
 #include "DeviceRemove.h"
+#include "Device.h"
 
 #include "NotificationSettings.h"
 #include "NotificationRemove.h"
 
 #include "GeofenceRemove.h"
 
+#include <list>
+
 // CColorListCtrol
 
 extern int currentTabSelected;
-
-extern CString g_m_aquaid;
-extern CString g_m_passcode;
-extern CString g_m_device_name;
-extern CString g_m_pct_battery;
-extern CString g_m_temperature;
-extern CString g_m_humidity;
-extern CString g_m_height;
-extern CString g_m_speed;
-extern CString g_m_direction;
-extern CString g_m_numsat;
-extern CString g_m_phone;
-extern CString g_m_aquakey;
-
-extern double g_m_previous_lat;
-extern double g_m_previous_lng;
-extern double g_m_current_lat;
-extern double g_m_current_lng;
-extern CString g_m_previous_time;
-extern CString g_m_current_time;
-extern CString g_m_previous_location;
-extern CString g_m_current_location;
-extern CString g_m_aqsense_data[10];
-extern CString g_m_aqsense_data_head[10];
-extern int g_m_aqsense_count;
 
 int g_m_current_index;
 
@@ -253,21 +231,27 @@ void CColorListCtrol::OnDeviceInfo()
 {
 	// TODO: Add your command handler code here
 	CDlgConfigureDevice dlg;
-	dlg.m_name = g_m_device_name;
-	dlg.m_pct_battery = g_m_pct_battery;
-	dlg.m_temperature = g_m_temperature;
-	dlg.m_humidity = g_m_humidity;
-	dlg.m_height = g_m_height;
-	dlg.m_speed = g_m_speed;
-	dlg.m_direction = g_m_direction;
-	dlg.m_numsat = g_m_numsat;
-	dlg.m_phone = g_m_phone;
-	dlg.m_aquaid = g_m_aquaid;
-	dlg.m_aquakey = g_m_aquakey;
-	dlg.m_previous_time = g_m_previous_time;
-	dlg.m_current_time = g_m_current_time;
-	dlg.m_previous_location = g_m_previous_location;
-	dlg.m_current_location = g_m_current_location;
+
+	for (std::list<DeviceData*>::iterator it = ((CDevice*)pdevice)->_device.begin(); it != ((CDevice*)pdevice)->_device.end(); ++it) {
+		if ((*it)->device_index == 0) { // TODO: correct indexx 
+			dlg.m_name = (*it)->device_name.c_str();
+			dlg.m_pct_battery = (*it)->pct_battery.c_str();
+			dlg.m_temperature = (*it)->temperature.c_str();
+			dlg.m_humidity = (*it)->humidity.c_str();
+			dlg.m_height = (*it)->height.c_str();
+			dlg.m_speed = (*it)->speed.c_str();
+			dlg.m_direction = (*it)->direction.c_str();
+			dlg.m_numsat = (*it)->numsat.c_str();
+			dlg.m_phone = (*it)->phone.c_str();
+			dlg.m_aquaid = (*it)->aquaid.c_str();
+			dlg.m_aquakey = (*it)->aquakey.c_str();
+			dlg.m_previous_time = (*it)->previous_time.c_str();
+			dlg.m_current_time = (*it)->current_time.c_str();
+			dlg.m_previous_location = (*it)->previous_location.c_str();
+			dlg.m_current_location = (*it)->current_location.c_str();
+			break;
+		}
+	}	
 
 	UpdateData(False);
 	dlg.DoModal();

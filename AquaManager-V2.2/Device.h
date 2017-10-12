@@ -7,6 +7,12 @@
 using namespace std;
 
 class DeviceData{
+public:
+	//DeviceData();
+	//~DeviceData();
+	friend class CDevice;
+	friend class CColorListCtrol;
+
 private:
 	string aquaid;
 	string passcode;
@@ -46,7 +52,8 @@ private:
 	string aqsense_data_head[10];
 
 	int aqsense_count;
-	int device_count;
+	int device_index;
+	string device_name;
 };
 
 // CDevice dialog
@@ -62,11 +69,15 @@ public:
 // Dialog Data
 	enum { IDD = IDD_DLG_Device };
 
+	friend class CColorListCtrol;
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-	std::list<DeviceData *> _device;
 
 	DECLARE_MESSAGE_MAP()
+
+	int device_count;
+	std::list<DeviceData *> _device;
 
 public:
 	virtual BOOL OnInitDialog();

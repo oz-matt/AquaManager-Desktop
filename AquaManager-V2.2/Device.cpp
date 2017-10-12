@@ -73,6 +73,8 @@ CDevice::CDevice(CWnd* pParent /*=NULL*/)
 	: CDialog(CDevice::IDD, pParent)
 {
 	m_lst_device.type = 0;
+	m_lst_device.pdevice = this;
+
 	ImgHeaders = new CImageList;
 }
 
@@ -215,8 +217,15 @@ void CDevice::OnBnClickedBtnAddmarker()
 	// TODO: Add your control notification handler code here
 	CDlgAddDevice dlg;
 	dlg.DoModal();
+
+	DeviceData *d = new DeviceData();
+	d->device_index = device_count;
+	device_count++;
+	_device.push_front(d);
 	g_m_aquaid = dlg.m_aquaid;
 	g_m_passcode = dlg.m_passcode;
+	d->aquaid =  dlg.m_aquaid.GetBuffer(0);
+	d->passcode = dlg.m_passcode.GetBuffer(0);
 
 	char* data;
 	char ip[32] = "https://data.aquaiot.com";
