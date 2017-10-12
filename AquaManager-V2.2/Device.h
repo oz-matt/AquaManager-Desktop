@@ -5,7 +5,8 @@
 
 using namespace std;
 
-typedef struct {
+class DeviceData{
+private:
 	string aquaid;
 	string passcode;
 	string pct_battery;
@@ -45,14 +46,7 @@ typedef struct {
 
 	int aqsense_count;
 	int device_count;
-} _DeviceData;
-
-struct __Device {
-	_DeviceData &data;
-	__Device &next;
 };
-
-typedef struct __Device _Device;
 
 // CDevice dialog
 
@@ -69,8 +63,10 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	DeviceData *_device;
 
 	DECLARE_MESSAGE_MAP()
+
 public:
 	virtual BOOL OnInitDialog();
 	CColorListCtrol m_lst_device;
