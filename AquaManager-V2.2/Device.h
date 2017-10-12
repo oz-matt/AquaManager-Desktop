@@ -1,7 +1,8 @@
 #pragma once
 #include "ColorListCtrol.h"
 
-#include<string>
+#include <string>
+#include <list>
 
 using namespace std;
 
@@ -63,7 +64,7 @@ public:
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
-	DeviceData *_device;
+	std::list<DeviceData *> _device;
 
 	DECLARE_MESSAGE_MAP()
 
