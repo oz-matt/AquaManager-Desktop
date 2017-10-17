@@ -11,21 +11,13 @@
 
 #include<fstream>
 #include<iterator>
+#include<iostream>
+#include<sstream>
 
 #include "include/json/reader.h"
 #include "include/json/value.h"
 
-CString g_m_aquaid;
-CString g_m_passcode;
-CString g_m_pct_battery;
-CString g_m_temperature;
-CString g_m_humidity;
-CString g_m_height;
-CString g_m_speed;
-CString g_m_direction;
-CString g_m_numsat;
-CString g_m_phone;
-CString g_m_aquakey;
+using namespace std;
 
 double g_m_previous_lat;
 double g_m_previous_lng;
@@ -222,8 +214,6 @@ void CDevice::OnBnClickedBtnAddmarker()
 	d->device_index = device_count;
 	device_count++;
 	_device.push_front(d);
-	g_m_aquaid = dlg.m_aquaid;
-	g_m_passcode = dlg.m_passcode;
 	d->aquaid =  dlg.m_aquaid.GetBuffer(0);
 	d->passcode = dlg.m_passcode.GetBuffer(0);
 
@@ -259,8 +249,8 @@ void CDevice::OnBnClickedBtnAddmarker()
 		Json::Value qdata = root["qdata"];
 		string aquakey = qdata["aquakey"].asString();
 		string phonenumber = qdata["phonenumber"].asString();
-		g_m_phone = qdata["phonenumber"].asCString();
-		g_m_aquakey = qdata["aquakey"].asCString();
+		d->phone = qdata["phonenumber"].asCString();
+		d->aquakey = qdata["aquakey"].asCString();
 
 		//Json::Value aqsens = root.get("aqsens", "null");
 		Json::Value aqsens = root["aqsens"];
@@ -352,44 +342,72 @@ void CDevice::OnBnClickedBtnAddmarker()
 			// add marker
 			AddMarker(lat, lon);
 
-			battery_show.Format(_T("%d%%"), pct_battery);
-			g_m_pct_battery = battery_show;
-			g_m_temperature.Format(_T("%d"), temperature);
-			g_m_humidity.Format(_T("%d"), humidity);
-			g_m_height.Format(_T("%f"), height);
-			g_m_speed.Format(_T("%f"), gspeed);
-			g_m_direction.Format(_T("%f"), direction);
-			g_m_numsat.Format(_T("%d"), numsat);	
-			g_m_lon.Format(_T("%f"), lon);
-			g_m_lat.Format(_T("%f"), lat);
-			g_m_accelerometer = sensors["accelerometer"].asCString();
-			g_m_pressure.Format(_T("%d"), pressure);
-			g_m_update_rate.Format(_T("%d"), update_rate);
-			g_m_incoming_ip = aqsens_node[i]["incoming_ip"].asCString();
-			g_m_install_id = aqsens_node[i]["install_id"].asCString();
-			g_m_datetime = aqsens_node[i]["datetime"].asCString();
-			g_m_uuid = aqsens_node[i]["uuid"].asCString();
-			g_m_time = gpsminimum["time"].asCString();
+			battery_show.Format(_T("%d%%"), pct_battery); // local use
+			d->pct_battery = battery_show.GetBuffer(0);
+
+			std::stringstream stream;
+			stream<<temperature;
+			d->temperature = stream.str();
+
+			stream<<humidity;
+			d->humidity = stream.str();
+
+			stream << height;
+			d->height = stream.str();
+			
+			stream << gspeed;
+			d->speed = stream.str();
+
+			stream << direction;
+			d->direction = stream.str();
+
+			stream << numsat;
+			d->numsat = stream.str();
+
+			stream << lon;
+			d->lon = stream.str();
+
+			stream << lat;
+			d->lat = stream.str();
+
+			d->accelerometer = sensors["accelerometer"].asString();
+
+			stream << pressure;
+			d->pressure = stream.str();
+
+			stream << update_rate;
+			d->update_rate = stream.str();
+
+			d->incoming_ip = aqsens_node[i]["incoming_ip"].asString();
+
+			d->install_id = aqsens_node[i]["install_id"].asString();
+
+			d->datetime = aqsens_node[i]["datetime"].asString();
+
+			d->uuid = aqsens_node[i]["uuid"].asString();
+
+			d->time = gpsminimum["time"].asString();
+
 
 			CString tmp_convert;
-			g_m_aqsense_data_head[i].Append(g_m_datetime);
-			g_m_aqsense_data[i].Append("datetime: " + g_m_datetime + "\r\n");
-			g_m_aqsense_data[i].Append("uuid: " + g_m_uuid + "\r\n");
-			g_m_aqsense_data[i].Append("time: " + g_m_time + "\r\n");
-			g_m_aqsense_data[i].Append("numsat: " + g_m_numsat + "\r\n");
-			g_m_aqsense_data[i].Append("lon: " + g_m_lon + "\r\n");
-			g_m_aqsense_data[i].Append("lat: " + g_m_lat + "\r\n");
-			g_m_aqsense_data[i].Append("height: " + g_m_height + "\r\n");
-			g_m_aqsense_data[i].Append("gspeed: " + g_m_speed + "\r\n");
-			g_m_aqsense_data[i].Append("direction: " + g_m_direction + "\r\n");
-			g_m_aqsense_data[i].Append("pct_battery: " + g_m_pct_battery + "\r\n");
-			g_m_aqsense_data[i].Append("accelerometer: " + g_m_accelerometer + "\r\n");
-			g_m_aqsense_data[i].Append("temperature: " + g_m_temperature + "\r\n");
-			g_m_aqsense_data[i].Append("humidity: " + g_m_humidity + "\r\n");
-			g_m_aqsense_data[i].Append("pressure: " + g_m_pressure + "\r\n");
-			g_m_aqsense_data[i].Append("update_rate: " + g_m_update_rate + "\r\n");
-			g_m_aqsense_data[i].Append("incoming_ip: " + g_m_incoming_ip + "\r\n");
-			g_m_aqsense_data[i].Append("install_id: " + g_m_install_id);
+			d->aqsense_data_head.push_back(d->datetime);
+			d->aqsense_data.push_back("datetime: " + d->datetime + "\r\n" +
+										"uuid: " + d->uuid + "\r\n" +
+										"time: " + d->time + "\r\n" +
+										"numsat: " + d->numsat + "\r\n" +
+										"lon: " + d->lon + "\r\n" +
+										"lat: " + d->lat + "\r\n" +
+										"height: " + d->height + "\r\n" +
+										"gspeed: " + d->speed + "\r\n" +
+										"direction: " + d->direction + "\r\n" +
+										"pct_battery: " + d->pct_battery + "\r\n" +
+										"accelerometer: " + d->accelerometer + "\r\n" +
+										"temperature: " + d->temperature + "\r\n" +
+										"humidity: " + d->humidity + "\r\n" +
+										"pressure: " + d->pressure + "\r\n" +
+										"update_rate: " + d->update_rate + "\r\n" +
+										"incoming_ip: " + d->incoming_ip + "\r\n" +
+										"install_id: " + d->install_id);
 
 			//AddRawData(g_m_datetime, g_m_uuid, g_m_time, g_m_numsat, g_m_lon, g_m_lat, g_m_height, g_m_speed,
 			//	g_m_direction, g_m_pct_battery, g_m_accelerometer, g_m_temperature, g_m_humidity, g_m_pressure,

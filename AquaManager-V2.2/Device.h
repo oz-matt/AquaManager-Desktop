@@ -48,8 +48,8 @@ private:
 	string update_rate;
 	string incoming_ip;
 	string install_id;////////////
-	string aqsense_data[10];
-	string aqsense_data_head[10];
+	std::list<string> aqsense_data;
+	std::list<string> aqsense_data_head;
 
 	int aqsense_count;
 	int device_index;
