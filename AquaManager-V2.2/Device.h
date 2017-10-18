@@ -11,7 +11,7 @@ public:
 	//DeviceData();
 	//~DeviceData();
 	friend class CDevice;
-	friend class CColorListCtrol;
+	friend class CDeviceListCtrl;
 
 private:
 	string aquaid;
@@ -69,7 +69,8 @@ public:
 // Dialog Data
 	enum { IDD = IDD_DLG_Device };
 
-	friend class CColorListCtrol;
+	friend class CDeviceListCtrl;
+
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support

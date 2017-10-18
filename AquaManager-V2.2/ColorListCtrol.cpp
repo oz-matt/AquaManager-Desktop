@@ -230,31 +230,6 @@ void CColorListCtrol::OnLButtonUp(UINT nFlags, CPoint point)
 void CColorListCtrol::OnDeviceInfo()
 {
 	// TODO: Add your command handler code here
-	CDlgConfigureDevice dlg;
-
-	for (std::list<DeviceData*>::iterator it = ((CDevice*)pdevice)->_device.begin(); it != ((CDevice*)pdevice)->_device.end(); ++it) {
-		if ((*it)->device_index == 0) { // TODO: correct indexx 
-			dlg.m_name = (*it)->device_name.c_str();
-			dlg.m_pct_battery = (*it)->pct_battery.c_str();
-			dlg.m_temperature = (*it)->temperature.c_str();
-			dlg.m_humidity = (*it)->humidity.c_str();
-			dlg.m_height = (*it)->height.c_str();
-			dlg.m_speed = (*it)->speed.c_str();
-			dlg.m_direction = (*it)->direction.c_str();
-			dlg.m_numsat = (*it)->numsat.c_str();
-			dlg.m_phone = (*it)->phone.c_str();
-			dlg.m_aquaid = (*it)->aquaid.c_str();
-			dlg.m_aquakey = (*it)->aquakey.c_str();
-			dlg.m_previous_time = (*it)->previous_time.c_str();
-			dlg.m_current_time = (*it)->current_time.c_str();
-			dlg.m_previous_location = (*it)->previous_location.c_str();
-			dlg.m_current_location = (*it)->current_location.c_str();
-			break;
-		}
-	}	
-
-	UpdateData(False);
-	dlg.DoModal();
 }
 
 
