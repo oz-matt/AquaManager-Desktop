@@ -1,5 +1,5 @@
 #pragma once
-#include "ColorListCtrol.h"
+#include "DeviceListCtrl.h"
 
 #include <string>
 #include <list>
@@ -81,16 +81,13 @@ protected:
 
 public:
 	virtual BOOL OnInitDialog();
-	CListCtrl m_lst_device;
+	CDeviceListCtrl m_lst_device;
 	CBrush m_brush;
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	int nIndex;
 	CImageList *ImgHeaders;
-	afx_msg void OnLvnItemchangedLstDevice(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnBnClickedBtnAddmarker();
 	CMFCButton m_btn_add_device;
-//	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
-	afx_msg void OnNMRClickLstDevice(NMHDR *pNMHDR, LRESULT *pResult);
 	void AddMarker(double lat, double lng);
 	void AddRawData(CString datetime, CString uuid, CString time, CString numsat, CString lon, CString lat,
 	CString height, CString gspeed, CString direction, CString pct_battery, CString accelerometer, 

@@ -64,7 +64,6 @@ IMPLEMENT_DYNAMIC(CDevice, CDialog)
 CDevice::CDevice(CWnd* pParent /*=NULL*/)
 	: CDialog(CDevice::IDD, pParent)
 {
-	m_lst_device.type = 0;
 	m_lst_device.pdevice = this;
 
 	ImgHeaders = new CImageList;
@@ -85,10 +84,8 @@ void CDevice::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CDevice, CDialog)
 	ON_WM_CTLCOLOR()
-	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LST_Device, &CDevice::OnLvnItemchangedLstDevice)
 	ON_BN_CLICKED(IDC_BTN_AddMarker, &CDevice::OnBnClickedBtnAddmarker)
-//	ON_WM_LBUTTONDOWN()
-ON_NOTIFY(NM_RCLICK, IDC_LST_Device, &CDevice::OnNMRClickLstDevice)
+//	ON_NOTIFY(HDN_ITEMCLICK, 0, &CDevice::OnItemclickLstDevice)
 END_MESSAGE_MAP()
 
 
@@ -193,14 +190,6 @@ HBRUSH CDevice::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	spScript.Invoke1(L"SetCurrentTab", &var_int);
 
 	return hbr;
-}
-
-
-void CDevice::OnLvnItemchangedLstDevice(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-	// TODO: Add your control notification handler code here
-	*pResult = 0;
 }
 
 // should be add device and add marker
@@ -437,22 +426,6 @@ void CDevice::OnBnClickedBtnAddmarker()
 	m_lst_device.SetItemText(nIndex, 2, battery_show);
 
 	g_m_device_count++;
-}
-
-
-//void CDevice::OnLButtonDown(UINT nFlags, CPoint point)
-//{
-//	// TODO: Add your message handler code here and/or call default
-//
-//	CDialog::OnLButtonDown(nFlags, point);
-//}
-
-
-void CDevice::OnNMRClickLstDevice(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-	// TODO: Add your control notification handler code here
-	*pResult = 0;
 }
 
 
