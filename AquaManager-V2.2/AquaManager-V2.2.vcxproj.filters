@@ -103,9 +103,6 @@
     <ClInclude Include="ColorListCtrol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ColorHeaderCtrl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -241,9 +238,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ColorListCtrol.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ColorHeaderCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Test.cpp">

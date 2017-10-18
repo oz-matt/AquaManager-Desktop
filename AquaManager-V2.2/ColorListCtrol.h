@@ -1,5 +1,4 @@
 #pragma once
-#include "ColorHeaderCtrl.h"
 
 // CColorListCtrol
 
@@ -17,7 +16,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	virtual void PreSubclassWindow();
 
-	CColorHeaderCtrl m_HeaderCtrl;
+	CHeaderCtrl m_HeaderCtrl;
 	void *pdevice;
 
 public:
