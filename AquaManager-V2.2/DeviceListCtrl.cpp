@@ -5,6 +5,12 @@
 #include "AquaManager-V2.2.h"
 #include "DeviceListCtrl.h"
 
+#include "DlgConfigureDevice.h"
+#include "DeviceRawData.h"
+#include "DeviceRemove.h"
+#include "Device.h"
+
+#include <list>
 
 // CDeviceListCtrl
 

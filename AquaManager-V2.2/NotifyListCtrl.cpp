@@ -5,6 +5,8 @@
 #include "AquaManager-V2.2.h"
 #include "NotifyListCtrl.h"
 
+#include "NotificationSettings.h"
+#include "NotificationRemove.h"
 
 // CNotifyListCtrl
 

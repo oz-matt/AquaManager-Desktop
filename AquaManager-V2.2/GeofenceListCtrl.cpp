@@ -5,6 +5,7 @@
 #include "AquaManager-V2.2.h"
 #include "GeofenceListCtrl.h"
 
+#include "GeofenceRemove.h"
 
 // CGeofenceListCtrl
 
