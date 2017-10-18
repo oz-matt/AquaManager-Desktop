@@ -211,15 +211,6 @@
     <ClInclude Include="DlgMacAddress.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MultiDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MultiNotify.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MultiGeofence.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AquaManager-V2.2.cpp">
@@ -325,15 +316,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DlgMacAddress.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MultiDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MultiNotify.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MultiGeofence.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
