@@ -208,6 +208,15 @@
     <ClInclude Include="DlgMacAddress.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceListCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NotifyListCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeofenceListCtrl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AquaManager-V2.2.cpp">
@@ -310,6 +319,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DlgMacAddress.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceListCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NotifyListCtrl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeofenceListCtrl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

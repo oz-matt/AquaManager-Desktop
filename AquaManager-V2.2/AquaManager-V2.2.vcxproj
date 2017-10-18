@@ -121,6 +121,7 @@
     <ClInclude Include="ChildFrm.h" />
     <ClInclude Include="ColorListCtrol.h" />
     <ClInclude Include="Device.h" />
+    <ClInclude Include="DeviceListCtrl.h" />
     <ClInclude Include="DeviceName.h" />
     <ClInclude Include="DeviceRawData.h" />
     <ClInclude Include="DeviceRawDataShow.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="DlgNoGeofence.h" />
     <ClInclude Include="EamilTarget.h" />
     <ClInclude Include="Geofence.h" />
+    <ClInclude Include="GeofenceListCtrl.h" />
     <ClInclude Include="GeofenceRemove.h" />
     <ClInclude Include="include\json\allocator.h" />
     <ClInclude Include="include\json\assertions.h" />
@@ -151,6 +153,7 @@
     <ClInclude Include="Notification.h" />
     <ClInclude Include="NotificationRemove.h" />
     <ClInclude Include="NotificationSettings.h" />
+    <ClInclude Include="NotifyListCtrl.h" />
     <ClInclude Include="PhoneTarget.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SelectAlarm.h" />
@@ -170,6 +173,7 @@
     <ClCompile Include="ChildFrm.cpp" />
     <ClCompile Include="ColorListCtrol.cpp" />
     <ClCompile Include="Device.cpp" />
+    <ClCompile Include="DeviceListCtrl.cpp" />
     <ClCompile Include="DeviceName.cpp" />
     <ClCompile Include="DeviceRawData.cpp" />
     <ClCompile Include="DeviceRawDataShow.cpp" />
@@ -184,11 +188,13 @@
     <ClCompile Include="DlgNoGeofence.cpp" />
     <ClCompile Include="EamilTarget.cpp" />
     <ClCompile Include="Geofence.cpp" />
+    <ClCompile Include="GeofenceListCtrl.cpp" />
     <ClCompile Include="GeofenceRemove.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Notification.cpp" />
     <ClCompile Include="NotificationRemove.cpp" />
     <ClCompile Include="NotificationSettings.cpp" />
+    <ClCompile Include="NotifyListCtrl.cpp" />
     <ClCompile Include="PhoneTarget.cpp" />
     <ClCompile Include="SelectAlarm.cpp" />
     <ClCompile Include="SelectDevice.cpp" />
