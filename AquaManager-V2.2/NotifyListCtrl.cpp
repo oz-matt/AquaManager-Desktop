@@ -40,6 +40,7 @@ void CNotifyListCtrl::OnNotificationSettings()
 	// TODO: Add your command handler code here
 	CNotificationSettings dlg;
 
+	dlg.pdevice = pdevice;
 	dlg.DoModal();
 }
 

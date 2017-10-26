@@ -15,6 +15,8 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 	int current_index;
+	void *pdevice;
+
 public:
 	afx_msg void OnNotificationSettings();
 	afx_msg void OnNotificationRemove();

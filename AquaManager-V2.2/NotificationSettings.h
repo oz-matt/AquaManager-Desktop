@@ -14,6 +14,8 @@ public:
 // Dialog Data
 	enum { IDD = IDD_DLG_Notification_Settings };
 
+	friend class CNotifyListCtrl;
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
