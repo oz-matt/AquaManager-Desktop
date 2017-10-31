@@ -12,6 +12,7 @@ public:
 	//~DeviceData();
 	friend class CDevice;
 	friend class CDeviceListCtrl;
+	friend class CNotificationSettings;
 
 private:
 	string aquaid;
@@ -70,6 +71,7 @@ public:
 	enum { IDD = IDD_DLG_Device };
 
 	friend class CDeviceListCtrl;
+	friend class CNotificationSettings;
 
 
 protected:

@@ -67,7 +67,15 @@ BOOL CNotificationSettings::OnInitDialog()
 	m_trigger_freq = g_trigger_freq;
 	m_alert = g_alert;
 	m_alert_trigger = g_alert_target;
-	m_trigger_key = ((CDevice*)pdevice)->_device->aquakey.c_str();
+
+	for (std::list<DeviceData*>::iterator it = ((CDevice*)pdevice)->_device.begin(); it != ((CDevice*)pdevice)->_device.end(); ++it)
+	{
+		if ((*it)->device_index == 0) // TODO: correct index instead of default 0
+		{
+			m_trigger_key = (*it)->aquakey.c_str();
+			break;
+		}
+	}
 
 	UpdateData(False);
 
