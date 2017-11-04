@@ -1,6 +1,20 @@
 #pragma once
 #include "ColorListCtrol.h"
 
+#include <string>
+
+using namespace std;
+
+struct _notify_data {
+	string device_name;
+	string trigger;
+	string trigger_freq;
+	string alert;
+	string alert_target;
+};
+
+typedef struct _notify_data notify_data;
+
 // CNotification dialog
 
 class CNotification : public CDialog, public IDispatch
