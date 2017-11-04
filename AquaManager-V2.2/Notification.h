@@ -2,18 +2,21 @@
 #include "ColorListCtrol.h"
 
 #include <string>
+#include <list>
+#include <vector>
 
 using namespace std;
 
-struct _notify_data {
+class NotifyData {
+public:
+	friend class CNotification;
+private:
 	string device_name;
 	string trigger;
 	string trigger_freq;
 	string alert;
 	string alert_target;
 };
-
-typedef struct _notify_data notify_data;
 
 // CNotification dialog
 
@@ -32,6 +35,10 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+
+	//std::list<NotifyData *> _notify;
+	std::vector<NotifyData *> _notify;
+
 public:
 	virtual BOOL OnInitDialog();
 	CColorListCtrol m_lst_notificaton;

@@ -21,12 +21,6 @@ extern int g_m_device_count;
 
 extern CComQIPtr<IHTMLDocument2> pDoc;
 
-CString g_device_name;
-CString g_trigger;
-CString g_trigger_freq;
-CString g_alert;
-CString g_alert_target;
-
 // CNotification dialog
 
 enum
@@ -395,13 +389,14 @@ void CNotification::OnBnClickedBtnNewnotify()
 	m_lst_notificaton.SetItemText(nIndex, 1, dlg.m_trigger);
 	m_lst_notificaton.SetItemText(nIndex, 2, dlg.m_alarm);
 
-	g_device_name = dlg.m_device;
-	g_trigger = dlg.m_trigger;
-	dlg.m_continuous ? g_trigger_freq = "Continuous" : 0;
-	dlg.m_onchange ? g_trigger_freq = "On Change" : 0;
-	g_alert = dlg.m_alarm;
-	dlg.m_phone ? g_alert_target = dlg.m_phone_val : 0;
-	dlg.m_email ? g_alert_target = dlg.m_email_val : 0;
+	int i = 0;
+	_notify[i]->device_name = dlg.m_device;
+	_notify[i]->trigger = dlg.m_trigger;
+	dlg.m_continuous ? _notify[i]->trigger_freq = "Continuous" : 0;
+	dlg.m_onchange ? _notify[i]->trigger_freq = "On Change" : 0;
+	_notify[i]->alert = dlg.m_alarm;
+	dlg.m_phone ? _notify[i]->alert_target = dlg.m_phone_val : 0;
+	dlg.m_email ? _notify[i]->alert_target = dlg.m_email_val : 0;
 }
 
 HRESULT STDMETHODCALLTYPE CNotification::GetTypeInfoCount(UINT *pctinfo)
