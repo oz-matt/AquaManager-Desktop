@@ -8,11 +8,11 @@
 
 #include "Device.h"
 
-extern CString g_device_name;
-extern CString g_trigger;
-extern CString g_trigger_freq;
-extern CString g_alert;
-extern CString g_alert_target;
+//extern CString g_device_name;
+//extern CString g_trigger;
+//extern CString g_trigger_freq;
+//extern CString g_alert;
+//extern CString g_alert_target;
 
 // CNotificationSettings dialog
 
@@ -62,11 +62,11 @@ BOOL CNotificationSettings::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 	// TODO:  Add extra initialization here
-	m_device_name = g_device_name;
+	/*m_device_name = g_device_name;
 	m_trigger = g_trigger;
 	m_trigger_freq = g_trigger_freq;
 	m_alert = g_alert;
-	m_alert_trigger = g_alert_target;
+	m_alert_trigger = g_alert_target;*/
 
 	for (std::list<DeviceData*>::iterator it = ((CDevice*)pdevice)->_device.begin(); it != ((CDevice*)pdevice)->_device.end(); ++it)
 	{
